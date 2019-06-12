@@ -30,9 +30,13 @@ extension UIApplication {
 }
 
 
-class BookLaterViewController: BaseViewController, GMSAutocompleteViewControllerDelegate, UINavigationControllerDelegate, WWCalendarTimeSelectorProtocol, UIPickerViewDelegate, UIPickerViewDataSource, isHaveCardFromBookLaterDelegate, UITextFieldDelegate,GMSMapViewDelegate,IQDropDownTextFieldDelegate
+class BookLaterViewController: BaseViewController, GMSAutocompleteViewControllerDelegate, UINavigationControllerDelegate, WWCalendarTimeSelectorProtocol, UIPickerViewDelegate, UIPickerViewDataSource, isHaveCardFromBookLaterDelegate, UITextFieldDelegate,GMSMapViewDelegate,IQDropDownTextFieldDelegate, UIImagePickerControllerDelegate
 {
    
+    // ----------------------------------------------------
+    // MARK: - Globle Declaration Methods
+    // ----------------------------------------------------
+    
     var delegateBookLater : deleagateForBookTaxiLater!
     var mapView : GMSMapView?
     var pickerView = UIPickerView()
@@ -57,25 +61,35 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     var strSelectedParcelID = String()
     var aryParcelTransport = [[String : AnyObject]]()
     
-    @IBOutlet weak var lblEstimatedFare: UILabel!
-    
-    @IBOutlet weak var txtTransportSesrvice: IQDropDownTextField!
-    @IBOutlet weak var lblSelectTransportService: UILabel!
-    @IBOutlet weak var viewSelectTransportService: UIView!
-    var isOpenPlacePickerController:Bool = false
-    
-    @IBOutlet var lblapplyPromoTitle: UILabel!
     var CardID = String()
     var paymentType = String()
     var NearByRegion:GMSCoordinateBounds!   //this nearByRegion Detail to get near by locations in suggestions
     var selector = WWCalendarTimeSelector.instantiate()
+    var isOpenPlacePickerController:Bool = false
     
+    var isRequestIsBookNow = Bool()
+    var strSpecialRequest = String()
+    
+    // ----------------------------------------------------
+    // MARK: - Outlets
+    // ----------------------------------------------------
+
+    @IBOutlet weak var lblEstimatedFare: UILabel!
+    @IBOutlet weak var txtTransportSesrvice: IQDropDownTextField!
+    @IBOutlet weak var lblSelectTransportService: UILabel!
+    @IBOutlet weak var viewSelectTransportService: UIView!
+    @IBOutlet var lblapplyPromoTitle: UILabel!
     @IBOutlet var lblFlightnum: UILabel!
     @IBOutlet var btnhavePromoCode: UIButton!
     @IBOutlet var lblYouhaveToNotified: UILabel!
     @IBOutlet var lblSelectPaymentMethod: UILabel!
     @IBOutlet var lblNotes: UILabel!
+    @IBOutlet weak var viewCalendar: UIView!
     
+    
+    // ----------------------------------------------------
+    // MARK: - Base Methods
+    // ----------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setLocalization()
@@ -87,9 +101,17 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         txtPickupLocation.delegate = self
 //        txtSelectPaymentMethod.text = "Cash"
 //        txtSelectPaymentMethod.isUserInteractionEnabled = false
-        self.setNavBarWithMenuORBack(Title: "Book Later".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
-//        UIApplication.shared.statusBarView?.backgroundColor = UIColor.black
-         self.navigationItem.title = "Book Later".localized
+        if isRequestIsBookNow {
+            viewCalendar.isHidden = true
+            self.setNavBarWithMenuORBack(Title: "Book Now".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+            //        UIApplication.shared.statusBarView?.backgroundColor = UIColor.black
+            self.navigationItem.title = "Book Now".localized
+        } else {
+            self.setNavBarWithMenuORBack(Title: "Book Later".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+            //        UIApplication.shared.statusBarView?.backgroundColor = UIColor.black
+            self.navigationItem.title = "Book Later".localized
+        }
+
          
 
         if #available(iOS 11.0, *) {
@@ -120,7 +142,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //        btnForOthersAction.addTarget(self, action: #selector(self.ActionForViewOther), for: .touchUpInside)
         
         viewProocode.isHidden = true
-        
+        btnRemovePromoCode.isHidden = true
 
         
         webserviceOfCardList()
@@ -142,7 +164,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         
         txtFullName.text = strFullname
         txtMobileNumber.text = strMobileNumber
-        self.lblEstimatedFare.text = "Estimated Fare : \(self.strEstimatedFare)"
+        self.lblEstimatedFare.text = "\(self.strEstimatedFare)"
         self.btnApply.backgroundColor = ThemeNaviBlueColor
         self.btnCancel.backgroundColor = UIColor.black
         
@@ -152,6 +174,22 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         self.aryParcelTransport = SingletonClass.sharedInstance.aryParcelTransport
         let arrNameTransport = self.aryParcelTransport.map({$0["Name"] as! String})
         self.txtTransportSesrvice.itemList = arrNameTransport
+        
+        self.strSelectedParcelID = self.aryParcelTransport.first?["Id"] as? String ?? ""
+        self.txtTransportSesrvice.selectedRow = 1
+
+        
+        webserviceOfGetEstimateFareForDeliveryService()
+        
+        #if targetEnvironment(simulator)
+            btnUploadParcelPhoto.setImage(UIImage(named: "HeaderLogo"), for: .normal)
+            btnUploadParcelPhoto.setTitle("", for: .normal)
+            txtParcelWeight.text = "10"
+        #endif
+        
+        
+//        (self.parent as! UINavigationController).childViewControllers.first as! HomeViewController
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -207,31 +245,64 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         lblapplyPromoTitle.text = "Apply Promocode".localized
         txtPromoCode.placeholder = "Enter promocode here".localized
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+//        btnUploadParcelPhoto.layer.cornerRadius = 3
+//        btnUploadParcelPhoto.layer.borderWidth = 1
+//        btnUploadParcelPhoto.layer.borderColor = UIColor.lightGray.cgColor
+//        btnUploadParcelPhoto.layer.masksToBounds = true
+        
+        cornerRadiusToView(tempView: btnUploadParcelPhoto, isRounded: false, corner: 3, border: 1, borderColor: UIColor.lightGray)
+        
+        if let img = UtilityClass.changeImageColor(imageView: btnCalendar.imageView!, imageName: "iconCalendar", color: ThemeYellowColor).image {
+            btnCalendar.setImage(img, for: .normal)
+        }
+//        btnRemovePromoCode.setImage(UIImage(named: "iconCloseAlert"), for: .normal)
+ 
+        cornerRadiusToView(tempView: btnRemovePromoCode, isRounded: true ,corner: 0, border: 1, borderColor: UIColor.lightGray)
+    }
+    
+    func cornerRadiusToView(tempView: UIView, isRounded: Bool ,corner: CGFloat, border: CGFloat, borderColor: UIColor) {
+        
+        if isRounded {
+            tempView.layer.cornerRadius = tempView.frame.width / 2
+        } else {
+            tempView.layer.cornerRadius = corner
+        }
+        tempView.layer.borderWidth = border
+        tempView.layer.borderColor = borderColor.cgColor
+        tempView.layer.masksToBounds = true
+    }
+    
     func fillTextFields() {
         txtPickupLocation.text = strPickupLocation
         txtDropOffLocation.text = strDropoffLocation
-        
     }
+    
     func textField(_ textField: IQDropDownTextField, didSelectItem item: String?) {
-        if textField == self.txtTransportSesrvice
-        {
+        
+        if textField == self.txtTransportSesrvice {
 //            (result["percel"] as! [[String : AnyObject]]).filter({$0["Name"] as! String == "Junk removal"})
             
             let dictData = self.aryParcelTransport.filter({$0["Name"] as! String == item!})
             
             print(dictData)
-            if let selectID = dictData[0]["Id"] as? String
-            {
-               self.strSelectedParcelID = selectID
+            if dictData.count != 0 {
+                if let selectID = dictData[0]["Id"] as? String {
+                    self.strSelectedParcelID = selectID
+                }
+                print(self.strSelectedParcelID)
             }
-            print(self.strSelectedParcelID)
         }
     }
+    
     func gaveCornerRadius() {
         
         viewCurrentLocation.layer.cornerRadius = 5
@@ -245,7 +316,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         
         viewCurrentLocation.layer.masksToBounds = true
         viewDestinationLocation.layer.masksToBounds = true
-        
     }
 
     func setViewDidLoad() {
@@ -272,10 +342,10 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         viewFlightNumber.boxType = .square
         
         constraintsHeightOFtxtFlightNumber.constant = 0 // 30 Height
-        constaintsOfTxtFlightNumber.constant = 0
+        constaintsOfTxtFlightNumber?.constant = 0
         imgViewLineForFlightNumberHeight.constant = 0
         
-        constantHavePromoCodeTop.constant = 0
+        constantHavePromoCodeTop?.constant = 0
         constantNoteHeight.constant = 0
         imgViewLineForFlightNumberHeight.constant = 0
         imgViewLineForNotesHeight.constant = 0
@@ -290,7 +360,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         txtDataAndTimeFromCalendar.layer.cornerRadius = 5
         txtDataAndTimeFromCalendar.layer.borderColor = UIColor.black.cgColor
         txtDataAndTimeFromCalendar.layer.masksToBounds = true
-        
         
         viewPaymentMethod.layer.borderWidth = 1
         viewPaymentMethod.layer.cornerRadius = 5
@@ -317,7 +386,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     @IBOutlet weak var viewProocode: UIView!
     @IBOutlet weak var btnSubmit: ThemeButton!
     
-    
     @IBOutlet weak var viewMySelf: M13Checkbox!
     @IBOutlet weak var viewOthers: M13Checkbox!
     @IBOutlet weak var viewFlightNumber: M13Checkbox!
@@ -325,8 +393,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     @IBOutlet weak var viewDestinationLocation: UIView!
     @IBOutlet weak var viewCurrentLocation: UIView!
     
-    @IBOutlet weak var lblMySelf: UILabel!
-    @IBOutlet weak var lblOthers: UILabel!
+    @IBOutlet weak var lblMySelf: UILabel?
+    @IBOutlet weak var lblOthers: UILabel?
     
     @IBOutlet weak var lblCareModelClass: UILabel!
     @IBOutlet weak var imgCareModel: UIImageView!
@@ -341,7 +409,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
  
     @IBOutlet weak var txtFlightNumber: UITextField!
     @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
-    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint! // 10
+    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint? // 10
     
     @IBOutlet weak var txtSelectPaymentMethod: UITextField!
     @IBOutlet weak var imgPaymentOption: UIImageView!
@@ -350,7 +418,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     
     @IBOutlet weak var constantNoteHeight: NSLayoutConstraint!  // 40
     
-    @IBOutlet weak var constantHavePromoCodeTop: NSLayoutConstraint!  // 10
+    @IBOutlet weak var constantHavePromoCodeTop: NSLayoutConstraint?  // 10
     
     @IBOutlet weak var txtPromoCode: UITextField!
     
@@ -372,21 +440,29 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     
     @IBOutlet weak var btnApply: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var btnUploadParcelPhoto: UIButton!
+    @IBOutlet weak var txtParcelWeight: UITextField!
+    @IBOutlet weak var btnRemovePromoCode: UIButton!
     
     
     //-------------------------------------------------------------
     // MARK: - Button Actions
     //-------------------------------------------------------------
     
-    @IBAction func btnApply(_ sender: UIButton)
-    {
+    @IBAction func btnApply(_ sender: UIButton) {
         
         UIView.transition(with: self.viewProocode, duration: 0.4, options: .transitionCrossDissolve, animations: {() -> Void in
             self.viewProocode.isHidden = true
         }) { _ in
             self.lblPromoCode.text = self.txtPromoCode.text
+            
+            self.btnRemovePromoCode.isHidden = false
+            if (self.lblPromoCode.text?.isEmpty)! {
+                self.btnRemovePromoCode.isHidden = true
+            }
         }
         
+       
 //
 //        let strPromo = txtPromoCode.text
 //        //        let strFinalPromo = "\(strPromo!)/\(SingletonClass.sharedInstance.strEstimatedFare)"
@@ -437,7 +513,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //                                UtilityClass.showAlert("Error", message: res, vc: self)
 //
 //                            }
-//                            else if SelectedLanguage == "sw"
+//                            else if SelectedLanguage == secondLanguage // "sw"
 //                            {
 //                                UtilityClass.showAlert("Error", message: res, vc: self)
 //                            }
@@ -453,7 +529,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //                                UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
 //
 //                            }
-//                            else if SelectedLanguage == "sw"
+//                            else if SelectedLanguage == secondLanguage // "sw"
 //                            {
 //                                UtilityClass.showAlert("Error", message: resDict.object(forKey: "swahili_message") as! String, vc: self)
 //                            }
@@ -468,7 +544,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //                               UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
 //
 //                            }
-//                            else if SelectedLanguage == "sw"
+//                            else if SelectedLanguage == secondLanguage // "sw"
 //                            {
 //                                UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String, vc: self)
 //                            }
@@ -478,6 +554,13 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //            }
 //        }
         
+    }
+    
+    @IBAction func btnRemovePromocode(_ sender: UIButton) {
+        
+        self.lblPromoCode.text = ""
+        self.txtPromoCode.text = ""
+        btnRemovePromoCode.isHidden = true
     }
     
     
@@ -513,7 +596,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         if (boolIsSelectedNotes) {
             
             constantNoteHeight.constant = 40
-            constantHavePromoCodeTop.constant = 10
+            constantHavePromoCodeTop?.constant = 10
             imgViewLineForNotesHeight.constant = 1
 //            txtSelectPaymentMethod.isHidden = false
              txtDescription.isEnabled = true
@@ -521,22 +604,20 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         else {
             
             constantNoteHeight.constant = 0
-            constantHavePromoCodeTop.constant = 0
+            constantHavePromoCodeTop?.constant = 0
             imgViewLineForNotesHeight.constant = 0
 //            txtSelectPaymentMethod.isHidden = true
             txtDescription.isEnabled = false
-
         }
-        
     }
+    
     @IBAction func txtSelectPaymentMethod(_ sender: UITextField) {
         txtSelectPaymentMethod.inputView = pickerView
     }
     
     @IBAction func btnBack(_ sender: UIButton) {
         
-    self.navigationController?.popViewController(animated: true)
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
 //    @IBAction func viewMySelf(_ sender: M13Checkbox) {
@@ -553,7 +634,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         ActionForViewOther()
     }
     
-    
     @objc func ActionForViewMySelf() {
         
         viewMySelf.checkState = .checked
@@ -564,7 +644,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         txtMobileNumber.text = strMobileNumber
 
         strPassengerType = "myself"
-        
     }
     
     @objc func ActionForViewOther() {
@@ -590,7 +669,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         if (boolIsSelected) {
             
             constraintsHeightOFtxtFlightNumber.constant = 40
-            constaintsOfTxtFlightNumber.constant = 10
+            constaintsOfTxtFlightNumber?.constant = 10
             imgViewLineForFlightNumberHeight.constant = 1
             txtFlightNumber.isHidden = false
             txtFlightNumber.isEnabled = true
@@ -598,11 +677,10 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         else {
             
             constraintsHeightOFtxtFlightNumber.constant = 0
-            constaintsOfTxtFlightNumber.constant = 0
+            constaintsOfTxtFlightNumber?.constant = 0
             imgViewLineForFlightNumberHeight.constant = 0
             txtFlightNumber.isHidden = true
             txtFlightNumber.isEnabled = false
-           
         }
     }
     
@@ -624,6 +702,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         present(acController, animated: true, completion: nil)
         
     }
+    
     @IBAction func txtDropOffLocation(_ sender: UITextField) {
         
        
@@ -680,29 +759,131 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
         // 3. Then you simply present it from your view controller when necessary!
 //        self.present(selector, animated: true, completion: nil)
-        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(selector, animated: true, completion: nil)
+//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(selector, animated: true, completion: nil)
+        UtilityClass.presentPopupOverScreen(selector)
     }
     
+    @IBAction func btnUploadParcelPhoto(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: appName, message: "Choose image from", preferredStyle: .actionSheet)
+        
+        let Camera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.PickingImageFromCamera()
+        }
+        
+        let Gallery = UIAlertAction(title: "Gallery", style: .default) { (action) in
+            self.PickingImageFromGallery()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alert.addAction(Camera)
+        alert.addAction(Gallery)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
+    func PickingImageFromGallery() {
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = .photoLibrary
+        // picker.stopVideoCapture()
+        picker.mediaTypes = [kUTTypeImage as String]
+        //UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func PickingImageFromCamera() {
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            btnUploadParcelPhoto.imageView?.contentMode = .scaleAspectFill
+            btnUploadParcelPhoto.imageView?.clipsToBounds = true
+//            imgProfile.image = pickedImage
+//            self.imgUpdatedProfilePic = pickedImage
+            btnUploadParcelPhoto.setImage(pickedImage, for: .normal)
+            btnUploadParcelPhoto.setTitle("", for: .normal)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func validation() -> Bool {
+        
+        if txtFullName.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter full name") { (index, title) in }
+            return false
+        } else if txtMobileNumber.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter mobile number") { (index, title) in }
+            return false
+        } else if txtPickupLocation.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter pick up location") { (index, title) in }
+            return false
+        } else if txtDropOffLocation.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter drop off location") { (index, title) in }
+            return false
+        } else if strSelectedParcelID == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please select parcel") { (index, title) in }
+            return false
+        } else if txtParcelWeight.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
+            return false
+        } else if btnUploadParcelPhoto.imageView?.image == nil {
+            UtilityClass.setCustomAlert(title: "", message: "Please insert parcel image") { (index, title) in }
+            return false
+        }
+        else if !isRequestIsBookNow {
+            if (txtDataAndTimeFromCalendar.text?.isEmpty)! {
+                UtilityClass.setCustomAlert(title: "", message: "Please select date and time") { (index, title) in }
+                return false
+            }
+        }
+        else if paymentType == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please select payment type") { (index, title) in }
+            return false
+        }
+        
+        return true
+    }
     
     @IBAction func btnSubmit(_ sender: ThemeButton) {
         
-       
-        if txtFullName.text == "" || txtMobileNumber.text == "" || txtPickupLocation.text == "" || txtDropOffLocation.text == "" || txtDataAndTimeFromCalendar.text == "" || strPassengerType == "" || paymentType == "" || strSelectedParcelID == ""
-        {
+        if isRequestIsBookNow {
             
-           
-            UtilityClass.setCustomAlert(title: "", message: "All fields are required...".localized) { (index, title) in
+            if validation() {
+                webserviceForBookNow()
             }
-        }
-//        else if viewMySelf.checkState == .unchecked && viewOthers.checkState == .unchecked {
-//            
-//           
-//            UtilityClass.setCustomAlert(title: "", message: "Please Checked Myself or Other") { (index, title) in
-//            }
-//        }
-        else {
-            webserviceOFBookLater()
+        } else {
+            if txtFullName.text == "" || txtMobileNumber.text == "" || txtPickupLocation.text == "" || txtDropOffLocation.text == "" || txtDataAndTimeFromCalendar.text == "" || strPassengerType == "" || paymentType == "" || strSelectedParcelID == "" {
+                
+                UtilityClass.setCustomAlert(title: "", message: "All fields are required...".localized) { (index, title) in
+                }
+            }
+                //        else if viewMySelf.checkState == .unchecked && viewOthers.checkState == .unchecked {
+                //
+                //
+                //            UtilityClass.setCustomAlert(title: "", message: "Please Checked Myself or Other") { (index, title) in
+                //            }
+                //        }
+            else {
+                webserviceOFBookLater()
+            }
         }
         
     }
@@ -712,9 +893,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     
     func checkMobileNumber() {
         
-        
         txtMobileNumber.inputType = .integer
-        
         
         //        var validation = Validation()
         validationsMobileNumber.maximumLength = 10
@@ -753,6 +932,10 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             doubleDropOffLng = place.coordinate.longitude
         }
         
+        if !(txtPickupLocation.text?.isEmpty)! && !(txtDropOffLocation.text?.isEmpty)! {
+            webserviceOfGetEstimateFareForDeliveryService()
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -778,20 +961,16 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             
             self.txtDropOffLocation(txtDropOffLocation)
             return false
-            
         } else if textField == txtPickupLocation {
             
             self.txtPickupLocation(txtPickupLocation)
             return false
-            
         }
-        
         return true
     }
     
-    
-    func getPlaceFromLatLong()
-    {
+    func getPlaceFromLatLong() {
+        
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
@@ -852,7 +1031,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         default:
             return ""
         }
-        
     }
     
     func didHaveCards() {
@@ -866,16 +1044,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         if (isAddCardSelected) {
              self.addNewCard()
         }
-        
         txtSelectPaymentMethod.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.IQKeyboardmanagerDoneMethod))
     }
-    
-  
     
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -906,8 +1080,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         myImageView.contentMode = .scaleAspectFit
         
         var rowString = String()
-       
-     
+        
         switch row {
             
         case 0:
@@ -984,15 +1157,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             paymentType = "card"
         }
         
-        
         if paymentType == "card" {
             
             if data["Id"] as? String != "" {
                 CardID = data["Id"] as! String
             }
         }
-        
-        // do something with selected row
     }
     
     func addNewCard() {
@@ -1003,15 +1173,13 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         self.navigationController?.present(next, animated: true, completion: nil)
     }
     
-    
     //-------------------------------------------------------------
     // MARK: - Calendar Method
     //-------------------------------------------------------------
     
     var currentDate = Date()
     
-    func WWCalendarTimeSelectorDone(_ selector: WWCalendarTimeSelector, date: Date)
-    {
+    func WWCalendarTimeSelectorDone(_ selector: WWCalendarTimeSelector, date: Date) {
        
         if currentDate < date {
             
@@ -1044,23 +1212,15 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 
                 UtilityClass.setCustomAlert(title: "Time should be", message: "Please select 30 minutes greater time from current time!") { (index, title) in
                 }
-
             }
-            
         }
-
     }
     
     func WWCalendarTimeSelectorWillDismiss(_ selector: WWCalendarTimeSelector) {
-        
-        
-        
     }
     
-    func WWCalendarTimeSelectorDidDismiss(_ selector: WWCalendarTimeSelector) {
-        
+    func WWCalendarTimeSelectorDidDismiss(_ selector: WWCalendarTimeSelector) {        
     }
-
     
     func WWCalendarTimeSelectorShouldSelectDate(_ selector: WWCalendarTimeSelector, date: Date) -> Bool {
         
@@ -1069,19 +1229,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             let currentTimeInterval = currentDate.addingTimeInterval(30 * 60)
             
             if  date > currentTimeInterval {
-            
-                
                 return true
             }
-            
             return false
         }
-        
         return false
     }
-    
-   
-    
     
     //-------------------------------------------------------------
     // MARK: - Webservice For Book Later
@@ -1090,8 +1243,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     //PassengerId,ModelId,PickupLocation,DropoffLocation,PassengerType(myself,other),PassengerName,PassengerContact,PickupDateTime,FlightNumber,
     //PromoCode,Notes,PaymentType,CardId(If paymentType is card)
     
-    func webserviceOFBookLater()
-    {
+    func webserviceOFBookLater() {
         
         var dictData = [String:AnyObject]()
         
@@ -1105,19 +1257,15 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         dictData["PickupDateTime"] = convertDateToString as AnyObject
         dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
         dictData["RequestFor"] = "delivery" as AnyObject
-        if lblPromoCode.text == ""
-        {
-            
-        }
-        else
-        {
+        dictData["Weight"] = txtParcelWeight.text as AnyObject
+        
+        if lblPromoCode.text != "" {
             dictData["PromoCode"] = lblPromoCode.text as AnyObject
         }
         
         dictData["Notes"] = txtDescription.text as AnyObject
        
         if paymentType == "" {
-            
             UtilityClass.setCustomAlert(title: "", message: "Select Payment Type") { (index, title) in
             }
         }
@@ -1125,30 +1273,36 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             dictData["PaymentType"] = paymentType as AnyObject
         }
         
-        if CardID == "" {
-          
+        if CardID != "" {
+          dictData["CardId"] = CardID as AnyObject
         }
-        else {
-            dictData["CardId"] = CardID as AnyObject
-        }
-        
+       
         if txtFlightNumber.text!.count == 0 {
-            
             dictData["FlightNumber"] = "" as AnyObject
-        }
-        else {
+        } else {
             dictData["FlightNumber"] = txtFlightNumber.text as AnyObject
         }
         
-        webserviceForBookLater(dictData as AnyObject) { (result, status) in
+        let parcelImage = btnUploadParcelPhoto.imageView?.image
+        
+        webserviceForBookLater(dictData as AnyObject, image: parcelImage ?? UIImage()) { (result, status) in
             
             if (status) {
                 print(result)
 
-                UtilityClass.setCustomAlert(title: "\(appName)", message: "Your ride has been booked.".localized, completionHandler: { (index, title) in
+//                UtilityClass.setCustomAlert(title: "\(appName)", message: "Your ride has been booked.".localized, completionHandler: { (index, title) in
+//                    self.delegateBookLater.btnRequestLater()
+//                    self.navigationController?.popViewController(animated: true)
+//                })
+                
+                let alert = UIAlertController(title: "\(appName)", message: "Your ride has been booked.".localized, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.delegateBookLater.btnRequestLater()
                     self.navigationController?.popViewController(animated: true)
-                })
+                }
+                alert.addAction(ok)
+                UtilityClass.presentPopupOverScreen(alert)
+                
                 
  /*
                 {
@@ -1165,9 +1319,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                     status = 1;
                 }
 */
-                
             } else {
-                
                 print(result)
               
                 if let res = result as? String {
@@ -1184,7 +1336,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 }
             }
         }
-        
         
     }
     
@@ -1244,12 +1395,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 //                }
 //                else
                 
-                  if type == "cash" {
+                if type == "cash" {
                     self.paymentType = "cash"
-                }
-                else {
+                } else {
                     self.paymentType = "card"
                 }
+                
                 if self.paymentType == "card" {
 
                     if data["Id"] as? String != "" {
@@ -1323,6 +1474,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 
                 self.txtTransportSesrvice.itemList = arrNameTransport
                 
+//                self.strSelectedParcelID = self.aryParcelTransport.first?["Id"] as? String ?? ""
+//                self.txtTransportSesrvice.selectedRow = 2
                 
                 //(result["percel"] as! [[String : AnyObject]]).map({$0["Name"] as! String}) get all name
                 //(result["percel"] as! [[String : AnyObject]]).filter({$0["Name"] as! String == "Junk removal"}) //
@@ -1341,6 +1494,151 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             }
         }
     }
+    
+    func webserviceOfGetEstimateFareForDeliveryService() {
+        
+        var param = [String:Any]()
+        param["PickupLocation"] = strPickupLocation
+        param["DropoffLocation"] = strDropoffLocation
+        param["ModelId"] = strModelId
+//        param["Labour"] = strLabourId
+        
+        webserviceForGetEstimateFareForDeliveryService(param as AnyObject) { (result, status) in
+            
+            if (status) {
+                
+                if let res = result as? [String:Any] {
+                    if let estimateFare = res["estimate_fare"] as? [String:Any] {
+                        
+                        self.lblEstimatedFare.text = currencySign + " " + "\(estimateFare["total"] ?? "")"
+                        
+//                        if let totalInt = estimateFare["total"] as? Int {
+//                            self.lblEstimatedFare.text = "\(currencySign) \(totalInt)"
+//                        }
+//                        else if let totalString = estimateFare["total"] as? String {
+//                            self.lblEstimatedFare.text = currencySign + " " + totalString
+//                        }
+                    }
+                }
+            }
+            else {
+                print(result)
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: "", message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+    }
+    
+    func webserviceForBookNow() {
+        
+        var dictData = [String:AnyObject]()
+        
+//        {, , , , , , , Special=, , , , , , , , }
+        
+        dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
+        dictData["ModelId"] = strModelId as AnyObject
+        dictData["PickupLocation"] = txtPickupLocation.text as AnyObject
+        dictData["DropoffLocation"] = txtDropOffLocation.text as AnyObject
+//        dictData["PassengerType"] = strPassengerType as AnyObject
+        dictData["PassengerName"] = txtFullName.text as AnyObject
+        dictData["PassengerContact"] = txtMobileNumber.text as AnyObject
+        dictData["PickupDateTime"] = convertDateToString as AnyObject
+        dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
+        dictData["RequestFor"] = "delivery" as AnyObject
+        dictData["Weight"] = txtParcelWeight.text as AnyObject
+        
+        dictData["PickupLat"] = "\(doublePickupLat)" as AnyObject
+        dictData["PickupLng"] = "\(doublePickupLng)" as AnyObject
+        dictData["DropOffLat"] = "\(doubleDropOffLat)" as AnyObject
+        dictData["DropOffLon"] = "\(doubleDropOffLng)" as AnyObject
+        dictData["Special"] = strSpecialRequest as AnyObject
+        
+        if lblPromoCode.text != "" {
+            dictData["PromoCode"] = lblPromoCode.text as AnyObject
+        }
+        
+        dictData["Notes"] = txtDescription.text as AnyObject
+        
+        if paymentType == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Select Payment Type") { (index, title) in
+            }
+        }
+        else {
+            dictData["PaymentType"] = paymentType as AnyObject
+        }
+        
+        if CardID != "" {
+            dictData["CardId"] = CardID as AnyObject
+        }
+        
+        let parcelImage = btnUploadParcelPhoto.imageView?.image
+        
+        guard let homeVC = (self.parent as! UINavigationController).childViewControllers.first as? HomeViewController else {
+            UtilityClass.setCustomAlert(title: "", message: "Sothing went wrong...") { (index, title) in
+            }
+            return
+        }
+            //        (self.parent as! UINavigationController).childViewControllers.first as! HomeViewController
+        
+        homeVC.view.bringSubview(toFront: homeVC.viewMainActivityIndicator)
+        homeVC.viewMainActivityIndicator.isHidden = false
+        webserviceForTaxiRequest(dictData as AnyObject, image: parcelImage ?? UIImage()) { (result, status) in
+            
+            if (status) {
+                //      print(result)
+                
+                SingletonClass.sharedInstance.bookedDetails = (result as! NSDictionary)
+                
+                if let bookingId = ((result as! NSDictionary).object(forKey: "details") as! NSDictionary).object(forKey: "BookingId") as? Int {
+                    SingletonClass.sharedInstance.bookingId = "\(bookingId)"
+                }
+                
+                homeVC.strBookingType = "BookNow"
+                homeVC.viewBookNow.isHidden = true
+                homeVC.viewActivity.startAnimating()
+                
+                self.navigationController?.popViewController(animated: true)
+            }
+            else {
+                //    print(result)
+                
+                homeVC.viewBookNow.isHidden = true
+                homeVC.viewMainActivityIndicator.isHidden = true
+                
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    if((resDict.object(forKey: "message") as? NSArray) != nil)
+                    {
+                        UtilityClass.setCustomAlert(title: "Error", message: (resDict.object(forKey: "message") as! NSArray).object(at: 0) as! String) { (index, title) in
+                        }
+                    }
+                    else
+                    {
+                        UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                        }
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 // Delegates to handle events for the location manager.

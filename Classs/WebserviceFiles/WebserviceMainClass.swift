@@ -96,7 +96,7 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
 // MARK: - Webservice For Send Image Method
 //-------------------------------------------------------------
 
-func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, nsURL: String, completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void) {
+func sendImage(_ dictParams: [String:AnyObject], image1: UIImage?, nsURL: String, completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void) {
     
     let url = WebserviceURLs.kBaseURL + nsURL
     
@@ -104,9 +104,16 @@ func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, nsURL: String,
     
     Alamofire.upload(multipartFormData: { (multipartFormData) in
         
-        if let imageData1 = UIImageJPEGRepresentation(image1, 0.6) {
-        
-            multipartFormData.append(imageData1, withName: "Image", fileName: "image.png", mimeType: "image/png")
+        if image1 != nil {
+            if let imageData1 = UIImageJPEGRepresentation(image1!, 0.6) {
+                
+                if url.contains("AdvancedBooking") || url.contains("SubmitBookingRequest") {
+                    multipartFormData.append(imageData1, withName: "ParcelImage", fileName: "image.png", mimeType: "image/png")
+                } else {
+                    
+                    multipartFormData.append(imageData1, withName: "Image", fileName: "image.png", mimeType: "image/png")
+                }
+            }
         }
         
         for (key, value) in dictParams

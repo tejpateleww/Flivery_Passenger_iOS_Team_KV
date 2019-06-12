@@ -54,18 +54,13 @@ class MyReceiptsViewController: BaseViewController, UITableViewDataSource, UITab
  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
-    
-    
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         webserviewOfMyReceipt()
-        
         tableView.reloadData()
         refreshControl.endRefreshing()
-        
     }
     
     //-------------------------------------------------------------
@@ -74,19 +69,16 @@ class MyReceiptsViewController: BaseViewController, UITableViewDataSource, UITab
     
     @IBOutlet var tableView: UITableView!
     
-    
     //-------------------------------------------------------------
     // MARK: - Table View Methods
     //-------------------------------------------------------------
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.counts
+        return self.newAryData.count // self.counts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyRecepitTableViewCell") as! MyRecepitTableViewCell
         cell.selectionStyle = .none
@@ -168,6 +160,9 @@ class MyReceiptsViewController: BaseViewController, UITableViewDataSource, UITab
                 let strDate = dateFormatter.string(from: date)
                 let strDateDrop = dateFormatter.string(from: dateDrop)
                 
+                
+                cell.lblDriverName.text = dictData.object(forKey: "DriverName") as? String
+                
                 cell.lblDateAndTime.text = dictData.object(forKey: "CreatedDate") as? String
                 
                 cell.lblPickUpLocationDescription.text = dictData.object(forKey: "PickupLocation") as? String
@@ -239,7 +234,6 @@ class MyReceiptsViewController: BaseViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-
         if let cell = tableView.cellForRow(at: indexPath) as? MyRecepitTableViewCell {
             cell.viewDetails.isHidden = !cell.viewDetails.isHidden
             if cell.viewDetails.isHidden {
@@ -249,10 +243,7 @@ class MyReceiptsViewController: BaseViewController, UITableViewDataSource, UITab
             }
             tableView.beginUpdates()
             tableView.endUpdates()
-           
         }
-      
-        
     }
     
     //-------------------------------------------------------------

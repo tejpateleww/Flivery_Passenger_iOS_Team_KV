@@ -44,7 +44,7 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         self.tableView.addSubview(self.refreshControl)
-        
+        reloadTableView()
 
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableView), name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
@@ -52,8 +52,6 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-    
-        
     }
 
      func setLocalization()
@@ -236,15 +234,15 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     cell.btnTips.layer.cornerRadius = 5
                     cell.btnTips.layer.masksToBounds = true
                     
-                    if let tollFee = currentData.object(forKey: "TollFee") as? String {
-                        if tollFee == "" || tollFee == "0" {
-                            cell.btnTips.isHidden = false
-                            cell.lblTollFee.text = tollFee
-                        } else {
-                            cell.lblTollFee.text = tollFee
-                            cell.btnTips.isHidden = true
-                        }
-                    }
+//                    if let tollFee = currentData.object(forKey: "TollFee") as? String {
+//                        if tollFee == "" || tollFee == "0" {
+//                            cell.btnTips.isHidden = false
+//                            cell.lblTollFee.text = tollFee
+//                        } else {
+//                            cell.lblTollFee.text = tollFee
+//                            cell.btnTips.isHidden = true
+//                        }
+//                    }
                     
                     
                     

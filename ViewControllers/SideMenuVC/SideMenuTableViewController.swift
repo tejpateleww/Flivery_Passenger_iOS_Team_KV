@@ -49,7 +49,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 //        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
 //            if SelectedLanguage == "en" {
 //                lblLaungageName.text = "SW"
-//            } else if SelectedLanguage == "sw" {
+        //            } else if SelectedLanguage == secondLanguage { // "sw" {
 //                 lblLaungageName.text = "EN"
 //            }
 //        }
@@ -123,7 +123,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
 //        if UserDefaults.standard.value(forKey: "i18n_language") != nil {
 //                        if let language = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-//                            if language == "sw" {
+        //                            if language == secondLanguage { // "sw" {
 //                                setLayoutForswahilLanguage()
 //                            }
 //                            else {
@@ -159,7 +159,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 //    func setViewWillAppear() {
 //                    if UserDefaults.standard.value(forKey: "i18n_language") != nil {
 //                        if let language = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-//                            if language == "sw" {
+    //                            if language == secondLanguage { // "sw" {
 //                                setLayoutForSwahilLanguage()
 //                            }
 //                            else {
@@ -171,7 +171,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 
         func setLayoutForswahilLanguage()
         {
-            UserDefaults.standard.set("sw", forKey: "i18n_language")
+            UserDefaults.standard.set(secondLanguage, forKey: "i18n_language")
             UserDefaults.standard.synchronize()
 //            setLayoutForSwahilLanguage()
         }
@@ -311,7 +311,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
             if SelectedLanguage == "en" {
                 setLayoutForswahilLanguage()
                 lblLaungageName.text = "EN"
-            } else if SelectedLanguage == "sw" {
+     } else if SelectedLanguage == secondLanguage { // "sw" {
                 setLayoutForenglishLanguage()
                 lblLaungageName.text = "SW"
             }
@@ -344,7 +344,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 //            strSelectedLaungage = KEnglish
 //            if UserDefaults.standard.value(forKey: "i18n_language") != nil {
 //                if let language = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-//                    if language == "sw" {
+     //                    if language == secondLanguage { // "sw" {
 ////                        setLayoutForEnglishLanguage()
 //                        setLayoutForenglishLanguage()
 //                        print("English")

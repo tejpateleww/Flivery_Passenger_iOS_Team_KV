@@ -134,11 +134,16 @@ class AJAlertController: UIViewController {
     /// Show Alert Controller
     private func show()
     {
+//        hide()
         if let appDelegate = UIApplication.shared.delegate, let window = appDelegate.window, let rootViewController = window?.rootViewController {
             
             var topViewController = rootViewController
             while topViewController.presentedViewController != nil {
                 topViewController = topViewController.presentedViewController!
+            }
+            
+            if topViewController.childViewControllers.contains(self) {
+                hide()
             }
             
             topViewController.addChildViewController(self)

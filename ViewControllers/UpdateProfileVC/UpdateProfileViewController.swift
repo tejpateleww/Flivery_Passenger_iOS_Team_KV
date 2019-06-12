@@ -76,9 +76,9 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
+        
         txtDateOfBirth.delegate = self
      
 //        self.btnMale.isSelected = true
@@ -114,16 +114,17 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
 //        btnSave.layer.cornerRadius = 5
 //        btnSave.layer.masksToBounds = true
 //          setViewWillAppear()
-        }
+            setData()
+    }
 //
-    func setShadowToTextFieldView(txtField : UITextField)
-    {
+    func setShadowToTextFieldView(txtField : UITextField) {
         txtField.layer.cornerRadius = 2
         txtField.layer.shadowRadius = 3.0
         txtField.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
         txtField.layer.shadowOffset = CGSize (width: 1.0, height: 1.0)
         txtField.layer.shadowOpacity = 1.0
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
@@ -139,7 +140,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setData()
+        
         setLocalization()
         
         self.setNavBarWithMenuORBack(Title: "Profile".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
@@ -398,7 +399,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData,nil)
         
         
-        webserviceForUpdateProfile(dictData as AnyObject, image1: self.imgUpdatedProfilePic ) { (result, status) in
+        webserviceForUpdateProfile(dictData as AnyObject, image1: self.imgProfile.image! ) { (result, status) in
             
             if (status) {
                 

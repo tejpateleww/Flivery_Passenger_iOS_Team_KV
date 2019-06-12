@@ -107,6 +107,13 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         view.layer.borderWidth = 1.0
     }
     
+    class func changeImageColor(imageView: UIImageView, imageName: String, color: UIColor) -> UIImageView {
+        
+        let img: UIImage = (UIImage.init(named: imageName)?.withRenderingMode(.alwaysTemplate))!
+        imageView.image = img
+        imageView.tintColor = color
+        return imageView
+    }
     
     class func CustomAlertViewMethod(_ title: String, message: String, vc: UIViewController, completionHandler: @escaping CompletionHandler) -> Void {
         
@@ -206,10 +213,10 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         AJAlertController.initialization().showAlertWithOkButton(aStrTitle: title, aStrMessage: message) { (index,title) in
             
             if index == 0 {
-                completionHandler!(0,title)
+                completionHandler?(0,title)
             }
             else if index == 2 {
-                completionHandler!(2,title)
+                completionHandler?(2,title)
             }
         }
         

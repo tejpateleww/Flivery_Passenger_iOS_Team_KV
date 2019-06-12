@@ -49,7 +49,6 @@ let TicketList = WebserviceURLs.kTicketList
 let TicketChatHistory = WebserviceURLs.kTicketChatHistory
 let TicketChat = WebserviceURLs.kTicketChat
 
-
 let GetPackages = WebserviceURLs.kGetPackages
 
 let ReviewRating = WebserviceURLs.kReviewRating
@@ -61,6 +60,8 @@ let UpdateBankAccountDetails = WebserviceURLs.kUpdateBankAccountDetails
 let OTPVerify = WebserviceURLs.kOtpForRegister
 
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
+let GetEstimateFareForDeliveryService = WebserviceURLs.kGetEstimateFareForDeliveryService
+
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
@@ -115,20 +116,22 @@ func webserviceForCarList(completion: @escaping(_ result: AnyObject, _ success: 
 // MARK: - Webservice For Request a Taxi
 //-------------------------------------------------------------
 
-func webserviceForTaxiRequest(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForTaxiRequest(_ dictParams: AnyObject, image: UIImage?, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = MakeBookingRequest
-    postData(dictParams, nsURL: url, completion: completion)
+//    postData(dictParams, nsURL: url, completion: completion)
+    sendImage(dictParams as! [String : AnyObject], image1: image, nsURL: url, completion: completion)
 }
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Book Later
 //-------------------------------------------------------------
 
-func webserviceForBookLater(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForBookLater(_ dictParams: AnyObject, image: UIImage?, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = bookLater
-    postData(dictParams, nsURL: url, completion: completion)
+//    postData(dictParams, nsURL: url, completion: completion)
+    sendImage(dictParams as! [String : AnyObject], image1: image, nsURL: url, completion: completion)
 }
 
 //-------------------------------------------------------------
@@ -167,7 +170,7 @@ func webserviceForBookingHistory(_ dictParams: AnyObject, completion: @escaping(
 
 func webserviceForPastBookingList(_ dictParams: AnyObject,PageNumber : AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = "\(PastBooking)/\(dictParams)/\(PageNumber)/taxi"
+    let url = "\(PastBooking)/\(dictParams)/\(PageNumber)/" // taxi"
     getData(dictParams as AnyObject, nsURL: url, completion: completion)
 }
 //-------------------------------------------------------------
@@ -568,4 +571,13 @@ func webserviceForTrackRunningTrip(_ dictParams: AnyObject, completion: @escapin
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
 
+//-------------------------------------------------------------
+// MARK: - Webservice For Get Estimate Fare For Delivery Service
+//-------------------------------------------------------------
+
+func webserviceForGetEstimateFareForDeliveryService(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = GetEstimateFareForDeliveryService
+    postData(dictParams, nsURL: url, completion: completion)
+}
 

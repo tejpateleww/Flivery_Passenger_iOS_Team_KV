@@ -189,10 +189,15 @@
 		003D491B5CB4DC364B8D8EE0 /* Pods_Nexus_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nexus_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		008D222D1FA08DCF001223DF /* Flivery User.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flivery User.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A61D4B1FA8AC5600E1BA84 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		18C598FE227330730020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Registration.strings; sourceTree = "<group>"; };
+		18C598FF227330730020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		18C59900227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		18C59901227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Help.strings; sourceTree = "<group>"; };
+		18C59902227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Storyboards/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		18C59903227340CF0020E475 /* Flivery User.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Flivery User.entitlements"; sourceTree = "<group>"; };
 		3419629621637561005A580E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		342EEFA12233820400E4354C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Help.storyboard; sourceTree = "<group>"; };
 		342EEFA42233820700E4354C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Help.strings; sourceTree = "<group>"; };
-		342EEFA62233820800E4354C /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/Help.strings; sourceTree = "<group>"; };
 		342EEFA82233865700E4354C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		342EEFA92233865800E4354C /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		342EEFAC2233866300E4354C /* HelpListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpListViewCell.swift; sourceTree = "<group>"; };
@@ -203,19 +208,14 @@
 		345642392237C8B100EE0E3D /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
 		34745433221FF95500952FDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Registration.storyboard; sourceTree = "<group>"; };
 		34745436221FF97300952FDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Registration.strings; sourceTree = "<group>"; };
-		34745438221FF99A00952FDD /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/Registration.strings; sourceTree = "<group>"; };
 		34986F6B2238C51E00948B89 /* CanceledBookingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanceledBookingTableViewCell.swift; sourceTree = "<group>"; };
 		34986F73223931AA00948B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34E01A20220EE8B3000D048E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34E01A24220EEC65000D048E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		34E01A26220EED13000D048E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34E01A29220EEE2C000D048E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Storyboards/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		34E01A2B220EEEA0000D048E /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/Main.strings; sourceTree = "<group>"; };
-		34E01A2C220EEEA4000D048E /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		34E01A2D220EEEA7000D048E /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = Storyboards/sw.lproj/Localizable.strings; sourceTree = "<group>"; };
 		34E01A2E220F1108000D048E /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		34E10DA8222CF43400E38364 /* AskForTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForTipViewController.swift; sourceTree = "<group>"; };
-		34E5001F221EA7C4009EF357 /* Nexus User.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Nexus User.entitlements"; sourceTree = "<group>"; };
 		34E5002A221EAD90009EF357 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		34E5002B221EAD90009EF357 /* RegisterOTPVarificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterOTPVarificationViewController.swift; sourceTree = "<group>"; };
 		34E5002C221EAD90009EF357 /* RegistrationContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationContainerViewController.swift; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 		008D22241FA08DCF001223DF = {
 			isa = PBXGroup;
 			children = (
-				34E5001F221EA7C4009EF357 /* Nexus User.entitlements */,
+				18C59903227340CF0020E475 /* Flivery User.entitlements */,
 				34E01A28220EEE2C000D048E /* Localizable.strings */,
 				3A40734421B512280015C494 /* Classs */,
 				3A4072D821B512270015C494 /* Fabric.framework */,
@@ -1040,7 +1040,7 @@
 			knownRegions = (
 				en,
 				Base,
-				sw,
+				fr,
 			);
 			mainGroup = 008D22241FA08DCF001223DF;
 			productRefGroup = 008D222E1FA08DCF001223DF /* Products */;
@@ -1374,7 +1374,7 @@
 			children = (
 				342EEFA12233820400E4354C /* Base */,
 				342EEFA42233820700E4354C /* en */,
-				342EEFA62233820800E4354C /* sw */,
+				18C59901227330740020E475 /* fr */,
 			);
 			name = Help.storyboard;
 			sourceTree = "<group>";
@@ -1384,7 +1384,7 @@
 			children = (
 				34745433221FF95500952FDD /* Base */,
 				34745436221FF97300952FDD /* en */,
-				34745438221FF99A00952FDD /* sw */,
+				18C598FE227330730020E475 /* fr */,
 			);
 			name = Registration.storyboard;
 			sourceTree = "<group>";
@@ -1394,7 +1394,7 @@
 			children = (
 				34E01A20220EE8B3000D048E /* Base */,
 				34E01A24220EEC65000D048E /* en */,
-				34E01A2B220EEEA0000D048E /* sw */,
+				18C598FF227330730020E475 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1403,7 +1403,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				34E01A26220EED13000D048E /* Base */,
-				34E01A2C220EEEA4000D048E /* sw */,
+				18C59900227330740020E475 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1412,7 +1412,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				34E01A29220EEE2C000D048E /* en */,
-				34E01A2D220EEEA7000D048E /* sw */,
+				18C59902227330740020E475 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1534,7 +1534,7 @@
 			baseConfigurationReference = B76687D9F5A0B626FE9E4755 /* Pods-Flivery User.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Nexus User.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Flivery User.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1565,7 +1565,7 @@
 			baseConfigurationReference = 9C1262322975117831B737CE /* Pods-Flivery User.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Nexus User.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Flivery User.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

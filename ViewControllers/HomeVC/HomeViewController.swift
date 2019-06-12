@@ -165,7 +165,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                             UtilityClass.showAlert("Error", message: res, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: res, vc: self)
                         }
@@ -181,7 +181,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                             UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: resDict.object(forKey: "swahili_message") as! String, vc: self)
                         }
@@ -196,7 +196,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                             UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String, vc: self)
                         }
@@ -419,8 +419,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         
     }
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.viewBookNowLater.isHidden = true
@@ -535,6 +534,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         }
         print(self.strSelectedParcelID)
         
+        currentLocationAction()
     }
     
     @objc private func OpenChatwhileAppisTerminated(notification: NSDictionary)
@@ -1036,7 +1036,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         //
         
         if self.bookingIDNow == "" && self.advanceBookingID == "" {
-        getAddressForLatLng(latitude: strLati, Longintude: strlongi, markerType: currentLocationMarkerText)
+            getAddressForLatLng(latitude: strLati, Longintude: strlongi, markerType: currentLocationMarkerText)
         }
         //        let position = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
         //        currentLocationMarker = GMSMarker(position: position)
@@ -1647,11 +1647,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         let dictParams = NSMutableDictionary()
         dictParams.setObject(SingletonClass.sharedInstance.strPassengerID, forKey: "PassengerId" as NSCopying)
         dictParams.setObject(strModelId, forKey: SubmitBookingRequest.kModelId as NSCopying)
-        if(strModelId == "")
-        {
+        
+        if(strModelId == "") {
             dictParams.setObject(strCarModelIDIfZero, forKey: SubmitBookingRequest.kModelId as NSCopying)
-            
         }
+        
         dictParams.setObject(strPickupLocation, forKey: SubmitBookingRequest.kPickupLocation as NSCopying)
         dictParams.setObject(strDropoffLocation, forKey: SubmitBookingRequest.kDropoffLocation as NSCopying)
         
@@ -1698,7 +1698,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
 
         self.view.bringSubview(toFront: self.viewMainActivityIndicator)
         self.viewMainActivityIndicator.isHidden = false
-        webserviceForTaxiRequest(dictParams) { (result, status) in
+        webserviceForTaxiRequest(dictParams, image: UIImage()) { (result, status) in
             
             if (status) {
                 //      print(result)
@@ -1712,7 +1712,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 self.strBookingType = "BookNow"
                 self.viewBookNow.isHidden = true
                 self.viewActivity.startAnimating()
-                
                 
             }
             else {
@@ -1847,15 +1846,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     
     
-    @IBAction func btnRequestNow(_ sender: UIButton)
-    {
-        if UtilityClass.isEmpty(str: self.strSelectedParcelID)
-        {
+    @IBAction func btnRequestNow(_ sender: UIButton) {
+        if UtilityClass.isEmpty(str: self.strSelectedParcelID) {
             
-        }
-        else
-        {
-        self.webserviceCallForBookingCar()
+        } else  {
+            self.webserviceCallForBookingCar()
         }
     }
     
@@ -2174,7 +2169,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     func onGetEstimateFare() {
         
         self.socket.on(SocketData.kReceiveGetEstimateFare, callback: { (data, ack) in
-            print("onGetEstimateFare() is \(data)")
+//            print("onGetEstimateFare() is \(data)")
             
             
             if (((data as NSArray).firstObject as? NSDictionary) != nil) {
@@ -2232,7 +2227,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                 alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { (action) in
                                 }))
                                 
-                                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                                UtilityClass.presentPopupOverScreen(alert)
                             }
                         }
                     }
@@ -2502,7 +2498,37 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             }
             else {
                 strSpecialRequest = "0"
-                bookingRequest()
+//                bookingRequest() // Bhavesh Changes
+                
+                let profileData = SingletonClass.sharedInstance.dictProfile
+                
+                let next = self.storyboard?.instantiateViewController(withIdentifier: "BookLaterViewController") as! BookLaterViewController
+                
+                SingletonClass.sharedInstance.isFromNotificationBookLater = false
+                next.delegateBookLater = self
+                next.strModelId = strCarModelID
+                next.strCarModelURL = strNavigateCarModel
+                next.strCarName = strCarModelClass
+                
+                next.strFullname = profileData.object(forKey: "Fullname") as! String
+                next.strMobileNumber = profileData.object(forKey: "MobileNo") as! String
+                next.strEstimatedFare = self.strEstimatedTotal
+                let visibleRegion = mapView.projection.visibleRegion()
+                let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+                next.NearByRegion = bounds
+                
+                next.strPickupLocation = strPickupLocation
+                next.doublePickupLat = doublePickupLat
+                next.doublePickupLng = doublePickupLng
+                
+                next.strDropoffLocation = strDropoffLocation
+                next.doubleDropOffLat = doubleDropOffLat
+                next.doubleDropOffLng = doubleDropOffLng
+                next.strSpecialRequest = strSpecialRequest
+                next.isRequestIsBookNow = true
+                
+                self.navigationController?.pushViewController(next, animated: true)
+                
                 
                 //                if (SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0) && self.aryCardsListForBookNow.count == 2 {
                 //                    //                UtilityClass.showAlert("", message: "There is no card, If you want to add card than choose payment options to add card.", vc: self)
@@ -3959,7 +3985,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 
                 var lat : Double!
                 var long : Double!
-                print("near by driverList : \(data)")
+//                print("near by driverList : \(data)")
                 self.arrNumberOfAvailableCars = NSMutableArray(array: ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray)
                 //                self.setData()
                 
@@ -4012,7 +4038,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     @objc func updateCounting(){
         let myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID, "Lat": doublePickupLat, "Long": doublePickupLng, "Token" : SingletonClass.sharedInstance.deviceToken, "ShareRide": SingletonClass.sharedInstance.isShareRide] as [String : Any]
-        print("Request Param :- \(myJSON)")
+//        print("Request Param :- \(myJSON)")
         socket.emit(SocketData.kUpdatePassengerLatLong , with: [myJSON])
         
     }
@@ -4248,7 +4274,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                     
                                 })
                             }
-                            else if SelectedLanguage == "sw"
+                            else if SelectedLanguage == secondLanguage // "sw"
                             {
                                 UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                                     
@@ -4542,7 +4568,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         //        }
         
         
-        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+        UtilityClass.presentPopupOverScreen(next)
     }
     
     
@@ -4575,7 +4602,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                     
                                 })
                             }
-                            else if SelectedLanguage == "sw"
+                            else if SelectedLanguage == secondLanguage // "sw"
                             {
                                 UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                                     
@@ -4598,7 +4625,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                 
                             })
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                                 
@@ -4667,7 +4694,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                     
                                 })
                             }
-                            else if SelectedLanguage == "sw"
+                            else if SelectedLanguage == secondLanguage // "sw"
                             {
                                 UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                                     
@@ -4700,7 +4727,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                 
                             })
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                                 
@@ -4746,7 +4773,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         
                     })
                 }
-                else if SelectedLanguage == "sw"
+                else if SelectedLanguage == secondLanguage // "sw"
                 {
                     UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
                         
@@ -4898,7 +4925,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         //            ViewController?.strBookingType = "BookLater""
         //        }
         ViewController.dictData = self.arrDataAfterCompletetionOfTrip[0] as! NSDictionary
-        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(ViewController, animated: true, completion: nil)
+//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(ViewController, animated: true, completion: nil)
+        UtilityClass.presentPopupOverScreen(ViewController)
 //        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
 //        alertWindow.rootViewController = UIViewController()
 //        alertWindow.windowLevel = UIWindowLevelAlert + 1;
@@ -5003,7 +5031,18 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         })
         
         alert.addAction(OK)
-        self.present(alert, animated: true, completion: nil)
+        
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        alertWindow.makeKeyAndVisible()
+        
+            alertWindow.rootViewController?.present(alert, animated: true, completion: {
+                //                    self.completeTripFinalSubmit()
+                //                    Appdelegate.WaitingTimeCount = 0
+                //                    Appdelegate.WaitingTime = "00:00:00"
+            })
+//        self.present(alert, animated: true, completion: nil)
         //        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         //        alertWindow.rootViewController = UIViewController()
         //        alertWindow.windowLevel = UIWindowLevelAlert + 1;
@@ -5098,7 +5137,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         let next = self.storyboard?.instantiateViewController(withIdentifier: "GiveRatingViewController") as! GiveRatingViewController
         next.strBookingType = self.strBookingType
         next.delegate = self
-        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+        UtilityClass.presentPopupOverScreen(next)
         //            self.presentingViewController?.modalPresentationStyle
         
 //        self.present(next, animated: true, completion: nil)
@@ -5174,8 +5214,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 //                self.stopSound(fileName: "PickNGo", extensionType: "mp3")
             })
             alert.addAction(OK)
-            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            
+//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+            UtilityClass.presentPopupOverScreen(alert)
         })
     }
     
@@ -5201,7 +5241,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         let alert = UIAlertController(title: nil, message: "Your trip has now started.".localized, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                         alert.addAction(OK)
-                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                        UtilityClass.presentPopupOverScreen(alert)
                         
                         self.btnRequest.isHidden = true
                         self.btnCancelStartedTrip.isHidden = true
@@ -5215,7 +5256,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     let alert = UIAlertController(title: nil, message: "Your trip has now started.".localized, preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                     alert.addAction(OK)
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                     UtilityClass.presentPopupOverScreen(alert)
                     
                     self.btnRequest.isHidden = true
                     self.btnCancelStartedTrip.isHidden = true
@@ -5249,11 +5291,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     
                     alert.addAction(OK)
                     
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                    
+//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                    UtilityClass.presentPopupOverScreen(alert)
                     
                 }
-                else if SelectedLanguage == "sw"
+                else if SelectedLanguage == secondLanguage // "sw"
                 {
                     if let resAry = NSArray(array: data) as? NSArray {
                         message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String
@@ -5264,8 +5306,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     
                     alert.addAction(OK)
                     
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                    
+//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                    UtilityClass.presentPopupOverScreen(alert)
                     
                 }
             }
@@ -5292,8 +5334,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             alert.addAction(OK)
             
-            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            
+//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+            UtilityClass.presentPopupOverScreen(alert)
             
         })
     }
@@ -5301,7 +5343,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     func onReceiveDriverLocationToPassenger() {
         
         self.socket.on(SocketData.kReceiveDriverLocationToPassenger, callback: { (data, ack) in
-            print("onReceiveDriverLocationToPassenger() is \(data)")
+//            print("onReceiveDriverLocationToPassenger() is \(data)")
             
             SingletonClass.sharedInstance.driverLocation = (data as NSArray).object(at: 0) as! [String : AnyObject]
             
@@ -5492,8 +5534,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             alert.addAction(OK)
             
-            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            
+//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+            UtilityClass.presentPopupOverScreen(alert)
         })
         
     }
@@ -5526,7 +5568,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                         alert.addAction(OK)
-                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                        UtilityClass.presentPopupOverScreen(alert)
                     }
                 }
                 else {
@@ -5540,7 +5583,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                     alert.addAction(OK)
-                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+                    UtilityClass.presentPopupOverScreen(alert)
                 }
             }
             

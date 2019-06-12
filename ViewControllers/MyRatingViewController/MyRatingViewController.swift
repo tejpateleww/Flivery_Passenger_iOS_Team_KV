@@ -199,7 +199,7 @@ class MyRatingViewController: BaseViewController,UITableViewDataSource, UITableV
                             UtilityClass.showAlert("Error", message: res, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: res, vc: self)
                         }
@@ -215,7 +215,7 @@ class MyRatingViewController: BaseViewController,UITableViewDataSource, UITableV
                             UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: resDict.object(forKey: "swahili_message") as! String, vc: self)
                         }
@@ -230,7 +230,7 @@ class MyRatingViewController: BaseViewController,UITableViewDataSource, UITableV
                             UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
                             
                         }
-                        else if SelectedLanguage == "sw"
+                        else if SelectedLanguage == secondLanguage // "sw"
                         {
                             UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String, vc: self)
                         }
