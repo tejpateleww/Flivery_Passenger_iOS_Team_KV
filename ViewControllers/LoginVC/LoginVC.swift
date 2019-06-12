@@ -194,6 +194,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         dictparam.setObject(txtEmail.text!, forKey: "Username" as NSCopying)
         dictparam.setObject(txtPassword.text!, forKey: "Password" as NSCopying)
         dictparam.setObject("1", forKey: "DeviceType" as NSCopying)
+        
         dictparam.setObject("6287346872364287", forKey: "Lat" as NSCopying)
         dictparam.setObject("6287346872364287", forKey: "Lng" as NSCopying)
         dictparam.setObject(SingletonClass.sharedInstance.deviceToken, forKey: "Token" as NSCopying)

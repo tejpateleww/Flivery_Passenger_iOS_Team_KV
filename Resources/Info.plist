@@ -53,10 +53,19 @@
 			</dict>
 		</array>
 	</dict>
-	<key>FacebookAppID</key>
-	<string>2208343646160862</string>
-	<key>FacebookDisplayName</key>
-	<string>Nexus</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb2294718073944173</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>2294718073944173</string>
+    <key>FacebookDisplayName</key>
+    <string>Flivery Shipper</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
