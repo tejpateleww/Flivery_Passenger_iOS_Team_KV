@@ -3386,12 +3386,12 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 
                 self.aryMarkerOnlineCars.removeAll()
                 
-                let available = dictOnlineCarData.object(forKey: "carCount") as! Int
+                let available = dictOnlineCarData.object(forKey: "carCount") as? Int ?? 0
                 let checkAvailabla = String(available)
                 
                 
-                var lati = dictOnlineCarData.object(forKey: "Lat") as! Double
-                var longi = dictOnlineCarData.object(forKey: "Lng") as! Double
+                var lati = dictOnlineCarData.object(forKey: "Lat") as? Double ?? 0.0
+                var longi = dictOnlineCarData.object(forKey: "Lng") as? Double ?? 0.0
                 
                 
                 let locationsArray = (dictOnlineCarData.object(forKey: "locations") as! [[String:AnyObject]])
@@ -3400,8 +3400,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 {
                     if( (locationsArray[i]["CarType"] as! String) == (dictOnlineCarData.object(forKey: "Id") as! String))
                     {
-                        lati = (locationsArray[i]["Location"] as! [AnyObject])[0] as! Double
-                        longi = (locationsArray[i]["Location"] as! [AnyObject])[1] as! Double
+                        lati = (locationsArray[i]["Location"] as! [AnyObject])[0] as? Double ?? 0.0
+                        longi = (locationsArray[i]["Location"] as! [AnyObject])[1] as? Double ?? 0.0
                         let position = CLLocationCoordinate2D(latitude: lati, longitude: longi)
                         self.markerOnlineCars = GMSMarker(position: position)
                         //                        self.markerOnlineCars.tracksViewChanges = false
@@ -3435,10 +3435,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     self.aryMarkerOnlineCars[i].map = self.mapView
                 }
                 
-                let carModelID = dictOnlineCarData.object(forKey: "Id") as? String
-                let carModelIDConverString: String = carModelID!
+                let carModelID = dictOnlineCarData.object(forKey: "Id") as? String ?? ""
+                let carModelIDConverString: String = carModelID
                 
-                let strCarName: String = dictOnlineCarData.object(forKey: "Name") as! String
+                let strCarName: String = dictOnlineCarData.object(forKey: "Name") as? String ?? ""
                 
                 strCarModelClass = strCarName
                 strCarModelID = carModelIDConverString
@@ -3459,11 +3459,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 let cell = collectionView.cellForItem(at: indexPath) as! CarsCollectionViewCell
                 cell.viewOfImage.layer.borderColor = ThemeNaviBlueColor.cgColor
                 
-                let imageURL = dictOnlineCarData.object(forKey: "Image") as! String
+                let imageURL = dictOnlineCarData.object(forKey: "Image") as? String ?? ""
                 strNavigateCarModel = imageURL
                 strCarModelIDIfZero = ""
                 if checkAvailabla != "0" {
-                    strModelId = dictOnlineCarData.object(forKey: "Id") as! String
+                    strModelId = dictOnlineCarData.object(forKey: "Id") as? String ?? ""
                 }
                 else {
                     strModelId = "0"
@@ -3479,10 +3479,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 self.aryMarkerOnlineCars.removeAll()
                 
                 
-                let carModelID = dictOnlineCarData.object(forKey: "Id") as? String
-                let carModelIDConverString: String = carModelID!
+                let carModelID = dictOnlineCarData.object(forKey: "Id") as? String ?? ""
+                let carModelIDConverString: String = carModelID
                 
-                let strCarName: String = dictOnlineCarData.object(forKey: "Name") as! String
+                let strCarName: String = dictOnlineCarData.object(forKey: "Name") as? String ?? ""
                 
                 strCarModelClass = strCarName
                 strCarModelID = carModelIDConverString
@@ -3492,17 +3492,17 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 
                 selectedIndexPath = indexPath
                 
-                let imageURL = dictOnlineCarData.object(forKey: "Image") as! String
+                let imageURL = dictOnlineCarData.object(forKey: "Image") as? String ?? ""
                 
                 strNavigateCarModel = imageURL
                 //                strCarModelID = ""
                 strCarModelIDIfZero = carModelIDConverString
                 
-                let available = dictOnlineCarData.object(forKey: "carCount") as! Int
+                let available = dictOnlineCarData.object(forKey: "carCount") as? Int ?? 0
                 let checkAvailabla = String(available)
                 
                 if checkAvailabla != "0" {
-                    strModelId = dictOnlineCarData.object(forKey: "Id") as! String
+                    strModelId = dictOnlineCarData.object(forKey: "Id") as? String ?? ""
                 }
                 else {
                     strModelId = ""

@@ -610,6 +610,22 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             txtDescription.isEnabled = false
         }
     }
+    @IBOutlet weak var btnTypeSignature : UIButton!
+    @IBOutlet weak var btnTypeImage : UIButton!
+    
+    var confirmationType = "signature"{
+        didSet{
+           btnTypeSignature.isSelected = confirmationType == "signature"
+            btnTypeImage.isSelected = confirmationType == "image"
+        }
+    }
+    @IBAction func btnSignature(_ sender: UIButton) {
+        confirmationType = "signature"
+    }
+    
+    @IBAction func btnImage(_ sender: UIButton) {
+        confirmationType = "image"
+    }
     
     @IBAction func txtSelectPaymentMethod(_ sender: UITextField) {
         txtSelectPaymentMethod.inputView = pickerView
@@ -760,7 +776,9 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         // 3. Then you simply present it from your view controller when necessary!
 //        self.present(selector, animated: true, completion: nil)
 //        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(selector, animated: true, completion: nil)
-        UtilityClass.presentPopupOverScreen(selector)
+
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(selector, animated: true, completion: nil)
+        
     }
     
     @IBAction func btnUploadParcelPhoto(_ sender: UIButton) {
@@ -1246,7 +1264,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     func webserviceOFBookLater() {
         
         var dictData = [String:AnyObject]()
-        
+        dictData["DeliveredParcelImageType"] = confirmationType as AnyObject
         dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         dictData["ModelId"] = strModelId as AnyObject
         dictData["PickupLocation"] = txtPickupLocation.text as AnyObject
@@ -1544,7 +1562,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         var dictData = [String:AnyObject]()
         
 //        {, , , , , , , Special=, , , , , , , , }
-        
+        dictData["DeliveredParcelImageType"] = confirmationType as AnyObject
         dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         dictData["ModelId"] = strModelId as AnyObject
         dictData["PickupLocation"] = txtPickupLocation.text as AnyObject
