@@ -101,7 +101,7 @@
                                     <constraint firstAttribute="bottom" secondItem="0AM-4T-yhk" secondAttribute="bottom" id="kVY-Ow-Z2Z"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjZ-NC-pNZ">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjZ-NC-pNZ" customClass="CHIPageControlJaloro" customModule="CHIPageControl">
                                 <rect key="frame" x="150" y="582" width="75" height="20"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ebD-kx-fjY">
@@ -180,6 +180,7 @@
                     </view>
                     <connections>
                         <outlet property="firstStep" destination="4qR-Ti-Nbm" id="4Bc-eN-bgn"/>
+                        <outlet property="pageControl" destination="YjZ-NC-pNZ" id="Buh-Vw-M9K"/>
                         <outlet property="scrollObject" destination="0AM-4T-yhk" id="8b8-wU-9ah"/>
                         <outlet property="secondStep" destination="jnc-QM-hlr" id="jQP-2R-KMm"/>
                         <outlet property="thirdStep" destination="iFc-jx-whC" id="AVn-AC-N3N"/>
@@ -759,10 +760,10 @@
         <image name="HorizonalLine" width="20" height="20"/>
         <image name="Selected_Circle" width="20" height="20"/>
         <image name="Unselected_Circle" width="20" height="20"/>
-        <image name="iconBack" width="42" height="42"/>
+        <image name="iconBack" width="26" height="26"/>
         <image name="iconLineCenterSide" width="386" height="1"/>
         <image name="iconProfilePicBlank" width="170" height="170"/>
-        <image name="imgBackground" width="480" height="986"/>
+        <image name="imgBackground" width="480" height="960"/>
         <image name="imgLogo" width="205" height="168"/>
     </resources>
 </document>

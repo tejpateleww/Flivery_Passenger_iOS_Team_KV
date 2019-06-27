@@ -83,10 +83,10 @@ self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack,
     }
     func setLocalization()
     {
-        lbltitile.text = "My Bookings".localized
+        lbltitile.text = "My Shipping".localized
         btnOnGoing.setTitle("OnGoing".localized, for: .normal)
         btnUpComming.setTitle("UpComing".localized, for: .normal)
-        btnPastBooking.setTitle("Past Booking".localized, for: .normal)
+        btnPastBooking.setTitle("Past Shipping".localized, for: .normal)
         
     }
     

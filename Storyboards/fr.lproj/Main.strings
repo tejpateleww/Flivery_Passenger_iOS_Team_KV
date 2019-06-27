@@ -167,6 +167,9 @@
 /* Class = "UILabel"; text = "Receive Money"; ObjectID = "5mi-FF-7hX"; */
 "5mi-FF-7hX.text" = "Receive Money";
 
+/* Class = "UITextField"; placeholder = "Budget"; ObjectID = "5or-Qc-5tY"; */
+"5or-Qc-5tY.placeholder" = "Budget";
+
 /* Class = "UILabel"; text = "Description"; ObjectID = "5uG-GE-ILs"; */
 "5uG-GE-ILs.text" = "Description";
 
@@ -225,10 +228,10 @@
 "7Ql-ZW-9mu.segmentTitles[1]" = "Days";
 
 /* Class = "UITextField"; placeholder = "Select Transport Service"; ObjectID = "7Ua-YW-SVm"; */
-"7Ua-YW-SVm.placeholder" = "Select Transport Service";
+"7Ua-YW-SVm.placeholder" = "Please select goods type.";
 
 /* Class = "UITextField"; placeholder = "Select Transport Service"; ObjectID = "7c4-8L-PWN"; */
-"7c4-8L-PWN.placeholder" = "Select Transport Service";
+"7c4-8L-PWN.placeholder" = "Please select goods type.";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "7lV-HV-s5f"; */
 "7lV-HV-s5f.text" = "Label";
@@ -283,6 +286,9 @@
 
 /* Class = "UILabel"; text = "Desc "; ObjectID = "9BB-iK-Wg0"; */
 "9BB-iK-Wg0.text" = "Desc ";
+
+/* Class = "UITextField"; placeholder = "Select Vehicle Type"; ObjectID = "9L5-UZ-LfF"; */
+"9L5-UZ-LfF.placeholder" = "Select Vehicle Type";
 
 /* Class = "UILabel"; text = "First Class"; ObjectID = "9Nu-Td-V7Z"; */
 "9Nu-Td-V7Z.text" = "First Class";
@@ -373,6 +379,9 @@
 
 /* Class = "UITextField"; placeholder = "Select Payment Type"; ObjectID = "ByY-57-kDJ"; */
 "ByY-57-kDJ.placeholder" = "Select Payment Type";
+
+/* Class = "UILabel"; text = "xxxx xxxx xxxx 9874"; ObjectID = "C3h-Jk-pJp"; */
+"C3h-Jk-pJp.text" = "xxxx xxxx xxxx 9874";
 
 /* Class = "UIButton"; normalTitle = "Terms & Conditions"; ObjectID = "CBH-ab-dY3"; */
 "CBH-ab-dY3.normalTitle" = "Terms & Conditions";
@@ -674,6 +683,9 @@
 /* Class = "UILabel"; text = "Card: "; ObjectID = "Ksf-uw-p7X"; */
 "Ksf-uw-p7X.text" = "Card: ";
 
+/* Class = "UILabel"; text = "Shipment Details"; ObjectID = "Ky2-5u-yeG"; */
+"Ky2-5u-yeG.text" = "Shipment Details";
+
 /* Class = "UILabel"; text = "Cash"; ObjectID = "LCN-xL-nLJ"; */
 "LCN-xL-nLJ.text" = "Cash";
 
@@ -749,11 +761,17 @@
 /* Class = "UILabel"; text = "2017-9-23 14:52:37"; ObjectID = "MeJ-8e-UVe"; */
 "MeJ-8e-UVe.text" = "2017-9-23 14:52:37";
 
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MjU-zs-tdk"; */
+"MjU-zs-tdk.normalTitle" = "Button";
+
 /* Class = "UILabel"; text = "Pickup Location :"; ObjectID = "MmT-WW-cdc"; */
 "MmT-WW-cdc.text" = "Pickup Location :";
 
 /* Class = "UILabel"; text = "Trip Status :"; ObjectID = "Mvz-qV-vbv"; */
 "Mvz-qV-vbv.text" = "Trip Status :";
+
+/* Class = "UILabel"; text = "Signature"; ObjectID = "MzY-kd-ywZ"; */
+"MzY-kd-ywZ.text" = "Signature";
 
 /* Class = "UILabel"; text = "Contact Number"; ObjectID = "N6A-Rz-A26"; */
 "N6A-Rz-A26.text" = "Contact Number";
@@ -785,11 +803,17 @@
 /* Class = "UIButton"; normalTitle = "Forgot?"; ObjectID = "P3G-SZ-6qf"; */
 "P3G-SZ-6qf.normalTitle" = "Forgot?";
 
+/* Class = "UITextField"; placeholder = "Weight"; ObjectID = "P3l-Tr-KFz"; */
+"P3l-Tr-KFz.placeholder" = "Weight";
+
 /* Class = "UILabel"; text = "Grand Total"; ObjectID = "P53-cf-9jc"; */
 "P53-cf-9jc.text" = "Grand Total";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "P5w-0Q-RkH"; */
 "P5w-0Q-RkH.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Dropoff Location"; ObjectID = "P92-VW-qg1"; */
+"P92-VW-qg1.placeholder" = "Dropoff Location";
 
 /* Class = "UILabel"; text = "TOLL FEE"; ObjectID = "PRr-fX-agl"; */
 "PRr-fX-agl.text" = "TOLL FEE";
@@ -1133,11 +1157,17 @@
 /* Class = "UILabel"; text = "Dropoff Time"; ObjectID = "ZeF-hC-ETB"; */
 "ZeF-hC-ETB.text" = "Dropoff Time";
 
+/* Class = "UITextField"; placeholder = "Notes"; ObjectID = "Zk5-PS-9dP"; */
+"Zk5-PS-9dP.placeholder" = "Notes";
+
 /* Class = "UILabel"; text = "Cash"; ObjectID = "Zlr-fd-r6d"; */
 "Zlr-fd-r6d.text" = "Cash";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Zry-be-xq5"; */
 "Zry-be-xq5.text" = "Label";
+
+/* Class = "UILabel"; text = "Parcel Confirmation Type"; ObjectID = "a2Q-sD-Cun"; */
+"a2Q-sD-Cun.text" = "Delivery Confirmation Type";
 
 /* Class = "UILabel"; text = "04 Mar 2018"; ObjectID = "a3W-1D-fnP"; */
 "a3W-1D-fnP.text" = "04 Mar 2018";
@@ -1147,6 +1177,9 @@
 
 /* Class = "UILabel"; text = "You will be notified with your driver details after your request is submitted "; ObjectID = "aBD-hX-h8e"; */
 "aBD-hX-h8e.text" = "You will be notified with your driver details after your request is submitted ";
+
+/* Class = "UITextField"; placeholder = "Quantity"; ObjectID = "aCX-Wb-bfW"; */
+"aCX-Wb-bfW.placeholder" = "Quantity";
 
 /* Class = "UILabel"; text = "$ 35.00"; ObjectID = "aCw-Tw-ADR"; */
 "aCw-Tw-ADR.text" = "$ 35.00";
@@ -1436,6 +1469,9 @@
 /* Class = "UILabel"; text = "Estimated Fare : "; ObjectID = "h7q-HT-b1K"; */
 "h7q-HT-b1K.text" = "Estimated Fare : ";
 
+/* Class = "UITextField"; placeholder = "Shippers Name"; ObjectID = "hC8-nZ-gEP"; */
+"hC8-nZ-gEP.placeholder" = "Shippers Name";
+
 /* Class = "UILabel"; text = "start location"; ObjectID = "hCY-3y-Ppc"; */
 "hCY-3y-Ppc.text" = "start location";
 
@@ -1544,6 +1580,9 @@
 /* Class = "UILabel"; text = "VEHICLE TYPE"; ObjectID = "kQ0-6w-kjV"; */
 "kQ0-6w-kjV.text" = "VEHICLE TYPE";
 
+/* Class = "UILabel"; text = "Image"; ObjectID = "kS5-YS-jNn"; */
+"kS5-YS-jNn.text" = "Image";
+
 /* Class = "UILabel"; text = "TAX :"; ObjectID = "kUf-aO-dW1"; */
 "kUf-aO-dW1.text" = "TAX :";
 
@@ -1618,6 +1657,9 @@
 
 /* Class = "UILabel"; text = "2018/11/21"; ObjectID = "nO8-bt-A6m"; */
 "nO8-bt-A6m.text" = "2018/11/21";
+
+/* Class = "UITextField"; placeholder = "Date & Time"; ObjectID = "nOo-Qu-ebC"; */
+"nOo-Qu-ebC.placeholder" = "Date & Time";
 
 /* Class = "UIButton"; normalTitle = "5"; ObjectID = "nUM-F2-uUq"; */
 "nUM-F2-uUq.normalTitle" = "5";
@@ -1709,6 +1751,9 @@
 /* Class = "UILabel"; text = "01:47 PM"; ObjectID = "po2-fJ-ISf"; */
 "po2-fJ-ISf.text" = "01:47 PM";
 
+/* Class = "UILabel"; text = "Card"; ObjectID = "ppy-38-7fM"; */
+"ppy-38-7fM.text" = "Card";
+
 /* Class = "UILabel"; text = "start location"; ObjectID = "pxg-Lt-qaq"; */
 "pxg-Lt-qaq.text" = "start location";
 
@@ -1758,7 +1803,7 @@
 "re4-Ee-Q1o.text" = "Comming Soon!";
 
 /* Class = "UILabel"; text = "Select Transport Service"; ObjectID = "rk4-f5-c0p"; */
-"rk4-f5-c0p.text" = "Select Transport Service";
+"rk4-f5-c0p.text" = "Please select goods type.";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ro9-sN-7KV"; */
 "ro9-sN-7KV.text" = "Label";
@@ -1879,6 +1924,9 @@
 
 /* Class = "UILabel"; text = "Dropoff Time : "; ObjectID = "vXj-45-KLQ"; */
 "vXj-45-KLQ.text" = "Dropoff Time : ";
+
+/* Class = "UITextField"; placeholder = "Pickup Location"; ObjectID = "vqD-n4-RmA"; */
+"vqD-n4-RmA.placeholder" = "Pickup Location";
 
 /* Class = "UITextField"; placeholder = "Account Holder Name"; ObjectID = "vrv-f2-Kkh"; */
 "vrv-f2-Kkh.placeholder" = "Account Holder Name";

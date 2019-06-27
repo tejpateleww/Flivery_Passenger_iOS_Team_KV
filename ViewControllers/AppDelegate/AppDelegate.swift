@@ -61,8 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         // Set Stored Language from Local Database
 
         if UserDefaults.standard.value(forKey: "i18n_language") == nil {
+
+            #if targetEnvironment(simulator)
+            let langStr = Locale.current.languageCode
+
+            UserDefaults.standard.set(langStr, forKey: "i18n_language")
+            UserDefaults.standard.synchronize()
+            #else
             UserDefaults.standard.set("en", forKey: "i18n_language")
             UserDefaults.standard.synchronize()
+
+             #endif
         }
 
         isAlreadyLaunched = false
@@ -71,7 +80,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         Messaging.messaging().delegate = self
        
         IQKeyboardManager.shared.enable = true
-        
+        IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done".localized
+//        IQKeyboardManager.shared.toolbarNextBarButtonItemText = "Next".localized
+//        IQKeyboardManager.shared.toolbarPreviousBarButtonItemText = "Previous".localized
+
         GMSServices.provideAPIKey(googlApiKey)
         GMSPlacesClient.provideAPIKey(googlApiKey)
         
@@ -759,25 +771,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
 
 extension String {
     var localized: String {
-//        if let _ = UserDefaults.standard.string(forKey: "i18n_language") {} else {
-//            // we set a default, just in case
-//
-//
-//
-//        }
-//        if  UserDefaults.standard.string(forKey: "i18n_language") == nil
-//        {
-//            UserDefaults.standard.set("en", forKey: "i18n_language")
-//            UserDefaults.standard.synchronize()
-//        }
 
         let lang = UserDefaults.standard.string(forKey: "i18n_language")
-        print(lang)
         let path = Bundle.main.path(forResource: lang, ofType: "lproj")
         let bundle = Bundle(path: path!)
-        print(path ?? "")
-        print(bundle ?? "")
-              return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
 }
 
@@ -788,20 +786,20 @@ extension String {
 
 let LCLBaseBundle = "Base"
 let secondLanguage = "fr" // "sw"
-
+var count = 0
 
 extension UILabel {
-    
+
     override open func layoutSubviews() {
         super.layoutSubviews()
         if self.text != nil {
-            self.layoutIfNeeded()
-            self.text =  self.text!.localized1()
-            print("self.text: \(String(describing: self.text))")
+            count = count + 1
+            self.text =  self.text!.localized
+            print("The count is \(count)")
         }
+
     }
 }
-
 
 
 
@@ -856,7 +854,7 @@ public extension String {
      */
     func localized1() -> String {
         if let path = Bundle.main.path(forResource: Localize.currentLanguage(), ofType: "lproj"), let bundle = Bundle(path: path) {
-            print("Path: \(path)")
+//            print("Path: \(path)")
             return bundle.localizedString(forKey: self, value: nil, table: nil)
         }
         else if let path = Bundle.main.path(forResource: LCLBaseBundle, ofType: "lproj"), let bundle = Bundle(path: path) {
@@ -911,7 +909,7 @@ open class Localize: NSObject {
      */
     open class func currentLanguage() -> String {
         if let currentLanguage = UserDefaults.standard.object(forKey: "i18n_language") as? String {
-            print("currentLanguage: \(currentLanguage)")
+//            print("currentLanguage: \(currentLanguage)")
             return currentLanguage
         }
         return defaultLanguage()

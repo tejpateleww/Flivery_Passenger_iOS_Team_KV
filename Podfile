@@ -33,6 +33,7 @@ target 'Flivery User' do
   pod 'Firebase/Messaging'
   pod 'IQDropDownTextField'
   pod 'GoogleAnalytics'
+  pod 'MultiSlider'
 
   # pod 'WWCalendarTimeSelector'
 #  pod 'DOAlertController', :git => 'https://github.com/okmr-d/DOAlertController.git', :branch => 'master'

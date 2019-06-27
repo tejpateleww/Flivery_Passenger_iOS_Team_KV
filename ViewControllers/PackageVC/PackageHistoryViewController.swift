@@ -116,7 +116,7 @@ class PackageHistoryViewController: BaseViewController, UITableViewDataSource, U
         
         
         
-        cell.lblPackageName.text = "TanTaxi".localized
+        cell.lblPackageName.text = "\(appName)".localized
         cell.lblBookingID.text = "Booking Id :".localized
         
         return cell

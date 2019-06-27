@@ -184,7 +184,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         #if targetEnvironment(simulator)
             btnUploadParcelPhoto.setImage(UIImage(named: "HeaderLogo"), for: .normal)
             btnUploadParcelPhoto.setTitle("", for: .normal)
-            txtParcelWeight.text = "10"
+            btnUploadParcelPhoto.imageView?.contentMode = .scaleAspectFit
+//            txtParcelWeight.text = "10"
         #endif
         
         
@@ -235,8 +236,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         lblNotes.text = "Notes (Optional)".localized
         txtDescription.placeholder = "Notes".localized
         btnhavePromoCode.setTitle("Have a promocode?".localized, for: .normal)
-        lblSelectPaymentMethod.text = "Select Payment Method".localized
-        txtSelectPaymentMethod.placeholder = "Select Payment Method".localized
+        lblSelectPaymentMethod.text = "Select Payment Type".localized
+        txtSelectPaymentMethod.placeholder = "Select Payment Type".localized
         btnSubmit.setTitle("Submit".localized, for: .normal)
        lblYouhaveToNotified.text =   "You will be notified with your driver detail after your request is submited.".localized
         
@@ -1275,8 +1276,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         dictData["PickupDateTime"] = convertDateToString as AnyObject
         dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
         dictData["RequestFor"] = "delivery" as AnyObject
-        dictData["Weight"] = txtParcelWeight.text as AnyObject
-        
+//        dictData["Weight"] = txtParcelWeight.text as AnyObject
+
         if lblPromoCode.text != "" {
             dictData["PromoCode"] = lblPromoCode.text as AnyObject
         }
@@ -1573,8 +1574,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         dictData["PickupDateTime"] = convertDateToString as AnyObject
         dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
         dictData["RequestFor"] = "delivery" as AnyObject
-        dictData["Weight"] = txtParcelWeight.text as AnyObject
-        
+//        dictData["Weight"] = txtParcelWeight.text as AnyObject
+
         dictData["PickupLat"] = "\(doublePickupLat)" as AnyObject
         dictData["PickupLng"] = "\(doublePickupLng)" as AnyObject
         dictData["DropOffLat"] = "\(doubleDropOffLat)" as AnyObject

@@ -210,7 +210,7 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     
     class func setCustomAlert(title: String, message: String,completionHandler: alertCompletionBlockAJ) -> Void {
        
-        AJAlertController.initialization().showAlertWithOkButton(aStrTitle: title, aStrMessage: message) { (index,title) in
+        AJAlertController.initialization().showAlertWithOkButton(aStrTitle: title, aStrMessage: message.localized) { (index,title) in
             
             if index == 0 {
                 completionHandler?(0,title)

@@ -118,7 +118,7 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
         lblPickupTime.text = "Pickup Time".localized
         lblPackageType.text = "Package Type".localized
         lblAmount.text = "Amount".localized
-        txtSelectPaymentMethod.text = "Select Payment Method".localized
+        txtSelectPaymentMethod.text = "Select Payment Type".localized
         txtPromoCode.text = "Promo Code".localized
         lblPackagelimit.text = "If you were to will be chanxceed package limites you will be charged as follows".localized
         lblAdditionalCharges.text = "Additional Charges".localized

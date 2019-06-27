@@ -18,6 +18,8 @@ import FBSDKLoginKit
 import FacebookLogin
 import GoogleSignIn
 
+
+
 class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates,GIDSignInDelegate,GIDSignInUIDelegate  {
 
     
@@ -30,7 +32,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnSignup: UIButton!
-    
+    @IBOutlet weak var btnForgotPassword: UIButton!
+
     
     var locationManager = CLLocationManager()
     var strURLForSocialImage = String()
@@ -47,7 +50,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         //            self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
         //        }
         
-        
+
         if Connectivity.isConnectedToInternet() {
             print("Yes! internet is available.")
             // do some tasks..
@@ -99,19 +102,21 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     override func viewDidLoad() {
         super.viewDidLoad()
         viewMain.isHidden = false
+
+        txtEmail.placeholder = "Mobile/Email"
         
         //        txtEmail.lineColor = UIColor.white
         //        txtPassword.lineColor = UIColor.white`
         
         if UIDevice.current.name == "Bhavesh iPhone" || UIDevice.current.name == "Excellent Web's iPhone 5s" || UIDevice.current.name == "Rahul's iPhone" ||  UIDevice.current.name == "iOS2’s iPad" ||  UIDevice.current.name == "Eww’s iPhone 7" ||  UIDevice.current.name == "EWWW iPhone 7 Plus" || UIDevice.current.name ==  "Mayur's iPhone X" || UIDevice.current.name == "EWW iPhone" || UIDevice.current.name == "Excellent’s iPhone Second" {
 
-            txtPassword.text = "12345678"
-            txtEmail.text = "bhavesh@excellentwebworld.info" // "bhavesh@excellentwebworld.info"
+//            txtPassword.text = "12345678"
+//            txtEmail.text = "bhavesh@excellentwebworld.info" // "bhavesh@excellentwebworld.info"
         }
 
         #if targetEnvironment(simulator)
-            txtPassword.text = "12345678"
-            txtEmail.text = "assassin@gmail.com" // "bhavesh@yahoo.com" // "bhavesh@excellentwebworld.info"
+//            txtPassword.text = "12345678"
+//            txtEmail.text = "assassin@gmail.com" // "bhavesh@yahoo.com" // "bhavesh@excellentwebworld.info"
         #endif
 //
         
@@ -131,7 +136,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnLogin.setTitle("Log In", for: .normal)
+        btnLogin.setTitle("Log In".localized, for: .normal)
+        btnSignup.setTitle("Sign Up".localized, for: .normal)
+        btnForgotPassword.setTitle("Forgot Password?".localized, for: .normal)
         btnLogin.titleLabel?.tintColor = UIColor.white
         
     }
@@ -150,12 +157,12 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         if self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter email or mobile number."
+            ValidatorMessage = "Please enter mobile number or email"
             
         } else if self.txtPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter password"
+            ValidatorMessage = "Please enter Password!"
             
         }
         
@@ -775,6 +782,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             //            self.btnLogin.startAnimation()
             self.webserviceCallForLogin()
         } else {
+
+
+
             UtilityClass.setCustomAlert(title: "", message: Validator.1) { (index, title) in
             }
         }

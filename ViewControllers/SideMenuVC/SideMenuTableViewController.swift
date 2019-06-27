@@ -100,8 +100,8 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 //        arrMenuIcons = ["MyBooking","iconPaymentOption","iconStarOfSideMenu","MyReceipts","iconInviteFriends","FAQ","iconLogOut"]
 //        arrMenuTitle = ["My Bookings","Payment Options","Favourites","My Receipts","Invite Friends","Help","Logout"]
         
-        arrMenuIcons = ["MyBooking","iconPaymentOption","MyReceipts","iconInviteFriends","iconLogOut"]//,"iconStarOfSideMenu"
-        arrMenuTitle = ["My Bookings","Payment Options","My Receipts","Invite Friends","Logout"]//,"Favourites"
+        arrMenuIcons = ["MyBooking","iconPaymentOption","MyReceipts","","iconInviteFriends","iconLogOut"]//,"iconStarOfSideMenu"
+        arrMenuTitle = ["My Shipping","Payment Options","My Receipts","Post a Bid","Invite Friends","Logout"]//,"Favourites"
         
         //,"icon_UnSelectedWallet",,"icon_PaymentOptionsUnselect"
 //                        "iconSettings","iconMyBooking","iconPackageHistory","iconLogOut"]
@@ -433,6 +433,10 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
                 NotificationCenter.default.post(name: OpenSetting, object: nil)
                 sideMenuController?.toggle()
             }
+            else if arrMenuTitle[indexPath.row] == "Post a Bid" {
+                NotificationCenter.default.post(name: OpenPostABid, object: nil)
+                sideMenuController?.toggle()
+            }
             else if arrMenuTitle[indexPath.row] == "Become a \(appName) Driver" {
                 UIApplication.shared.openURL(NSURL(string: "https://itunes.apple.com/us/app/pick-n-go-driver/id1320783710?mt=8")! as URL)
             }
@@ -448,7 +452,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
                         
                         let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
                         
-                        
+                        //
                         socket.off(SocketData.kReceiveGetEstimateFare)
                         socket.off(SocketData.kNearByDriverList)
                         socket.off(SocketData.kAskForTipsToPassengerForBookLater)

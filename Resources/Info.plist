@@ -21,24 +21,14 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb2208343646160862</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.243435127466-ehcnmq7f6qlftnbk2au3lnbqbmndis51</string>
+				<string>fb2294718073944173</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -53,19 +43,10 @@
 			</dict>
 		</array>
 	</dict>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb2294718073944173</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>2294718073944173</string>
-    <key>FacebookDisplayName</key>
-    <string>Flivery Shipper</string>
+	<key>FacebookAppID</key>
+	<string>2294718073944173</string>
+	<key>FacebookDisplayName</key>
+	<string>Flivery Shipper</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>

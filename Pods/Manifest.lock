@@ -1,6 +1,7 @@
 PODS:
   - ACFloatingTextfield-Swift (1.7)
   - Alamofire (4.8.1)
+  - AvailableHapticFeedback (1.0.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -100,6 +101,10 @@ PODS:
   - IQDropDownTextField (1.1.1)
   - IQKeyboardManagerSwift (6.2.0)
   - M13Checkbox (3.3.2)
+  - MiniLayout (1.4.1)
+  - MultiSlider (1.9.2):
+    - AvailableHapticFeedback
+    - MiniLayout
   - NVActivityIndicatorView (4.6.1):
     - NVActivityIndicatorView/Presenter (= 4.6.1)
   - NVActivityIndicatorView/Presenter (4.6.1)
@@ -133,6 +138,7 @@ DEPENDENCIES:
   - IQDropDownTextField
   - IQKeyboardManagerSwift
   - M13Checkbox
+  - MultiSlider
   - NVActivityIndicatorView
   - Pulsator
   - SDWebImage (~> 4.0)
@@ -143,6 +149,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ACFloatingTextfield-Swift
     - Alamofire
+    - AvailableHapticFeedback
     - Bolts
     - CardIO
     - CHIPageControl
@@ -171,6 +178,8 @@ SPEC REPOS:
     - IQDropDownTextField
     - IQKeyboardManagerSwift
     - M13Checkbox
+    - MiniLayout
+    - MultiSlider
     - NVActivityIndicatorView
     - Protobuf
     - Pulsator
@@ -182,6 +191,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: df075d5ed5d441d8603f985fc106ec7ebe0c673f
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AvailableHapticFeedback: dbd483684e693281b85e671d95ac3593dfbad34f
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   CHIPageControl: bbe1ddd0c688c02ec65b7f7e7d34551a3d16f37c
@@ -210,6 +220,8 @@ SPEC CHECKSUMS:
   IQDropDownTextField: 3d2e5728a2b83ff5dbb14cb9b497a80005124cbe
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   M13Checkbox: d75dca81d61c9903e7f091f32b35a3254bc97dce
+  MiniLayout: bd42e3763700c3002f39ff3b36dc8a027ea5078a
+  MultiSlider: ddc092e8aacaf4b82d816f0d3134e04d5c7709d3
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   Pulsator: d58707c6827ec862cd89fd727424866795dabd24
@@ -218,6 +230,6 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: b8e59ddc16bc3609ca2f49a4b50253f095d535c8
   StarscreamSocketIO: 00b54e4208481ca5cef089545353aaf126bae16d
 
-PODFILE CHECKSUM: 978c3bdca6f548dde5f9d4aee5b5246157ebf43f
+PODFILE CHECKSUM: 02516a8f2fac0066b68660706f937c62051f9fa9
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.5.3

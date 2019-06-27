@@ -253,7 +253,7 @@ class AJAlertController: UIViewController {
     
     public func showAlertWithOkButton( aStrTitle:String, aStrMessage:String,
                                 completion : alertCompletionBlock){
-        configure(title: aStrTitle, message: aStrMessage, btnCancelTitle: nil, btnOtherTitle: nil)
+        configure(title: aStrTitle, message: aStrMessage.localized, btnCancelTitle: nil, btnOtherTitle: nil)
         show()
         block = completion
     }

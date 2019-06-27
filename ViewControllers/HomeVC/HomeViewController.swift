@@ -668,6 +668,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.GotoSettingPage), name: OpenSetting, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.GotoSupportPage), name: OpenSupport, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.GotoHelpPage), name: OpenHelp, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.GotoPostABid), name: OpenPostABid, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.GotoHomePage), name: OpenHome, object: nil)
     }
     //    @IBOutlet weak var viewHeaderHeightConstant: NSLayoutConstraint!
@@ -3536,7 +3537,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let CellWidth = ( UIScreen.main.bounds.width - 30 ) / 3
+        let CellWidth = ( UIScreen.main.bounds.width - 30 ) / 5
         return CGSize(width: CellWidth , height: self.collectionViewCars.frame.size.height)
         //        self.viewCarLists.frame.size.height
     }
@@ -3916,6 +3917,13 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     {
         let HelpStoryBoard = UIStoryboard(name: "Help", bundle: nil)
         let next = HelpStoryBoard.instantiateViewController(withIdentifier: "HelpViewController") as! HelpViewController
+        self.navigationController?.pushViewController(next, animated: true)
+    }
+
+    @objc func GotoPostABid()
+    {
+        let HelpStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "PostABidViewController") as! PostABidViewController
         self.navigationController?.pushViewController(next, animated: true)
     }
     

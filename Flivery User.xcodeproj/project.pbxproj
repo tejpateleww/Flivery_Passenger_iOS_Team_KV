@@ -183,21 +183,15 @@
 		46DC8FFF225E088F00B13EB2 /* ThemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC8FFE225E088F00B13EB2 /* ThemView.swift */; };
 		46DC9001225E08B600B13EB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC9000225E08B600B13EB2 /* Constants.swift */; };
 		8E3DD1613B5C20B5D5EFEE9A /* Pods_Flivery_User.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */; };
+		EE3BCCBA22C3A15E00BCBC9E /* PostABidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		003D491B5CB4DC364B8D8EE0 /* Pods_Nexus_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nexus_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		008D222D1FA08DCF001223DF /* Flivery User.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flivery User.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A61D4B1FA8AC5600E1BA84 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
-		18C598FE227330730020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Registration.strings; sourceTree = "<group>"; };
-		18C598FF227330730020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		18C59900227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		18C59901227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Help.strings; sourceTree = "<group>"; };
-		18C59902227330740020E475 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Storyboards/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18C59903227340CF0020E475 /* Flivery User.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Flivery User.entitlements"; sourceTree = "<group>"; };
 		3419629621637561005A580E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		342EEFA12233820400E4354C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Help.storyboard; sourceTree = "<group>"; };
-		342EEFA42233820700E4354C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Help.strings; sourceTree = "<group>"; };
 		342EEFA82233865700E4354C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		342EEFA92233865800E4354C /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		342EEFAC2233866300E4354C /* HelpListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpListViewCell.swift; sourceTree = "<group>"; };
@@ -206,13 +200,8 @@
 		342EEFAF2233866500E4354C /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		342EEFB02233866500E4354C /* TicketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketListViewController.swift; sourceTree = "<group>"; };
 		345642392237C8B100EE0E3D /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
-		34745433221FF95500952FDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Registration.storyboard; sourceTree = "<group>"; };
-		34745436221FF97300952FDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Registration.strings; sourceTree = "<group>"; };
 		34986F6B2238C51E00948B89 /* CanceledBookingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanceledBookingTableViewCell.swift; sourceTree = "<group>"; };
 		34986F73223931AA00948B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		34E01A20220EE8B3000D048E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		34E01A24220EEC65000D048E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		34E01A26220EED13000D048E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34E01A29220EEE2C000D048E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Storyboards/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		34E01A2E220F1108000D048E /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		34E10DA8222CF43400E38364 /* AskForTipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForTipViewController.swift; sourceTree = "<group>"; };
@@ -392,6 +381,16 @@
 		B76687D9F5A0B626FE9E4755 /* Pods-Flivery User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flivery User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User.debug.xcconfig"; sourceTree = "<group>"; };
 		BD32F68E712FA8642AFBDA39 /* Pods-TanTaxi User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TanTaxi User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TanTaxi User/Pods-TanTaxi User.debug.xcconfig"; sourceTree = "<group>"; };
 		CF165D60C84FABB3D6B3E841 /* Pods-PickNGo User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickNGo User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PickNGo User/Pods-PickNGo User.debug.xcconfig"; sourceTree = "<group>"; };
+		EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostABidViewController.swift; path = "ViewControllers/Past A bid/PostABidViewController.swift"; sourceTree = SOURCE_ROOT; };
+		EEE5C99722C3B36A00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Registration.storyboard; sourceTree = "<group>"; };
+		EEE5C99822C3B36C00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EEE5C99922C3B36C00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EEE5C99A22C3B36C00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Help.storyboard; sourceTree = "<group>"; };
+		EEE5C99B22C3B37D00659B26 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Registration.strings; sourceTree = "<group>"; };
+		EEE5C99C22C3B37E00659B26 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		EEE5C99D22C3B37F00659B26 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EEE5C99E22C3B37F00659B26 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Help.strings; sourceTree = "<group>"; };
+		EEE5C99F22C3B38000659B26 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Storyboards/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F49854C537C817E23D773E86 /* Pods-Nexus User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nexus User.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nexus User/Pods-Nexus User.release.xcconfig"; sourceTree = "<group>"; };
 		F5E8178D64C9451D7981A87E /* Pods-TickTok User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickTok User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TickTok User/Pods-TickTok User.debug.xcconfig"; sourceTree = "<group>"; };
 		FC85A78F062B9CC1289EF949 /* Pods-PickNGo User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickNGo User.release.xcconfig"; path = "Pods/Target Support Files/Pods-PickNGo User/Pods-PickNGo User.release.xcconfig"; sourceTree = "<group>"; };
@@ -547,6 +546,7 @@
 				3A40733021B512270015C494 /* TripDetailsVC */,
 				3A40733321B512270015C494 /* UpdateProfileVC */,
 				3A40733621B512270015C494 /* Wallet */,
+				EEE4D18922C3A080005181D9 /* Post A Bid */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -974,6 +974,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EEE4D18922C3A080005181D9 /* Post A Bid */ = {
+			isa = PBXGroup;
+			children = (
+				EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */,
+			);
+			name = "Post A Bid";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		EEFA6CA9220ECE30004F32E7 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -1125,7 +1134,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Flivery User/Pods-Flivery User-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
@@ -1138,7 +1147,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flivery User/Pods-Flivery User-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9B2149097BFB38C9959DC4A9 /* [CP] Check Pods Manifest.lock */ = {
@@ -1165,9 +1174,10 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Flivery User/Pods-Flivery User-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Swift/ACFloatingTextfield_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHIPageControl/CHIPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/CreditCardForm/CreditCardForm.framework",
@@ -1184,6 +1194,8 @@
 				"${BUILT_PRODUCTS_DIR}/IQDropDownTextField/IQDropDownTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
+				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/MultiSlider/MultiSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Pulsator/Pulsator.framework",
@@ -1196,6 +1208,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACFloatingTextfield_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvailableHapticFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHIPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CreditCardForm.framework",
@@ -1212,6 +1225,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQDropDownTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pulsator.framework",
@@ -1222,7 +1237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flivery User/Pods-Flivery User-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1300,6 +1315,7 @@
 				46DC8FFF225E088F00B13EB2 /* ThemView.swift in Sources */,
 				3A4073B521B512280015C494 /* PackageHistoryListTableViewCell.swift in Sources */,
 				3A4073BE21B512280015C494 /* BookTableViewController.swift in Sources */,
+				EE3BCCBA22C3A15E00BCBC9E /* PostABidViewController.swift in Sources */,
 				3A4073F221B512280015C494 /* ACProgressView.swift in Sources */,
 				3A40739E21B512280015C494 /* CommingSoonViewController.swift in Sources */,
 				3A84BC9521C22B2E00EDA3A2 /* UIActionSheet+Blocks.m in Sources */,
@@ -1372,9 +1388,8 @@
 		342EEFA22233820400E4354C /* Help.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				342EEFA12233820400E4354C /* Base */,
-				342EEFA42233820700E4354C /* en */,
-				18C59901227330740020E475 /* fr */,
+				EEE5C99A22C3B36C00659B26 /* Base */,
+				EEE5C99E22C3B37F00659B26 /* fr */,
 			);
 			name = Help.storyboard;
 			sourceTree = "<group>";
@@ -1382,9 +1397,8 @@
 		34745434221FF95500952FDD /* Registration.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				34745433221FF95500952FDD /* Base */,
-				34745436221FF97300952FDD /* en */,
-				18C598FE227330730020E475 /* fr */,
+				EEE5C99722C3B36A00659B26 /* Base */,
+				EEE5C99B22C3B37D00659B26 /* fr */,
 			);
 			name = Registration.storyboard;
 			sourceTree = "<group>";
@@ -1392,9 +1406,8 @@
 		34E01A1F220EE898000D048E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				34E01A20220EE8B3000D048E /* Base */,
-				34E01A24220EEC65000D048E /* en */,
-				18C598FF227330730020E475 /* fr */,
+				EEE5C99822C3B36C00659B26 /* Base */,
+				EEE5C99C22C3B37E00659B26 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1402,8 +1415,8 @@
 		34E01A27220EED13000D048E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				34E01A26220EED13000D048E /* Base */,
-				18C59900227330740020E475 /* fr */,
+				EEE5C99922C3B36C00659B26 /* Base */,
+				EEE5C99D22C3B37F00659B26 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1412,7 +1425,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				34E01A29220EEE2C000D048E /* en */,
-				18C59902227330740020E475 /* fr */,
+				EEE5C99F22C3B38000659B26 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1538,7 +1551,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNR2265795;
+				DEVELOPMENT_TEAM = JF372Z97LU;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1549,7 +1562,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flivery.user1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flivery.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1569,7 +1582,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNR2265795;
+				DEVELOPMENT_TEAM = JF372Z97LU;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1580,7 +1593,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flivery.user1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flivery.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
