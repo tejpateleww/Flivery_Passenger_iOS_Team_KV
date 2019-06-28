@@ -15,6 +15,7 @@ import SDWebImage
 import NVActivityIndicatorView
 import M13Checkbox
 import IQDropDownTextField
+import  SideMenuController
 
 protocol FavouriteLocationDelegate {
     func didEnterFavouriteDestination(Source: [String: AnyObject])
@@ -742,7 +743,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 let visibleRegion = mapView.projection.visibleRegion()
                 let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
                 next.NearByRegion = bounds
-                
+                SideMenuController.preferences.interaction.swipingEnabled = false
+                SideMenuController.preferences.interaction.panningEnabled = false
                 next.strDropoffLocation = strDestinationLocationForBookLater
                 next.doubleDropOffLat = dropOffLatForBookLater
                 next.doubleDropOffLng = dropOffLngForBookLater
@@ -2852,7 +2854,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     next.strPickupLocation = strPickupLocation
                     next.doublePickupLat = doublePickupLat
                     next.doublePickupLng = doublePickupLng
-                    
+                    SideMenuController.preferences.interaction.swipingEnabled = false
+                    SideMenuController.preferences.interaction.panningEnabled = false
                     next.strDropoffLocation = strDropoffLocation
                     next.doubleDropOffLat = doubleDropOffLat
                     next.doubleDropOffLng = doubleDropOffLng
@@ -2891,7 +2894,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     let visibleRegion = mapView.projection.visibleRegion()
                     let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
                     next.NearByRegion = bounds
-                    
+                   
                     next.strFullname = profileData.object(forKey: "Fullname") as! String
                     next.strMobileNumber = profileData.object(forKey: "MobileNo") as! String
                     next.strEstimatedFare = self.strEstimatedTotal

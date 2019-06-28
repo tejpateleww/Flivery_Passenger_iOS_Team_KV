@@ -103,6 +103,10 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 if TripStatus == "canceled" {
                     
                     let CancelledCell = tableView.dequeueReusableCell(withIdentifier: "CanceledBookingTableViewCell") as! CanceledBookingTableViewCell
+
+
+                    CancelledCell.imgStatus.image = UIImage.init(named: "cancelled")
+                    CancelledCell.lblStatus.text = "Cancelled"
                     
                     CancelledCell.lblPickupAddressTitle.text = "PICK UP LOCATION".localized
                     CancelledCell.lblDropoffAddressTitle.text = "DROP OFF LOCATION".localized
@@ -149,6 +153,9 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     CustomCell = CancelledCell
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "PastBooingTableViewCell") as! PastBooingTableViewCell
+
+                    cell.imgStatus.image = UIImage.init(named: "verified")
+                    cell.lblStatus.text = "Completed"
                     
                     cell.lblPickupAddressTitle.text = "PICK UP LOCATION".localized
                     cell.lblDropoffAddressTitle.text = "DROP OFF LOCATION".localized

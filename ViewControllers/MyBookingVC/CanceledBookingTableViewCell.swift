@@ -31,6 +31,8 @@ class CanceledBookingTableViewCell: UITableViewCell {
     @IBOutlet weak var lblPaymentType: UILabel!
     @IBOutlet weak var lblTripStatus: UILabel!
 
+    @IBOutlet weak var imgStatus: UIImageView!
+    @IBOutlet weak var lblStatus: UILabel!
     
     
     override func awakeFromNib() {

@@ -104,7 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         SideMenuController.preferences.drawing.sidePanelWidth = (window?.frame.width)! * 0.85//(((window?.frame.width)! / 2) + ((window?.frame.width)! / 4))
         SideMenuController.preferences.drawing.centerPanelShadow = true
         SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
-        
+        SideMenuController.preferences.interaction.swipingEnabled = false
+        SideMenuController.preferences.interaction.panningEnabled = false
         // ------------------------------------------------------------
         
         if ((UserDefaults.standard.object(forKey: "profileData")) != nil)

@@ -401,7 +401,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
                 NotificationCenter.default.post(name: NotificationForBookingNewTrip, object: nil)
                 sideMenuController?.toggle()
                 
-            } else if arrMenuTitle[indexPath.row] == "My Bookings"
+            } else if arrMenuTitle[indexPath.row] == "My Shipping"
             {
                 NotificationCenter.default.post(name: OpenMyBooking, object: nil)
                 sideMenuController?.toggle()

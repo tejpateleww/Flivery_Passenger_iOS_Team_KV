@@ -53,6 +53,8 @@ class PastBooingTableViewCell: UITableViewCell {
  
     @IBOutlet weak var btnTips: ThemeButton!
     
+    @IBOutlet weak var imgStatus: UIImageView!
+    @IBOutlet weak var lblStatus: UILabel!
     
 //    @IBOutlet weak var lblPromoApplied: UILabel!
 //    @IBOutlet weak var lblLessTitle: UILabel!
