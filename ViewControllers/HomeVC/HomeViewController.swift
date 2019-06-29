@@ -3926,8 +3926,13 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     @objc func GotoPostABid()
     {
         let HelpStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "PostABidViewController") as! PostABidViewController
+//        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "PostABidViewController") as! PostABidViewController
+//        self.navigationController?.pushViewController(next, animated: true)
+        
+        
+        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
         self.navigationController?.pushViewController(next, animated: true)
+        
     }
     
     

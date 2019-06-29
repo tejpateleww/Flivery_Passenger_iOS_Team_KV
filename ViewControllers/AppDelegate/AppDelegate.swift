@@ -796,7 +796,7 @@ extension UILabel {
         if self.text != nil {
             count = count + 1
             self.text =  self.text!.localized
-            print("The count is \(count)")
+//            print("The count is \(count)")
         }
 
     }

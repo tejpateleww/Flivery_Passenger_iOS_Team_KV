@@ -180,6 +180,12 @@
 		3A84BC9B21C23CFC00EDA3A2 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A84BC9A21C23CFC00EDA3A2 /* RadioButton.m */; };
 		3A84BC9F21C264E900EDA3A2 /* MyRatingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A84BC9D21C264E800EDA3A2 /* MyRatingViewCell.swift */; };
 		3A84BCA021C264E900EDA3A2 /* MyRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A84BC9E21C264E800EDA3A2 /* MyRatingViewController.swift */; };
+		4651A27522C72EB200E0CA2F /* MyBidListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651A27422C72EB200E0CA2F /* MyBidListViewController.swift */; };
+		4651A27722C72EC600E0CA2F /* OpenBidListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651A27622C72EC600E0CA2F /* OpenBidListViewController.swift */; };
+		4651A27922C740D200E0CA2F /* MyBidListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651A27822C740D200E0CA2F /* MyBidListViewCell.swift */; };
+		4651A27B22C773CD00E0CA2F /* DriverOffersListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651A27A22C773CD00E0CA2F /* DriverOffersListViewCell.swift */; };
+		4651A27D22C7741900E0CA2F /* BidDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4651A27C22C7741900E0CA2F /* BidDetailsViewController.swift */; };
+		4689899C22C654A4001DE146 /* BidListContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4689899B22C654A4001DE146 /* BidListContainerViewController.swift */; };
 		46DC8FFF225E088F00B13EB2 /* ThemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC8FFE225E088F00B13EB2 /* ThemView.swift */; };
 		46DC9001225E08B600B13EB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC9000225E08B600B13EB2 /* Constants.swift */; };
 		8E3DD1613B5C20B5D5EFEE9A /* Pods_Flivery_User.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */; };
@@ -369,6 +375,12 @@
 		3A84BC9A21C23CFC00EDA3A2 /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
 		3A84BC9D21C264E800EDA3A2 /* MyRatingViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRatingViewCell.swift; sourceTree = "<group>"; };
 		3A84BC9E21C264E800EDA3A2 /* MyRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRatingViewController.swift; sourceTree = "<group>"; };
+		4651A27422C72EB200E0CA2F /* MyBidListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyBidListViewController.swift; path = "ViewControllers/Past A bid/MyBidListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4651A27622C72EC600E0CA2F /* OpenBidListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenBidListViewController.swift; path = "ViewControllers/Past A bid/OpenBidListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4651A27822C740D200E0CA2F /* MyBidListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyBidListViewCell.swift; path = "ViewControllers/Past A bid/MyBidListViewCell.swift"; sourceTree = SOURCE_ROOT; };
+		4651A27A22C773CD00E0CA2F /* DriverOffersListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DriverOffersListViewCell.swift; path = "ViewControllers/Past A bid/DriverOffersListViewCell.swift"; sourceTree = SOURCE_ROOT; };
+		4651A27C22C7741900E0CA2F /* BidDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BidDetailsViewController.swift; path = "ViewControllers/Past A bid/BidDetailsViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4689899B22C654A4001DE146 /* BidListContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BidListContainerViewController.swift; path = "ViewControllers/Past A bid/BidListContainerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		46DC8FFE225E088F00B13EB2 /* ThemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemView.swift; sourceTree = "<group>"; };
 		46DC9000225E08B600B13EB2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flivery_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -978,6 +990,12 @@
 			isa = PBXGroup;
 			children = (
 				EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */,
+				4651A27422C72EB200E0CA2F /* MyBidListViewController.swift */,
+				4651A27822C740D200E0CA2F /* MyBidListViewCell.swift */,
+				4651A27622C72EC600E0CA2F /* OpenBidListViewController.swift */,
+				4689899B22C654A4001DE146 /* BidListContainerViewController.swift */,
+				4651A27C22C7741900E0CA2F /* BidDetailsViewController.swift */,
+				4651A27A22C773CD00E0CA2F /* DriverOffersListViewCell.swift */,
 			);
 			name = "Post A Bid";
 			path = "New Group";
@@ -1293,6 +1311,8 @@
 				3A40741321B512280015C494 /* WebserviceSubClass.swift in Sources */,
 				3A4073A621B512280015C494 /* CarsCollectionViewCell.swift in Sources */,
 				34E10DA9222CF43400E38364 /* AskForTipViewController.swift in Sources */,
+				4651A27922C740D200E0CA2F /* MyBidListViewCell.swift in Sources */,
+				4651A27522C72EB200E0CA2F /* MyBidListViewController.swift in Sources */,
 				3A4073E521B512280015C494 /* WalletCardsVC.swift in Sources */,
 				3A4073D421B512280015C494 /* BarsAndClubsTableViewCell.swift in Sources */,
 				342EEFB22233866500E4354C /* GenerateTicketViewController.swift in Sources */,
@@ -1320,6 +1340,7 @@
 				3A40739E21B512280015C494 /* CommingSoonViewController.swift in Sources */,
 				3A84BC9521C22B2E00EDA3A2 /* UIActionSheet+Blocks.m in Sources */,
 				34E50031221EAD90009EF357 /* RegistrationNewViewController.swift in Sources */,
+				4651A27B22C773CD00E0CA2F /* DriverOffersListViewCell.swift in Sources */,
 				3A4073B421B512280015C494 /* PackageDetailViewController.swift in Sources */,
 				3A4073FA21B512280015C494 /* AKRadioButtonsController.swift in Sources */,
 				3A4073C221B512280015C494 /* EditProfileViewController.swift in Sources */,
@@ -1340,6 +1361,7 @@
 				3A4073E021B512280015C494 /* TripDetailsViewController.swift in Sources */,
 				3A4073DA21B512280015C494 /* WalletBalanceMainTableViewCell.swift in Sources */,
 				342EEFB52233866500E4354C /* TicketListViewController.swift in Sources */,
+				4689899C22C654A4001DE146 /* BidListContainerViewController.swift in Sources */,
 				342EEFB32233866500E4354C /* TicketListViewCell.swift in Sources */,
 				3A84BC9421C22B2E00EDA3A2 /* RMUniversalAlert.m in Sources */,
 				3A4073A021B512280015C494 /* BaseViewController.swift in Sources */,
@@ -1350,6 +1372,7 @@
 				3A4073D521B512280015C494 /* BookTableSelectedDataTableViewCell.swift in Sources */,
 				3A4073A321B512280015C494 /* ParentViewController.swift in Sources */,
 				3A4073B621B512280015C494 /* PackageHistoryViewController.swift in Sources */,
+				4651A27D22C7741900E0CA2F /* BidDetailsViewController.swift in Sources */,
 				3A4073F621B512280015C494 /* ARCarMovement.swift in Sources */,
 				3A40741021B512280015C494 /* SingletonClass.swift in Sources */,
 				3A4073A121B512280015C494 /* HeaderView.swift in Sources */,
@@ -1363,6 +1386,7 @@
 				34E50033221EAF7C009EF357 /* LoginVC.swift in Sources */,
 				3A4073D821B512280015C494 /* MyRecepitTableViewCell.swift in Sources */,
 				3A4073C621B512280015C494 /* InviteDriverViewController.swift in Sources */,
+				4651A27722C72EC600E0CA2F /* OpenBidListViewController.swift in Sources */,
 				3A4073A421B512280015C494 /* AllDriversOnMapViewController.swift in Sources */,
 				3A40740521B512280015C494 /* Int+Timepiece.swift in Sources */,
 				3A4073D921B512280015C494 /* ShoppingTableViewCell.swift in Sources */,
