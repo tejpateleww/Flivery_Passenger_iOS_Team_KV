@@ -100,8 +100,8 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
 //        arrMenuIcons = ["MyBooking","iconPaymentOption","iconStarOfSideMenu","MyReceipts","iconInviteFriends","FAQ","iconLogOut"]
 //        arrMenuTitle = ["My Bookings","Payment Options","Favourites","My Receipts","Invite Friends","Help","Logout"]
         
-        arrMenuIcons = ["MyBooking","iconPaymentOption","MyReceipts","","iconInviteFriends","iconLogOut"]//,"iconStarOfSideMenu"
-        arrMenuTitle = ["My Shipping","Payment Options","My Receipts","Post a Bid","Invite Friends","Logout"]//,"Favourites"
+        arrMenuIcons = ["MyBooking","iconPaymentOption","MyReceipts","icon_Legal","iconInviteFriends","iconLogOut"]//,"iconStarOfSideMenu"
+        arrMenuTitle = ["My Shipping","Payment Options","My Receipts","Bid List","Invite Friends","Logout"]//,"Favourites"
         
         //,"icon_UnSelectedWallet",,"icon_PaymentOptionsUnselect"
 //                        "iconSettings","iconMyBooking","iconPackageHistory","iconLogOut"]
@@ -379,7 +379,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
             
             cellMenu.imgDetail?.image = UIImage.init(named:"\(arrMenuIcons[indexPath.row])")
             cellMenu.selectionStyle = .none
-            
+                 cellMenu.imgDetail?.tintColor = UIColor.white
             cellMenu.lblTitle.text = arrMenuTitle[indexPath.row]
             
             return cellMenu
@@ -433,7 +433,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
                 NotificationCenter.default.post(name: OpenSetting, object: nil)
                 sideMenuController?.toggle()
             }
-            else if arrMenuTitle[indexPath.row] == "Post a Bid" {
+            else if arrMenuTitle[indexPath.row] == "Bid List" {
                 NotificationCenter.default.post(name: OpenPostABid, object: nil)
                 sideMenuController?.toggle()
             }

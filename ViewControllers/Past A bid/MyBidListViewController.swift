@@ -11,21 +11,29 @@ import UIKit
 class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
 
-    
-    
-    
     @IBOutlet weak var tblView: UITableView!
-    
-    
-    
-    
+    private let refreshControl = UIRefreshControl()
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        tblView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
 
         // Do any additional setup after loading the view.
     }
     
+
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch Weather Data
+        webserviceCallToGetBidList()
+    }
+
+
+    func webserviceCallToGetBidList()
+    {
+
+    }
 
     /*
     // MARK: - Navigation

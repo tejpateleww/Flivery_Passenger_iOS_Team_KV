@@ -522,18 +522,23 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         
         self.aryParcelTransport = SingletonClass.sharedInstance.aryParcelTransport
         let arrNameTransport = self.aryParcelTransport.map({$0["Name"] as! String})
-        self.txtTransportService.isOptionalDropDown = false
-        self.txtTransportService.itemList = arrNameTransport
-        let dictData = self.aryParcelTransport[0]
-        
-        print(dictData)
-        
-        
-        if let selectID = dictData["Id"] as? String
+
+
+        if(arrNameTransport.count != 0)
         {
-            self.strSelectedParcelID = selectID
+            self.txtTransportService.isOptionalDropDown = false
+            self.txtTransportService.itemList = arrNameTransport
+            let dictData = self.aryParcelTransport[0]
+
+            print(dictData)
+
+
+            if let selectID = dictData["Id"] as? String
+            {
+                self.strSelectedParcelID = selectID
+            }
+            print(self.strSelectedParcelID)
         }
-        print(self.strSelectedParcelID)
         
         currentLocationAction()
     }
@@ -3928,11 +3933,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         let HelpStoryBoard = UIStoryboard(name: "Main", bundle: nil)
 //        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "PostABidViewController") as! PostABidViewController
 //        self.navigationController?.pushViewController(next, animated: true)
+
         
-        
-        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
+        let next = HelpStoryBoard.instantiateViewController(withIdentifier: "BidListContainerViewController") as! BidListContainerViewController
         self.navigationController?.pushViewController(next, animated: true)
-        
+
     }
     
     

@@ -64,7 +64,7 @@ let screenWidthDeveloper : Double = 320
 //}
 
 //let appCurrentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-
+//http://34.73.215.81/web/Passenger_Api/PostBid/
 
 struct WebserviceURLs {
     static let kBaseURL                                  = "http://34.73.215.81/web/Passenger_Api/"//https://nexusappllc.com/web/Passenger_Api/"
@@ -111,6 +111,8 @@ struct WebserviceURLs {
     static let kTicketList                              = "ticketList/"
     static let kTicketChatHistory                       = "ticketChatHistory/"
     static let kTicketChat                              = "ticketChat"
+    static let kPostBid                                 = "PostBid"
+
     
     static let kReviewRating                            = "ReviewRating"
     static let kGetTickpayApprovalStatus                = "GetTickpayApprovalStatus/"

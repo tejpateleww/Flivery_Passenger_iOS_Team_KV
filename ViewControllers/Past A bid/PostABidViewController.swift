@@ -8,8 +8,10 @@
 
 import UIKit
 import ACFloatingTextfield_Swift
+import GoogleMaps
+import GooglePlaces
 
-class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate {
+class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var txtShippersName: ACFloatingTextfield?
     @IBOutlet weak var txtPickUpLocation: UITextField?
@@ -24,6 +26,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var imgDocument : UIImageView!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var btnSelectLuggage: UIButton!
+    var CardID = String()
     var arrNumberOfOnlineCars : [[String:AnyObject]]!
     var selectedIndexPath: IndexPath?
     var strCarModelClass = String()
@@ -34,12 +37,19 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     var strCarModelIDIfZero = String()
     var imageView : UIImageView!
     var datePickerView  : UIDatePicker = UIDatePicker()
+    var isPickupLocation = Bool()
 
+    var pickUpCoordinate : CLLocationCoordinate2D!
+    var dropOffCoordinate : CLLocationCoordinate2D!
+    var pickerView = UIPickerView()
+    var aryCards = [[String:AnyObject]]()
     @IBOutlet weak var collectionviewCars: UICollectionView!
     @IBOutlet var viewSelectVehicle: UIView!
 
+    @IBOutlet weak var imgPaymentOption: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
 
         self.setNavBarWithMenuORBack(Title: "Post a Bid".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
         setupButtonAndTextfield()
@@ -51,9 +61,22 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         TxtDateAndTime?.inputView = datePickerView
         TxtDateAndTime?.delegate = self
 
+        strModelId = "0"
+
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
 
-        // Do any additional setup after loading the view.
+        txtPayment?.inputView = pickerView
+        pickerView.delegate = self
+
+        webserviceOfCardList()
+//        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+//        leftView.backgroundColor = UIColor.clear
+//        let imgflag = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25)) as UIImageView
+//        imgflag.image = UIImage(named: "iconcard")
+//        leftView.addSubview(imgflag)
+//        self.txtPayment?.leftView = leftView
+//        self.txtPayment?.leftViewMode = .always
+
     }
 
     func setupButtonAndTextfield()
@@ -79,24 +102,43 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         if (textField == TxtDateAndTime)
         {
             let dateFormaterView = DateFormatter()
-            dateFormaterView.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+            dateFormaterView.dateFormat = "yyyy-MM-dd HH:mm:ss"
             TxtDateAndTime?.text = dateFormaterView.string(from: datePickerView.date)
         }
     }
 
 
     @IBAction func selectImageForLuggage(_ sender: UIButton) {
-
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
         pickerController.mediaTypes = ["public.image"]
-        pickerController.sourceType = .camera
-
         self.imagePicker.present(from: sender)
+    }
 
+    func PickingImageFromCamera(_ sender: UIButton)
+    {
+        let picker = UIImagePickerController()
 
+        picker.delegate = self
+        picker.allowsEditing = false
+        if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
+            UtilityClass.showAlert("", message: "Camera is not working!", vc: self)
+            return
+        }
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+         self.imagePicker.present(from: sender)
+    }
 
+    func PickingImageFromGallery(_ sender: UIButton)
+    {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = [kUTTypeImage as String]
+         self.imagePicker.present(from: sender)
     }
 
 
@@ -115,17 +157,8 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarsCollectionViewCell", for: indexPath as IndexPath) as! CarsCollectionViewCell
 
-
-        //        cell.viewOfImage.layer.cornerRadius = cell.viewOfImage.frame.width / 2
-        //        cell.viewOfImage.layer.borderWidth = 3.0
-
-
         cell.CarUnderline.backgroundColor = ThemeNaviBlueColor
         cell.lblCarType.textColor = ThemeNaviBlueColor
-        //        cell.lblPrices.textColor = ThemeNaviBlueColor
-        //        cell.lblMinutes.textColor = ThemeNaviBlueColor
-        //        cell.lblAvailableCars.textColor = ThemeNaviBlueColor
-
 
         if selectedIndexPath == indexPath
         {
@@ -138,11 +171,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         }
         else
         {
-            //            cell.CarUnderline.backgroundColor = UIColor.black
-            //            cell.lblCarType.textColor = UIColor.black
-            //            cell.lblPrices.textColor = UIColor.black
-            //            cell.lblMinutes.textColor = UIColor.black
-            //            cell.lblAvailableCars.textColor = UIColor.black
+
             cell.viewOfImage.layer.cornerRadius = 25.0
             cell.viewOfImage.layer.masksToBounds = true
             cell.viewOfImage.layer.borderColor = UIColor.lightGray.cgColor
@@ -167,8 +196,6 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
                 cell.imgCars.sd_setShowActivityIndicatorView(false)
             })
 
-            //            cell.lblMinutes.isHidden = true
-            //            cell.lblPrices.isHidden = true
             cell.lblCarType.text = (dictOnlineCarData["Name"] as? String)?.uppercased()
 
             /*
@@ -345,15 +372,15 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             //                strCarModelID = ""
             strCarModelIDIfZero = carModelIDConverString
 
-            let available = dictOnlineCarData["carCount"] as? Int ?? 0
-            let checkAvailabla = String(available)
+//            let available = dictOnlineCarData["carCount"] as? Int ?? 0
+//            let checkAvailabla = String(available)
 
-            if checkAvailabla != "0" {
+//            if checkAvailabla != "0" {
                 strModelId = dictOnlineCarData["Id"] as? String ?? ""
-            }
-            else {
-                strModelId = ""
-            }
+//            }
+//            else {
+//                strModelId = ""
+//            }
             imageView.image = cell.imgCars.image
             txtVehicleType?.text = strCarName
 
@@ -390,6 +417,343 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         //        self.viewCarLists.frame.size.height
     }
 
+    //PassengerId, ModelId, PickupLocation, DropoffLocation, PickupLat,PickupLng, DropOffLat, DropOffLon, PickupDateTime,ShipperName,Budget,CardId,Notes, Image
+
+
+
+    func validations() -> Bool
+    {
+        if(strModelId == "0")
+        {
+            return false
+        }
+        else if(txtPickUpLocation?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtDropLocation?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(TxtDateAndTime?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtShippersName?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtBudget?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtWeight?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtQuantity?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(txtNotes?.text?.isBlank == true)
+        {
+            return false
+        }
+        else if(pickUpCoordinate == nil)
+        {
+            return false
+        }
+        else if(dropOffCoordinate == nil)
+        {
+            return false
+        }
+        else if(CardID.isBlank==true)
+        {
+            return false
+        }
+
+
+        return true
+    }
+
+   
+    @IBAction func txtLocation(_ sender: UITextField)
+    {
+        if(sender.tag == 1)
+        {
+            placepickerMethodForLocation(isPickupLocation: true)
+            isPickupLocation = true
+        }
+        else
+        {
+            placepickerMethodForLocation(isPickupLocation: false)
+            isPickupLocation = false
+        }
+    }
+
+    //MARK:- Setup Pickup and Destination Location
+
+    func placepickerMethodForLocation(isPickupLocation : Bool)
+    {
+//        let visibleRegion = mapView.projection.visibleRegion()
+//        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+//        acController.autocompleteBounds = bounds
+        present(acController, animated: true, completion: nil)
+    }
+
+    //-------------------------------------------------------------
+    // MARK: - PickerView Methods
+    //-------------------------------------------------------------
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return aryCards.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 60
+    }
+
+    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    //
+    //    }
+
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+
+        let data = aryCards[row]
+
+        let myView = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
+
+        let centerOfmyView = myView.frame.size.height / 4
+
+
+        let myImageView = UIImageView(frame: CGRect(x:0, y:centerOfmyView, width:40, height:26))
+        myImageView.contentMode = .scaleAspectFit
+
+        var rowString = String()
+
+        switch row {
+
+        case 0:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 1:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 2:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 3:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 4:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 5:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 6:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 7:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 8:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 9:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        case 10:
+            rowString = data["CardNum2"] as! String
+            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        default:
+            rowString = "Error: too many rows"
+            myImageView.image = nil
+        }
+        let myLabel = UILabel(frame: CGRect(x:60, y:0, width:pickerView.bounds.width - 90, height:60 ))
+        //        myLabel.font = UIFont(name:some, font, size: 18)
+        myLabel.text = rowString
+
+        myView.addSubview(myLabel)
+        myView.addSubview(myImageView)
+
+        return myView
+    }
+
+    var isAddCardSelected = Bool()
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        let data = aryCards[row]
+
+        imgPaymentOption.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+        txtPayment?.text = data["CardNum2"] as? String
+
+        if data["CardNum"] as! String == "Add a Card" {
+
+            isAddCardSelected = true
+            //            self.addNewCard()
+        }
+
+            if data["Id"] as? String != "" {
+                CardID = data["Id"] as! String
+            }
+
+    }
+
+    func addNewCard() {
+
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+//        next.delegateAddCardFromBookLater = self
+        self.isAddCardSelected = false
+        self.navigationController?.present(next, animated: true, completion: nil)
+    }
+
+
+    @IBAction func btnSubmitABid(_ sender: Any) {
+        webserviceCallForPostABid()
+    }
+
+
+
+    //-------------------------------------------------------------
+    // MARK: - Webservice Methods
+    //-------------------------------------------------------------
+
+
+
+    func webserviceOfCardList() {
+
+        webserviceForCardList(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
+
+            if (status) {
+                print(result)
+
+                if let res = result as? [String:AnyObject] {
+                    if let cards = res["cards"] as? [[String:AnyObject]] {
+                        self.aryCards = cards
+                    }
+                }
+
+                self.pickerView.selectedRow(inComponent: 0)
+                let data = self.aryCards[0]
+
+                self.imgPaymentOption.image = UIImage(named: self.setCardIcon(str: data["Type"] as! String))
+                self.txtPayment?.text = data["CardNum2"] as? String
+
+//                let type = data["CardNum"] as! String
+                //
+                //                if type  == "wallet" {
+                //                    self.paymentType = "wallet"
+                //                }
+                //                else
+
+
+
+                if data["Id"] as? String != "" {
+                    self.CardID = data["Id"] as! String
+                }
+
+                //                 self.paymentType = "cash"
+                self.pickerView.reloadAllComponents()
+
+            }
+            else {
+                print(result)
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+    }
+
+    func webserviceCallForPostABid()
+    {
+
+        if(self.validations() == true)
+        {
+            var dictParams = [String:Any]()
+            dictParams["PassengerId"] = SingletonClass.sharedInstance.strPassengerID
+            dictParams["ModelId"] = strModelId
+            dictParams["PickupLocation"] = txtPickUpLocation?.text ?? ""
+            dictParams["DropoffLocation"] = txtDropLocation?.text ?? ""
+            dictParams["PickupLat"] = pickUpCoordinate.latitude
+            dictParams["PickupLng"] = pickUpCoordinate.longitude
+            dictParams["DropOffLat"] = dropOffCoordinate.latitude
+            dictParams["DropOffLon"] = dropOffCoordinate.longitude
+            dictParams["PickupDateTime"] = TxtDateAndTime?.text ?? ""
+            dictParams["ShipperName"] = txtShippersName?.text ?? ""
+            dictParams["Budget"] = txtBudget?.text ?? ""
+            dictParams["CardId"] = CardID
+            dictParams["Weight"] = txtWeight?.text ?? "0"
+            dictParams["Quantity"] = txtQuantity?.text ?? "0"
+            dictParams["Notes"] = txtNotes?.text ?? ""
+
+            webserviceForPostABid(dictParams as AnyObject, image1: self.imgDocument.image ?? UIImage()) { (result, status) in
+                if(status == true)
+                {
+                    UtilityClass.showAlertWithCompletion("", message: "Your bid has been placed", vc: self, completionHandler: { (status) in
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+            }
+        }
+    }
+
+    func setCardIcon(str: String) -> String {
+        //        visa , mastercard , amex , diners , discover , jcb , other
+        var CardIcon = String()
+
+        switch str {
+        case "visa":
+            CardIcon = "Visa"
+            return CardIcon
+        case "mastercard":
+            CardIcon = "MasterCard"
+            return CardIcon
+        case "amex":
+            CardIcon = "Amex"
+            return CardIcon
+        case "diners":
+            CardIcon = "Diners Club"
+            return CardIcon
+        case "discover":
+            CardIcon = "Discover"
+            return CardIcon
+        case "jcb":
+            CardIcon = "JCB"
+            return CardIcon
+        case "iconCashBlack":
+            CardIcon = "iconCashBlack"
+            return CardIcon
+        case "iconWalletBlack":
+            CardIcon = "iconWalletBlack"
+            return CardIcon
+        case "iconPlusBlack":
+            CardIcon = "iconPlusBlack"
+            return CardIcon
+        case "other":
+            CardIcon = "iconDummyCard"
+            return CardIcon
+        default:
+            return ""
+        }
+    }
 
     /*
      // MARK: - Navigation
@@ -494,3 +858,32 @@ extension ImagePicker: UIImagePickerControllerDelegate {
 extension ImagePicker: UINavigationControllerDelegate {
 
 }
+
+
+// MARK: - GMSAutocompleteViewControllerDelegate
+extension PostABidViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+
+        if(isPickupLocation)
+        {
+            txtPickUpLocation?.text = "\(place.name ?? ""), \(place.formattedAddress ?? "")"
+            pickUpCoordinate = place.coordinate
+        }
+        else
+        {
+            txtDropLocation?.text = "\(place.name ?? ""), \(place.formattedAddress ?? "")"
+            dropOffCoordinate = place.coordinate
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+

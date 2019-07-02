@@ -16,6 +16,27 @@ class BaseViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+
+    func setNavBarWithBackWithAdd(Title:String)
+    {
+        self.navigationItem.title = Title
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barTintColor = ThemeYellowColor;
+        self.navigationController?.navigationBar.tintColor = UIColor.white;
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        let leftNavBarButton = UIBarButtonItem(image: UIImage(named: kIconBack), style: .plain, target: self, action: #selector(self.btnBackAction))
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+
+        let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.btnCallAction))
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = rightNavBarButton
+    }
+
     func setNavBarWithMenuORBack(Title:String,LetfBtn : String, IsNeedRightButton:Bool ,isTranslucent : Bool)
     {
         //        self.navigationController?.navigationBar.isTranslucent = false

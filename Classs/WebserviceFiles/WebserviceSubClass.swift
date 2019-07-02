@@ -48,7 +48,7 @@ let GenerateTicket = WebserviceURLs.kGenerateTicket
 let TicketList = WebserviceURLs.kTicketList
 let TicketChatHistory = WebserviceURLs.kTicketChatHistory
 let TicketChat = WebserviceURLs.kTicketChat
-
+let PostABid = WebserviceURLs.kPostBid
 let GetPackages = WebserviceURLs.kGetPackages
 
 let ReviewRating = WebserviceURLs.kReviewRating
@@ -328,6 +328,19 @@ func webserviceForAddMoney(_ dictParams: AnyObject, completion: @escaping(_ resu
 {
     let url = AddMoney
     postData(dictParams, nsURL: url, completion: completion)
+}
+
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Post A Bid
+//-------------------------------------------------------------
+
+func webserviceForPostABid(_ dictParams: AnyObject,image1: UIImage , completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = PostABid
+
+    sendImage(dictParams as! [String : AnyObject], image1: image1, nsURL: url, completion: completion)
+//    postData(dictParams, nsURL: url, completion: completion)
 }
 
 //-------------------------------------------------------------
