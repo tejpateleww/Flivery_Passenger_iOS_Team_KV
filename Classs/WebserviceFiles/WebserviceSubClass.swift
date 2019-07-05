@@ -61,8 +61,9 @@ let OTPVerify = WebserviceURLs.kOtpForRegister
 
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
 let GetEstimateFareForDeliveryService = WebserviceURLs.kGetEstimateFareForDeliveryService
-
-
+let GetCustomeBid    = WebserviceURLs.KGetCustomerBid
+let GetCustomerOpenBid = WebserviceURLs.KGetCustomOpenBid
+let GetCustomerBidDetails    = WebserviceURLs.KGetCustomerBidDetails
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
@@ -594,3 +595,31 @@ func webserviceForGetEstimateFareForDeliveryService(_ dictParams: AnyObject, com
     postData(dictParams, nsURL: url, completion: completion)
 }
 
+//-------------------------------------------------------------
+// MARK: - Webservice For Get Customer Bid
+//-------------------------------------------------------------
+
+func webserviceForGetCustomerBid(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = GetCustomeBid
+    getData(dictParams, nsURL: url, completion: completion)
+}
+//-------------------------------------------------------------
+// MARK: - Webservice For Get Customer Open Bid
+//-------------------------------------------------------------
+
+func webserviceForGetCustomerOpenBid(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = GetCustomerOpenBid + "/\(SingletonClass.sharedInstance.strPassengerID)"
+    getData(dictParams, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Get Customer Bid Details
+//-------------------------------------------------------------
+
+func webserviceForGetCustomerBidDetails(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = GetCustomerBidDetails + "/\(dictParams)"
+    getData(dictParams, nsURL: url, completion: completion)
+}

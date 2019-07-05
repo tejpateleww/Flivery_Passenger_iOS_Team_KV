@@ -208,15 +208,15 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     }
     typealias alertCompletionBlockAJ = ((Int, String) -> Void)?
     
-    class func setCustomAlert(title: String, message: String,completionHandler: alertCompletionBlockAJ) -> Void {
+    class func setCustomAlert(title: String, message: String,completionHandler: alertCompletionBlockAJ = nil) -> Void {
        
         AJAlertController.initialization().showAlertWithOkButton(aStrTitle: title, aStrMessage: message.localized) { (index,title) in
             
             if index == 0 {
-                completionHandler?(0,title)
+                if completionHandler != nil { completionHandler!(0,title)}
             }
             else if index == 2 {
-                completionHandler?(2,title)
+                if completionHandler != nil { completionHandler!(2,title)}
             }
         }
         
@@ -280,8 +280,42 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
 
     }
+// Error Message Show
+    class func defaultMsg(result:Any) -> String {
+        if let res = result as? String {
+            return res
+        }
+        else if let resDict = result as? [String:Any] {
+            if let message = resDict["message"] as? String {
+                return message
+            }
+        }
+        else if let resAry = result as? [[String:Any]] {
+            if let message = resAry[0]["message"] as? String{
+                return message
+            }
+        }
+        return ""
+    }
+    
 
+class func formattedDateFromString(dateString: String, withFormat format: String) -> String? {
+    
+    let inputFormatter = DateFormatter()
+    inputFormatter.dateFormat = "yyyy/MM/dd"
+    
+    if let date = inputFormatter.date(from: dateString) {
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = format
+        
+        return outputFormatter.string(from: date)
+    }
+    
+    return nil
 }
+}
+
 
 extension UILabel {
     func underlineToLabel() {
@@ -294,6 +328,9 @@ extension UILabel {
         }
     }
 }
+
+
+
 
 
 //-------------------------------------------------------------
@@ -352,5 +389,14 @@ extension UIViewController {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
-    
+
 }
+extension DateFormatter {
+    
+    convenience init (format: String) {
+        self.init()
+        dateFormat = format
+        locale = Locale.current
+    }
+}
+

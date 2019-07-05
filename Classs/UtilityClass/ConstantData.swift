@@ -82,8 +82,10 @@ struct WebserviceURLs {
     static let kBookingHistory                          = "BookingHistory"
     static let kPastBooking                             = "PastBooking"
     static let kGetEstimateFare                         = "GetEstimateFare"
-    static let kImageBaseURL                            = "https://nexusappllc.com/web/"
+    static let kImageBaseURL                            = "http://34.73.215.81/web/"
+    //"https://nexusappllc.com/web/"
     //"http://3.17.200.7/web/"
+    
 
     static let kFeedbackList                            = "FeedbackList/"
     static let kCardsList                               = "Cards/"
@@ -124,7 +126,9 @@ struct WebserviceURLs {
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
     
     static let kGetEstimateFareForDeliveryService       = "GetEstimateFareForDeliveryService"
-    
+    static let KGetCustomerBid                          = "CustomerBid"
+    static let KGetCustomOpenBid                        = "CustomerOpenBid"
+    static let KGetCustomerBidDetails                   = "CustomerBidDetails"
 
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
 }

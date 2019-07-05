@@ -11,6 +11,13 @@ import ACFloatingTextfield_Swift
 import GoogleMaps
 import GooglePlaces
 
+protocol RefreshData {
+    func dataRefresh()
+}
+
+
+
+
 class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var txtShippersName: ACFloatingTextfield?
@@ -38,7 +45,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     var imageView : UIImageView!
     var datePickerView  : UIDatePicker = UIDatePicker()
     var isPickupLocation = Bool()
-
+    var Delegate : RefreshData!
     var pickUpCoordinate : CLLocationCoordinate2D!
     var dropOffCoordinate : CLLocationCoordinate2D!
     var pickerView = UIPickerView()
@@ -51,6 +58,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
+        txtDropLocation?.delegate = self
+        txtPickUpLocation?.delegate = self
+        
         self.setNavBarWithMenuORBack(Title: "Post a Bid".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
         setupButtonAndTextfield()
 
@@ -93,7 +103,6 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         paddingView.addSubview(imageView)
         txtVehicleType?.rightViewMode = .always
         txtVehicleType?.rightView = paddingView
-
 
     }
 
@@ -425,38 +434,48 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     {
         if(strModelId == "0")
         {
+            UtilityClass.showAlert("Error", message: "Please Select Car Type", vc: self)
             return false
+           
         }
         else if(txtPickUpLocation?.text?.isBlank == true)
         {
+          UtilityClass.showAlert("Error", message: "Please Enter PickUP Location", vc: self)
             return false
         }
         else if(txtDropLocation?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Drop Location", vc: self)
             return false
         }
         else if(TxtDateAndTime?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Select Date and time", vc: self)
             return false
         }
         else if(txtShippersName?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Shipper Name", vc: self)
             return false
         }
         else if(txtBudget?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Budget", vc: self)
             return false
         }
         else if(txtWeight?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Weight", vc: self)
             return false
         }
         else if(txtQuantity?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Quantity", vc: self)
             return false
         }
         else if(txtNotes?.text?.isBlank == true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Notes", vc: self)
             return false
         }
         else if(pickUpCoordinate == nil)
@@ -469,6 +488,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         }
         else if(CardID.isBlank==true)
         {
+            UtilityClass.showAlert("Error", message: "Please Enter Card Number", vc: self)
             return false
         }
 
@@ -476,30 +496,48 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         return true
     }
 
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField == txtPickUpLocation {
+            
+            placepickerMethodForLocation()
+            isPickupLocation = true
+          return false
+        } else if textField == txtDropLocation {
+            
+            placepickerMethodForLocation()
+            isPickupLocation = false
+            return false
+        }
+        
+        return true
+    }
    
-    @IBAction func txtLocation(_ sender: UITextField)
+    /*@IBAction func txtLocation(_ sender: UITextField)
     {
         if(sender.tag == 1)
         {
-            placepickerMethodForLocation(isPickupLocation: true)
+            placepickerMethodForLocation()
             isPickupLocation = true
         }
         else
         {
-            placepickerMethodForLocation(isPickupLocation: false)
+            placepickerMethodForLocation()
             isPickupLocation = false
         }
     }
+ */
 
     //MARK:- Setup Pickup and Destination Location
 
-    func placepickerMethodForLocation(isPickupLocation : Bool)
+    func placepickerMethodForLocation()
     {
 //        let visibleRegion = mapView.projection.visibleRegion()
 //        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
 //        acController.autocompleteBounds = bounds
+        
         present(acController, animated: true, completion: nil)
     }
 
@@ -617,6 +655,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 
 
     @IBAction func btnSubmitABid(_ sender: Any) {
+        
         webserviceCallForPostABid()
     }
 
@@ -704,16 +743,20 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             dictParams["Quantity"] = txtQuantity?.text ?? "0"
             dictParams["Notes"] = txtNotes?.text ?? ""
 
+            print(dictParams)
             webserviceForPostABid(dictParams as AnyObject, image1: self.imgDocument.image ?? UIImage()) { (result, status) in
                 if(status == true)
                 {
+                    print(result)
                     UtilityClass.showAlertWithCompletion("", message: "Your bid has been placed", vc: self, completionHandler: { (status) in
+                        self.Delegate.dataRefresh()
                         self.navigationController?.popViewController(animated: true)
                     })
                 }
             }
         }
     }
+    
 
     func setCardIcon(str: String) -> String {
         //        visa , mastercard , amex , diners , discover , jcb , other
@@ -755,15 +798,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         }
     }
 
-    /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+  
 
 }
 

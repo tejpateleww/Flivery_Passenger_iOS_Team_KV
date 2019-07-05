@@ -188,6 +188,8 @@
 		4689899C22C654A4001DE146 /* BidListContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4689899B22C654A4001DE146 /* BidListContainerViewController.swift */; };
 		46DC8FFF225E088F00B13EB2 /* ThemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC8FFE225E088F00B13EB2 /* ThemView.swift */; };
 		46DC9001225E08B600B13EB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC9000225E08B600B13EB2 /* Constants.swift */; };
+		644429C122CB639A008B91EA /* NoDataFoundTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644429BF22CB6397008B91EA /* NoDataFoundTableViewCell.xib */; };
+		644429C222CB639A008B91EA /* NoDataFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */; };
 		8E3DD1613B5C20B5D5EFEE9A /* Pods_Flivery_User.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */; };
 		EE3BCCBA22C3A15E00BCBC9E /* PostABidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */; };
 /* End PBXBuildFile section */
@@ -386,6 +388,8 @@
 		532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flivery_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C887A7607BF7D1623FC535A /* Pods-TanTaxi User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TanTaxi User.release.xcconfig"; path = "Pods/Target Support Files/Pods-TanTaxi User/Pods-TanTaxi User.release.xcconfig"; sourceTree = "<group>"; };
 		626E9D33B8993B5928C11526 /* Pods_TanTaxi_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TanTaxi_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		644429BF22CB6397008B91EA /* NoDataFoundTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataFoundTableViewCell.xib; sourceTree = "<group>"; };
+		644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoDataFoundTableViewCell.swift; sourceTree = "<group>"; };
 		6C5BB4D02F5DAB560A69DD39 /* Pods_PickNGo_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickNGo_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9D1AFC2E46418F626C956 /* Pods-TickTok User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickTok User.release.xcconfig"; path = "Pods/Target Support Files/Pods-TickTok User/Pods-TickTok User.release.xcconfig"; sourceTree = "<group>"; };
 		94C0D7BC78B29F8F1DC79A5C /* Pods-Nexus User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nexus User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nexus User/Pods-Nexus User.debug.xcconfig"; sourceTree = "<group>"; };
@@ -996,6 +1000,8 @@
 				4689899B22C654A4001DE146 /* BidListContainerViewController.swift */,
 				4651A27C22C7741900E0CA2F /* BidDetailsViewController.swift */,
 				4651A27A22C773CD00E0CA2F /* DriverOffersListViewCell.swift */,
+				644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */,
+				644429BF22CB6397008B91EA /* NoDataFoundTableViewCell.xib */,
 			);
 			name = "Post A Bid";
 			path = "New Group";
@@ -1111,6 +1117,7 @@
 				3A40738D21B512280015C494 /* aldi.jpg in Resources */,
 				3A40739121B512280015C494 /* IGABrand.jpg in Resources */,
 				3A40740121B512280015C494 /* round30.png in Resources */,
+				644429C122CB639A008B91EA /* NoDataFoundTableViewCell.xib in Resources */,
 				3A4073FB21B512280015C494 /* circle.png in Resources */,
 				3A40738A21B512280015C494 /* proxima-nova-semibold.otf in Resources */,
 				3A40740321B512280015C494 /* round70.png in Resources */,
@@ -1283,6 +1290,7 @@
 				3A4073A521B512280015C494 /* BookLaterViewController.swift in Sources */,
 				3A40740621B512280015C494 /* NSCalendar+Timepiece.swift in Sources */,
 				3A4073DF21B512280015C494 /* TripDetailsTableViewCell.swift in Sources */,
+				644429C222CB639A008B91EA /* NoDataFoundTableViewCell.swift in Sources */,
 				3A4073E921B512280015C494 /* WalletTransferToBankVC.swift in Sources */,
 				3A84BC9B21C23CFC00EDA3A2 /* RadioButton.m in Sources */,
 				3A4073E321B512280015C494 /* WalletAddCardsViewController.swift in Sources */,

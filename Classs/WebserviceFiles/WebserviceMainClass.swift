@@ -116,13 +116,27 @@ func sendImage(_ dictParams: [String:AnyObject], image1: UIImage?, nsURL: String
             }
         }
         
-        for (key, value) in dictParams
-        {
-            
-            print(value)
-            multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key )
-            
+        for (key, value) in dictParams {
+            if JSONSerialization.isValidJSONObject(value) {
+                let array = value as! [String]
+                
+                for string in array {
+                    if let stringData = string.data(using: .utf8) {
+                        multipartFormData.append(stringData, withName: key+"[]")
+                    }
+                }
+            } else {
+                multipartFormData.append(String(describing: value).data(using: .utf8)!, withName: key)
+            }
         }
+        
+//        for (key, value) in dictParams
+//        {
+//
+//            print(value)
+//            multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key )
+//
+//        }
     }, usingThreshold: 10 * 1024 * 1024, to: url, method: .post, headers: header) { (encodingResult) in
         switch encodingResult
         {

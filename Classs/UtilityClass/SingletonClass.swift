@@ -38,7 +38,9 @@ class SingletonClass: NSObject {
     
     var isCardsVCFirstTimeLoad: Bool = true
     var CardsVCHaveAryData = [[String:AnyObject]]()
-    
+    var CustomerOpenBids = [[String:AnyObject]]()
+    var CustomerBidDetails = [[String:AnyObject]]()
+    var customerBids = [[String:AnyObject]]()
     var strCurrentBalance = Double()
     var walletHistoryData = [[String:AnyObject]]()
     var aryParcelTransport = [[String:AnyObject]]()

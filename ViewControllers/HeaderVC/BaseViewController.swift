@@ -32,7 +32,7 @@ class BaseViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.leftBarButtonItem = leftNavBarButton
 
-        let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.btnCallAction))
+        let rightNavBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.navigateToPostBidVC))
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = rightNavBarButton
     }
@@ -194,6 +194,16 @@ class BaseViewController: UIViewController {
             callNumber(phoneNumber: contactNumber)
         }
     }
+    
+    @objc func navigateToPostBidVC(){
+        guard let bidListContainer = self as? BidListContainerViewController else {
+            return
+        }
+        let bidPostVC = self.storyboard?.instantiateViewController(withIdentifier: "PostABidViewController") as! PostABidViewController
+        bidPostVC.Delegate = bidListContainer
+        self.navigationController?.pushViewController(bidPostVC, animated: true)
+    }
+    
     
     
     private func callNumber(phoneNumber:String) {
