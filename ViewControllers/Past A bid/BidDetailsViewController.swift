@@ -8,10 +8,11 @@
 
 import UIKit
 import SDWebImage
+import Cosmos
 
 class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
-
+    //MARK:- ====== Outlets ======
     @IBOutlet weak var viewLabel: UIView!
     @IBOutlet weak var iconVehicle: UIImageView!
     @IBOutlet weak var lblBidCount: UILabel!
@@ -28,31 +29,33 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblDriveOfferTitle: UILabel!
     @IBOutlet weak var tblView: UITableView!
-    
-    
-     private let refreshControl = UIRefreshControl()
-     var bidDetail = [String:Any]()
-     var aryData = [[String:AnyObject]]()
-     var arrNumberOfOnlineCars : [[String:AnyObject]]!
-     var arrBidDetails = [[String:AnyObject]]()
-     let dateFormatter = DateFormatter(format: "yyyy/MM/dd")
-     let date = Date()
-    
   
+    //MARK:- ====== Variables ======
+    private let refreshControl = UIRefreshControl()
+    var bidDetail = [String:Any]()
+    var aryData = [[String:AnyObject]]()
+    var arrNumberOfOnlineCars : [[String:AnyObject]]!
+    var arrBidDetails = [[String:AnyObject]]()
+    let dateFormatter = DateFormatter(format: "yyyy/MM/dd")
+    let date = Date()
+    var strbidID = String()
+    var strDriverID = String()
+    var isselected = Bool()
+    
+  //MARK:- ====== View Controller Life Cycle ======
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tblView.register(UINib(nibName: "NoDataFoundTableViewCell", bundle: nil), forCellReuseIdentifier: "NoDataFoundTableViewCell")
         arrNumberOfOnlineCars = SingletonClass.sharedInstance.arrCarLists as? [[String : AnyObject]]
         DataSetup()
     }
-   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
     }
     
+    //MARK:- ====== Data Setup Method======
     func DataSetup(){
+         self.viewLabel.isHidden = self.arrBidDetails.count > 0 ? false : true
         if let distance = aryData[0]["Distance"] as? String{
             lblDistance.text = distance
         }
@@ -74,11 +77,12 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         if let droplocation = aryData[0]["DropoffLocation"] as? String{
             lblDropoffLocation.text = droplocation
         }
+        
         if let bids = aryData[0]["DriverBids"] as? String{
             lblBidCount.text = "Bids - " + bids
-            viewLabel.isHidden = bids != "0" ? false : true
             if bids != "0"{
                 if let bidID = aryData[0]["Id"] as? String{
+                    print(bidID)
                     if bidID != "0"{
                         GetBidDetails(bidID: bidID)
                     }
@@ -95,21 +99,18 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
                 }
             }
         }
-       
-      
     }
     
-    
+     //MARK:- ====== Api call For Get Bid Details ======
     func GetBidDetails(bidID : String){
        
         webserviceForGetCustomerBidDetails(bidID as AnyObject) { (result, status) in
             if (status) {
                 print(result)
                 self.arrBidDetails = (result as! NSDictionary).object(forKey: "data") as! [[String:AnyObject]]
+               
                 SingletonClass.sharedInstance.CustomerBidDetails = self.arrBidDetails
-                
                 self.tblView.reloadData()
-                
                 self.refreshControl.endRefreshing()
             }
             else {
@@ -119,7 +120,7 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
             }
         }
     }
-   
+    //MARK:- ====== Tableview Datasource And Delegate Methods ======
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
@@ -142,8 +143,8 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         let customCell = self.tblView.dequeueReusableCell(withIdentifier: "DriverOffersListViewCell") as! DriverOffersListViewCell
         
         customCell.selectionStyle = .none
-        customCell.imgProfile.layer.cornerRadius = self.view.frame.height/2
-        customCell.imgProfile.clipsToBounds = true
+        customCell.btnAccept.tag = indexPath.row
+            customCell.btnAccept.addTarget(self, action: #selector(btnActionAccept(_:)), for: .touchUpInside)
         if let driverName = arrBidDetails[indexPath.row]["Fullname"] as? String{
             customCell.lblDriverName.text = driverName
         }
@@ -157,91 +158,67 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
             customCell.lblDetail.text = driverNotes
         }
         if let ratingcount = arrBidDetails[indexPath.row]["DriverRating"] as? String{
+            customCell.ratingView.rating = Double(ratingcount)!
             customCell.lblRate.text =  ratingcount
         }
-        if let deadHead = aryData[indexPath.row]["DeadHead"] as? String{
+        if let deadHead = arrBidDetails[indexPath.row]["DeadHead"] as? String{
             customCell.lblTime.text = deadHead
         }
-        
-        //        let dictData = arrTicketList[indexPath.row] as! [String : AnyObject]
-        //
-        //        //
-        //        //
-        //        customCell.lblTicketID.text = "Ticket ID: \(dictData["TicketId"] as! String)"
-        //        customCell.lblTitle.text = dictData["TicketTitle"] as! String
-        //        let StrStatus = dictData["Status"] as! String
-        //
-        //        if StrStatus == "0"
-        //        {
-        //            customCell.lblStatus.text = "Pending"
-        //        }
-        //        if StrStatus == "1"
-        //        {
-        //            customCell.lblStatus.text = "Processing"
-        //        }
-        //        if StrStatus == "2"
-        //        {
-        //            customCell.lblStatus.text = "Complete"
-        //        }
-        //
-        
+        if let bidID = arrBidDetails[indexPath.row]["BidId"] as? String{
+           strbidID = bidID
+        }
+        if let DriverID = arrBidDetails[indexPath.row]["DriverId"] as? String{
+           strDriverID = DriverID
+        }
         return customCell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        
-        //        let dictData = arrTicketList[indexPath.row] as! [String : AnyObject]
-        //
-        //        //
-        //        //
-        //
-        //        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        //        viewController.strTicketID = dictData["TicketId"] as! String
-        //        viewController.strTicketTile = dictData["TicketTitle"] as! String
-        //
-        //        self.navigationController?.pushViewController(viewController, animated: true)
-        
-        /*
-         let dictData = arrReviewData[indexPath.row]
-         if let cell = tblView.cellForRow(at: indexPath) as? HelpListViewCell
-         {
-         cell.lblDescription.isHidden = !cell.lblDescription.isHidden
-         if cell.lblDescription.isHidden
-         {
-         expandedCellPaths.remove(indexPath)
-         cell.lblDescription.text = ""
-         cell.iconArrow.image = UIImage.init(named: "arrow-down-leftBlue")
-         cell.viewCell.layer.borderColor = UIColor.clear.cgColor
-         cell.viewCell.layer.borderWidth = 0.5
-         }
-         else
-         {
-         expandedCellPaths.insert(indexPath)
-         cell.lblDescription.text = dictData["Answers"] as? String
-         cell.iconArrow.image = UIImage.init(named: "arrow-down-Blue")
-         cell.viewCell.layer.borderColor = UIColor.black.cgColor
-         cell.viewCell.layer.borderWidth = 0.5
-         }
-         
-         DispatchQueue.main.async {
-         self.tblView.beginUpdates()
-         self.tblView.endUpdates()
-         }
-         
-         //            DispatchQueue.main.async {
-         //                self.tableView.reloadRows(at: [indexPath], with: .automatic)
-         //            }
-         
-         }
-         */
+       
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return arrBidDetails.count != 0 ? UITableViewAutomaticDimension : self.tblView.frame.height
        
     }
+    //MARK:- ====== Accept Button Action ======
+    @objc func btnActionAccept(_ sender : UIButton){
+        isselected = true
+        webserviceForBidAccept()
+    }
+    
+    
+    //MARK:- ====== Api call For AcceptBid ======
+    func webserviceForBidAccept(){
+        let statusType = isselected == true ? "1" : "0"
+        let param = [
+            "BidId" : strbidID,
+            "DriverId" : strDriverID,
+            "Status"  : statusType
+        ] as [String:Any]
+        
+        print(param)
+        webserviceForGetCustomerBidAccept(param as AnyObject) { (result, status) in
+            if (status) {
+                print(result)
+                let objData = (result as! NSDictionary).object(forKey: "data") as! [String:AnyObject]
+                let msg = (result as! NSDictionary).object(forKey: "message") as! String
+                self.navigationController?.popViewController(animated: true)
+                UtilityClass.showAlert("", message: msg, vc: self)
+                self.tblView.reloadData()
+                
+                self.refreshControl.endRefreshing()
+            }
+            else {
+                print(result)
+                UtilityClass.defaultMsg(result: result)
+                // UtilityClass.setCustomAlert(title: "", message:UtilityClass.defaultMsg(result:result), completionHandler: nil)
+            }
+        }
+    }
+    
 
 
 }

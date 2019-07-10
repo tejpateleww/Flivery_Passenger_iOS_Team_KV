@@ -126,10 +126,11 @@ struct WebserviceURLs {
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
     
     static let kGetEstimateFareForDeliveryService       = "GetEstimateFareForDeliveryService"
-    static let KGetCustomerBid                          = "CustomerBid"
-    static let KGetCustomOpenBid                        = "CustomerOpenBid"
-    static let KGetCustomerBidDetails                   = "CustomerBidDetails"
-
+    static let KGetCustomerBid                          = "CustomerBid/"
+    static let KGetCustomOpenBid                        = "CustomerOpenBid/"
+    static let KGetCustomerBidDetails                   = "CustomerBidDetails/"
+    static let KCustomerBidAccept                       = "CustomerBidAccept"
+    static let KCustomerCancelPostBid                  = "CancelPostBid/"
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
 }
 

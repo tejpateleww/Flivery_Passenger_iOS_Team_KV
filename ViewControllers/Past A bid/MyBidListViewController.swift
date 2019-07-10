@@ -10,14 +10,17 @@ import UIKit
 
 class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
-
+    //MARK: ===== Outlets ======
     @IBOutlet weak var tblView: UITableView!
+    
+      //MARK: ===== Variables ======
     private let refreshControl = UIRefreshControl()
-     var arrNumberOfOnlineCars : [[String:AnyObject]]!
-     var aryData = [[String:AnyObject]]()
+    var arrNumberOfOnlineCars : [[String:AnyObject]]!
+    var aryData = [[String:AnyObject]]()
     let dateFormatter = DateFormatter()
     let date = Date()
 
+     //MARK: ===== View Controller Life Cycle ======
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -28,7 +31,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
        self.tblView.register(UINib(nibName: "NoDataFoundTableViewCell", bundle: nil), forCellReuseIdentifier: "NoDataFoundTableViewCell")
     }
    
-    
+      //MARK: ===== Refresh Data ======
     @objc private func refreshData(_ sender: Any) {
         // Fetch Weather Data
         webserviceCallToGetBidList()
@@ -37,13 +40,8 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
     //MARK: ===== API Call Get Bids ======
     func webserviceCallToGetBidList()
     {
-        let param = [
-        "PassengerId" : SingletonClass.sharedInstance.strPassengerID
-        
-            ] as [String:Any]
-        print(param)
-        
-        webserviceForGetCustomerBid(param as AnyObject) { (result, status) in
+    
+        webserviceForGetCustomerBid("" as AnyObject) { (result, status) in
         
                 if (status) {
                     print(result)
@@ -65,7 +63,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
     }
    
-    
+     //MARK: ===== Tableview Datasource and Delegate Methods ======
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
@@ -126,28 +124,6 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
                 customCell.lblBidCount.text = "Bids - " + bids
             }
             
-        
-//        let dictData = arrTicketList[indexPath.row] as! [String : AnyObject]
-//
-//        //
-//        //
-//        customCell.lblTicketID.text = "Ticket ID: \(dictData["TicketId"] as! String)"
-//        customCell.lblTitle.text = dictData["TicketTitle"] as! String
-//        let StrStatus = dictData["Status"] as! String
-//
-//        if StrStatus == "0"
-//        {
-//            customCell.lblStatus.text = "Pending"
-//        }
-//        if StrStatus == "1"
-//        {
-//            customCell.lblStatus.text = "Processing"
-//        }
-//        if StrStatus == "2"
-//        {
-//            customCell.lblStatus.text = "Complete"
-//        }
-//
         return customCell
         }
     }
@@ -155,50 +131,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         
-//        let dictData = arrTicketList[indexPath.row] as! [String : AnyObject]
-//
-//        //
-//        //
-//
-//        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-//        viewController.strTicketID = dictData["TicketId"] as! String
-//        viewController.strTicketTile = dictData["TicketTitle"] as! String
-//
-//        self.navigationController?.pushViewController(viewController, animated: true)
-        
-        /*
-         let dictData = arrReviewData[indexPath.row]
-         if let cell = tblView.cellForRow(at: indexPath) as? HelpListViewCell
-         {
-         cell.lblDescription.isHidden = !cell.lblDescription.isHidden
-         if cell.lblDescription.isHidden
-         {
-         expandedCellPaths.remove(indexPath)
-         cell.lblDescription.text = ""
-         cell.iconArrow.image = UIImage.init(named: "arrow-down-leftBlue")
-         cell.viewCell.layer.borderColor = UIColor.clear.cgColor
-         cell.viewCell.layer.borderWidth = 0.5
-         }
-         else
-         {
-         expandedCellPaths.insert(indexPath)
-         cell.lblDescription.text = dictData["Answers"] as? String
-         cell.iconArrow.image = UIImage.init(named: "arrow-down-Blue")
-         cell.viewCell.layer.borderColor = UIColor.black.cgColor
-         cell.viewCell.layer.borderWidth = 0.5
-         }
-         
-         DispatchQueue.main.async {
-         self.tblView.beginUpdates()
-         self.tblView.endUpdates()
-         }
-         
-         //            DispatchQueue.main.async {
-         //                self.tableView.reloadRows(at: [indexPath], with: .automatic)
-         //            }
-         
-         }
-         */
+
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
@@ -208,6 +141,8 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
             return UITableViewAutomaticDimension
         }
     }
+    
+    //MARK: ===== View Details Button Action ======
     @objc func viewDetailsBtnAction(_ sender:UIButton) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
         detailVC.aryData = [aryData[sender.tag]]

@@ -64,6 +64,8 @@ let GetEstimateFareForDeliveryService = WebserviceURLs.kGetEstimateFareForDelive
 let GetCustomeBid    = WebserviceURLs.KGetCustomerBid
 let GetCustomerOpenBid = WebserviceURLs.KGetCustomOpenBid
 let GetCustomerBidDetails    = WebserviceURLs.KGetCustomerBidDetails
+let CustomerBidAccept      = WebserviceURLs.KCustomerBidAccept
+let CancelPostBid          = WebserviceURLs.KCustomerCancelPostBid
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
@@ -601,7 +603,7 @@ func webserviceForGetEstimateFareForDeliveryService(_ dictParams: AnyObject, com
 
 func webserviceForGetCustomerBid(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = GetCustomeBid
+    let url = GetCustomeBid + "\(SingletonClass.sharedInstance.strPassengerID)"
     getData(dictParams, nsURL: url, completion: completion)
 }
 //-------------------------------------------------------------
@@ -610,7 +612,7 @@ func webserviceForGetCustomerBid(_ dictParams: AnyObject, completion: @escaping(
 
 func webserviceForGetCustomerOpenBid(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = GetCustomerOpenBid + "/\(SingletonClass.sharedInstance.strPassengerID)"
+    let url = GetCustomerOpenBid + "\(SingletonClass.sharedInstance.strPassengerID)"
     getData(dictParams, nsURL: url, completion: completion)
 }
 
@@ -620,6 +622,24 @@ func webserviceForGetCustomerOpenBid(_ dictParams: AnyObject, completion: @escap
 
 func webserviceForGetCustomerBidDetails(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = GetCustomerBidDetails + "/\(dictParams)"
+    let url = GetCustomerBidDetails + "\(dictParams)"
+    print(url)
+    getData(dictParams, nsURL: url, completion: completion)
+}
+
+// MARK: - Webservice For Get Customer Bid Details
+//-------------------------------------------------------------
+
+func webserviceForGetCustomerBidAccept(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = CustomerBidAccept
+   postData(dictParams, nsURL: url, completion: completion)
+}
+// MARK: - Webservice For Get Customer Bid Cancel
+//-------------------------------------------------------------
+
+func webserviceForGetCustomerPostBidCancel(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = CancelPostBid + "\(dictParams)"
     getData(dictParams, nsURL: url, completion: completion)
 }
