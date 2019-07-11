@@ -101,7 +101,7 @@
                                     <constraint firstAttribute="bottom" secondItem="0AM-4T-yhk" secondAttribute="bottom" id="kVY-Ow-Z2Z"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjZ-NC-pNZ" customClass="CHIPageControlJaloro" customModule="CHIPageControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjZ-NC-pNZ">
                                 <rect key="frame" x="150" y="582" width="75" height="20"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ebD-kx-fjY">
@@ -136,26 +136,6 @@
                                     <constraint firstAttribute="height" constant="20" id="M0J-eS-KwC"/>
                                     <constraint firstAttribute="width" constant="75" id="Qrh-4o-8fO"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfPages">
-                                        <integer key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="progress">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="padding">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="radius">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="currentPageTintColor">
-                                        <color key="value" red="0.92941176469999998" green="0.47843137250000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -390,6 +370,7 @@
                         <viewLayoutGuide key="safeArea" id="aGM-Kw-xUv"/>
                     </view>
                     <connections>
+                        <outlet property="btnNext" destination="E5H-5c-W71" id="GnD-p2-YIp"/>
                         <outlet property="txtConfirmPassword" destination="Hkg-kw-1el" id="Gq6-WU-gpP"/>
                         <outlet property="txtContoryNum" destination="07t-eN-26s" id="3T3-Ej-tG7"/>
                         <outlet property="txtEmail" destination="qvW-9G-Y9R" id="JIz-TR-fje"/>
@@ -399,7 +380,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fk7-PX-fdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1015" y="84"/>
+            <point key="canvasLocation" x="-1497" y="62"/>
         </scene>
         <!--CustomSideMenuViewController-->
         <scene sceneID="fUF-Ff-ydp">
@@ -753,7 +734,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
             </objects>
-            <point key="canvasLocation" x="-1794" y="85"/>
+            <point key="canvasLocation" x="-862" y="54"/>
         </scene>
     </scenes>
     <resources>

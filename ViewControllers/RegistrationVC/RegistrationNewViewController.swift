@@ -51,6 +51,14 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         self.radioButtonsController.endGradColorForSelected = ThemeWhiteColor// UIColor.init(red: 242/255, green: 21/255, blue: 65/255, alpha: 1)//UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1)binal
         self.radioButtonsController.selectedIndex = 0
         self.radioButtonsController.delegate = self //class should implement AKRadioButtonsControllerDelegate
+
+
+        for btn in radioButtons
+        {
+            btn.setTitle(btn.titleLabel?.text?.localized, for: .normal)
+        }
+
+        self.btnSignUp.setTitle("Sign Up".localized, for: .normal)
     
         txtFirstName.text = SingletonClass.sharedInstance.strSocialFirstName
         txtLastName.text = SingletonClass.sharedInstance.strSocialLastName
@@ -340,7 +348,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             {
 //                self.btnSignUp.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
                 
-                    UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                     
 //                })

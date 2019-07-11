@@ -51,7 +51,7 @@ class WalletAddCardsViewController: BaseViewController, UIPickerViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
             setDesignView()
-      self.setNavBarWithMenuORBack(Title: "ADD CARD".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+      self.setNavBarWithMenuORBack(Title: "Add Card".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
         
         // Initialise Credit Card Validator
             creditCardValidator = CreditCardValidator()
@@ -428,7 +428,7 @@ class WalletAddCardsViewController: BaseViewController, UIPickerViewDataSource, 
 //                alert.addAction(OK)
 //                self.present(alert, animated: true, completion: nil)
                 
-                UtilityClass.setCustomAlert(title: "", message: ((result as! NSDictionary).object(forKey: "message") as? String)!) { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: ((result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String)!) { (index, title) in
                     if self.checkPresentation() {
                         
                         self.delegateAddCardFromHomeVC?.didAddCardFromHomeVC()
@@ -455,11 +455,11 @@ class WalletAddCardsViewController: BaseViewController, UIPickerViewDataSource, 
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 

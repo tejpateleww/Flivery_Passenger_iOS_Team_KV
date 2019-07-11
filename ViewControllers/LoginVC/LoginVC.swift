@@ -17,7 +17,7 @@ import SocketIO
 import FBSDKLoginKit
 import FacebookLogin
 import GoogleSignIn
-
+import IQKeyboardManagerSwift
 
 
 class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates,GIDSignInDelegate,GIDSignInUIDelegate  {
@@ -33,7 +33,10 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnSignup: UIButton!
     @IBOutlet weak var btnForgotPassword: UIButton!
-
+    @IBOutlet weak var segmentForLanguage: UISegmentedControl!
+    @IBOutlet weak var lblLoginTitle: UILabel!
+    @IBOutlet weak var lblDontHaveAnAccountTitle: UILabel!
+    @IBOutlet weak var lblOrTitle: UILabel!
     
     var locationManager = CLLocationManager()
     var strURLForSocialImage = String()
@@ -49,7 +52,14 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         //            //
         //            self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
         //        }
-        
+
+
+        if let currentLanguage = UserDefaults.standard.object(forKey: "i18n_language") as? String {
+            if(currentLanguage == "fr")
+            {
+                segmentForLanguage.selectedSegmentIndex = 1
+            }
+        }
 
         if Connectivity.isConnectedToInternet() {
             print("Yes! internet is available.")
@@ -142,7 +152,35 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         btnLogin.titleLabel?.tintColor = UIColor.white
         
     }
-    
+    @IBAction func valueChangedForLanguage(_ sender: UISegmentedControl) {
+        if(sender.selectedSegmentIndex == 0)
+        {
+            UserDefaults.standard.set("en", forKey: "i18n_language")
+            UserDefaults.standard.synchronize()
+        }
+        else
+        {
+            UserDefaults.standard.set("fr", forKey: "i18n_language")
+            UserDefaults.standard.synchronize()
+        }
+
+        setDataForLocalisation()
+     }
+
+    func setDataForLocalisation()
+    {
+        btnLogin.setTitle("Log In".localized, for: .normal)
+        btnSignup.setTitle("Sign Up".localized, for: .normal)
+        btnForgotPassword.setTitle("Forgot Password?".localized, for: .normal)
+        lblLoginTitle.text = "LOGIN".localized
+        lblDontHaveAnAccountTitle.text = "Don't have an account?".localized
+        txtEmail.placeholder = "Mobile/Email".localized
+        txtPassword.placeholder = "Password".localized
+        lblOrTitle.text = "OR".localized
+        IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done".localized
+
+    }
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -234,8 +272,10 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             else
             {
                 
-                UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                 }
+
+
                 
                 //                self.btnLogin.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
                 //
@@ -292,12 +332,12 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             
             if ((result as! NSDictionary).object(forKey: "status") as! Int == 1) {
                 
-                UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                 }
             }
             else {
                 
-                UtilityClass.setCustomAlert(title: appName, message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: appName, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                 }
             }
         }
@@ -322,7 +362,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                 
                 if ((result as! NSDictionary).object(forKey: "update") as? Bool) != nil {
                     
-                    let alert = UIAlertController(title: nil, message: (result as! NSDictionary).object(forKey: "message") as? String, preferredStyle: .alert)
+                    let alert = UIAlertController(title: nil, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                     let UPDATE = UIAlertAction(title: "UPDATE", style: .default, handler: { ACTION in
                         
                         UIApplication.shared.openURL(NSURL(string: "https://itunes.apple.com/us/app/cab-ride-passenger/id1438603822?ls=1&mt=8")! as URL)
@@ -354,7 +394,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                     
                     if (update) {
                         
-                        UtilityClass.showAlertWithCompletion("", message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self, completionHandler: { ACTION in
+                        UtilityClass.showAlertWithCompletion("", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self, completionHandler: { ACTION in
                             
                             UIApplication.shared.open((NSURL(string: "https://itunes.apple.com/us/app/cab-ride-passenger/id1438603822?ls=1&mt=8")! as URL), options: [:], completionHandler: { (status) in
                                 
@@ -363,7 +403,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                     }
                     else {
                         
-                        UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                             if (index == 0)
                             {
                                 UIApplication.shared.open((NSURL(string: "https://itunes.apple.com/us/app/cab-ride-passenger/id1438603822?ls=1&mt=8")! as URL), options: [:], completionHandler: { (status) in
@@ -662,7 +702,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                 }
                 else if let resAry = result as? NSArray
                 {
-                    UtilityClass.showAlert(appName, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
+                    UtilityClass.showAlert(appName, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                 }
 //                UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
 //                }
@@ -799,7 +839,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     @IBAction func btnForgotPassword(_ sender: UIButton) {
         
         //1. Create the alert controller.
-        let alert = UIAlertController(title: "Forgot Password?", message: "Enter email id", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Forgot Password?", message: "Please enter email.", preferredStyle: .alert)
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextField { (textField) in

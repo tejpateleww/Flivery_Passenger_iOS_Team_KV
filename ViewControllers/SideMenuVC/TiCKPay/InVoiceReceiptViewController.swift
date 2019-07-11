@@ -211,7 +211,7 @@ class InVoiceReceiptViewController: BaseViewController, UIPickerViewDelegate, UI
         {
             if txtEmailId.text!.count == 0
             {
-                UtilityClass.setCustomAlert(title: "", message: "Please Enter Email Id") { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: "Please enter email.") { (index, title) in
                 }
                 return false
             }
@@ -328,11 +328,11 @@ class InVoiceReceiptViewController: BaseViewController, UIPickerViewDelegate, UI
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }

@@ -20,7 +20,13 @@ class RegisterOTPVarificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCornerToTextField(txtField: txtOTP)
-       
+//        btnNext.setTitle("Forgot Password?".localized, for: .normal)
+
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.btnNext.setTitle("Next".localized, for: .normal)
     }
     
 

@@ -101,8 +101,8 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             
             cell.selectionStyle = .none
             
-            cell.lblPickupAddressTitle.text = "PICK UP LOCATION".localized
-            cell.lblDropoffAddressTitle.text = "DROP OFF LOCATION".localized
+            cell.lblPickupAddressTitle.text = "Pickup Location".localized
+            cell.lblDropoffAddressTitle.text = "Dropoff Location".localized
             cell.lblPickUpTimeTitle.text = "PICKUP TIME".localized
             cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
             cell.lblPaymentTypeTitle.text = "PAYMENT TYPE".localized

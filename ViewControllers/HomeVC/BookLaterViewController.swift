@@ -32,8 +32,10 @@ extension UIApplication {
 }
 
 
-class BookLaterViewController: BaseViewController, GMSAutocompleteViewControllerDelegate, UINavigationControllerDelegate, WWCalendarTimeSelectorProtocol, UIPickerViewDelegate, UIPickerViewDataSource, isHaveCardFromBookLaterDelegate, UITextFieldDelegate,GMSMapViewDelegate,IQDropDownTextFieldDelegate, UIImagePickerControllerDelegate,UIGestureRecognizerDelegate
+class BookLaterViewController: BaseViewController, GMSAutocompleteViewControllerDelegate, UINavigationControllerDelegate, WWCalendarTimeSelectorProtocol, UIPickerViewDelegate, UIPickerViewDataSource, isHaveCardFromBookLaterDelegate, UITextFieldDelegate,GMSMapViewDelegate,IQDropDownTextFieldDelegate, UIImagePickerControllerDelegate,UIGestureRecognizerDelegate,didSelectPlace
 {
+
+
 
     // ----------------------------------------------------
     // MARK: - Globle Declaration Methods
@@ -257,7 +259,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         lblSelectPaymentMethod.text = "Select Payment Type".localized
         txtSelectPaymentMethod.placeholder = "Select Payment Type".localized
         btnSubmit.setTitle("Submit".localized, for: .normal)
-        lblYouhaveToNotified.text =   "You will be notified with your driver detail after your request is submited.".localized
+        lblYouhaveToNotified.text =   ""
         
         btnhavePromoCode.setTitle("Have a promocode?".localized, for: .normal)
         
@@ -460,7 +462,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     @IBOutlet weak var btnApply: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnUploadParcelPhoto: UIButton!
-    @IBOutlet weak var txtParcelWeight: UITextField!
+//    @IBOutlet weak var txtParcelWeight: UITextField!
     @IBOutlet weak var btnRemovePromoCode: UIButton!
     
     
@@ -738,14 +740,15 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         //            location = CLLocationCoordinate2DMake(Double(SingletonClass.sharedInstance.currentLatitude)!, Double(SingletonClass.sharedInstance.currentLongitude)!)
         //        }
         
-        //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
-        self.isOpenPlacePickerController = true
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        acController.autocompleteBounds = NearByRegion
+//        //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
+//        self.isOpenPlacePickerController = true
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = self
+//        acController.autocompleteBounds = NearByRegion
         BoolCurrentLocation = true
-        present(acController, animated: true, completion: nil)
-        
+//        present(acController, animated: true, completion: nil)
+         self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+
     }
     
     @IBAction func txtDropOffLocation(_ sender: UITextField) {
@@ -760,12 +763,13 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         //
         //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
         self.isOpenPlacePickerController = true
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        acController.autocompleteBounds = NearByRegion
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = self
+//        acController.autocompleteBounds = NearByRegion
         BoolCurrentLocation = false
-        present(acController, animated: true, completion: nil)
-        
+         self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+//        present(acController, animated: true, completion: nil)
+
     }
     
     @IBAction func btnCalendar(_ sender: UIButton) {
@@ -888,10 +892,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         } else if strSelectedParcelID == "" {
             UtilityClass.setCustomAlert(title: "", message: "Please select parcel") { (index, title) in }
             return false
-        } else if txtParcelWeight.text == "" {
-            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
-            return false
-        } else if btnUploadParcelPhoto.imageView?.image == nil {
+        }
+//        else if txtParcelWeight.text == "" {
+//            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
+//            return false
+//        }
+        else if btnUploadParcelPhoto.imageView?.image == nil {
             UtilityClass.setCustomAlert(title: "", message: "Please insert parcel image") { (index, title) in }
             return false
         }
@@ -960,7 +966,25 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     
     var doubleDropOffLat = Double()
     var doubleDropOffLng = Double()
-    
+    func didSelectPlaceFromPlacePicker(place: GMSPlace) {
+        if BoolCurrentLocation {
+            txtPickupLocation.text = place.formattedAddress
+            strPickupLocation = place.formattedAddress!
+            doublePickupLat = place.coordinate.latitude
+            doublePickupLng = place.coordinate.longitude
+
+        }
+        else {
+            txtDropOffLocation.text = place.formattedAddress
+            strDropoffLocation = place.formattedAddress!
+            doubleDropOffLat = place.coordinate.latitude
+            doubleDropOffLng = place.coordinate.longitude
+        }
+
+        if !(txtPickupLocation.text?.isEmpty)! && !(txtDropOffLocation.text?.isEmpty)! {
+            webserviceOfGetEstimateFareForDeliveryService()
+        }
+    }
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
@@ -1376,11 +1400,11 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
@@ -1483,11 +1507,11 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
@@ -1577,11 +1601,11 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
@@ -1671,20 +1695,30 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 else if let resDict = result as? NSDictionary {
                     if((resDict.object(forKey: "message") as? NSArray) != nil)
                     {
-                        UtilityClass.setCustomAlert(title: "Error", message: (resDict.object(forKey: "message") as! NSArray).object(at: 0) as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "Error", message: (resDict.object(forKey: GetResponseMessageKey()) as! NSArray).object(at: 0) as! String) { (index, title) in
                         }
                     }
                     else
                     {
-                        UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                         }
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "presentPlacePicker")
+        {
+            let deiverInfo = segue.destination as! UINavigationController
+            let targetController = deiverInfo.topViewController as! PlacePickerViewController
+            targetController.delegate = self
+            targetController.bounds = NearByRegion
         }
     }
     

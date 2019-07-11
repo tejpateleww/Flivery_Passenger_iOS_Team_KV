@@ -192,6 +192,7 @@
 		644429C222CB639A008B91EA /* NoDataFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */; };
 		8E3DD1613B5C20B5D5EFEE9A /* Pods_Flivery_User.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */; };
 		EE3BCCBA22C3A15E00BCBC9E /* PostABidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */; };
+		EEA4269822D71ACA008E2A55 /* PlacePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4269722D71ACA008E2A55 /* PlacePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -398,6 +399,7 @@
 		BD32F68E712FA8642AFBDA39 /* Pods-TanTaxi User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TanTaxi User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TanTaxi User/Pods-TanTaxi User.debug.xcconfig"; sourceTree = "<group>"; };
 		CF165D60C84FABB3D6B3E841 /* Pods-PickNGo User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickNGo User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PickNGo User/Pods-PickNGo User.debug.xcconfig"; sourceTree = "<group>"; };
 		EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostABidViewController.swift; path = "ViewControllers/Past A bid/PostABidViewController.swift"; sourceTree = SOURCE_ROOT; };
+		EEA4269722D71ACA008E2A55 /* PlacePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePickerViewController.swift; sourceTree = "<group>"; };
 		EEE5C99722C3B36A00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Registration.storyboard; sourceTree = "<group>"; };
 		EEE5C99822C3B36C00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEE5C99922C3B36C00659B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				3A40733321B512270015C494 /* UpdateProfileVC */,
 				3A40733621B512270015C494 /* Wallet */,
 				EEE4D18922C3A080005181D9 /* Post A Bid */,
+				EEA4269922D71ACF008E2A55 /* CutomPlacePicker */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -990,6 +993,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EEA4269922D71ACF008E2A55 /* CutomPlacePicker */ = {
+			isa = PBXGroup;
+			children = (
+				EEA4269722D71ACA008E2A55 /* PlacePickerViewController.swift */,
+			);
+			path = CutomPlacePicker;
+			sourceTree = "<group>";
+		};
 		EEE4D18922C3A080005181D9 /* Post A Bid */ = {
 			isa = PBXGroup;
 			children = (
@@ -1360,6 +1371,7 @@
 				3A4073C821B512280015C494 /* MyReceiptsViewController.swift in Sources */,
 				3A4073EC21B512280015C494 /* webViewVC.swift in Sources */,
 				3A4073C721B512280015C494 /* MainHeaderTableViewCell.swift in Sources */,
+				EEA4269822D71ACA008E2A55 /* PlacePickerViewController.swift in Sources */,
 				342EEFAB2233865800E4354C /* EmptyTableViewCell.swift in Sources */,
 				3A4073F021B512280015C494 /* ACHUD+Animation.swift in Sources */,
 				3A4073C921B512280015C494 /* SetPasscodeViewController.swift in Sources */,

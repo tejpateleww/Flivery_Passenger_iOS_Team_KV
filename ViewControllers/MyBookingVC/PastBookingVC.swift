@@ -108,8 +108,8 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     CancelledCell.imgStatus.image = UIImage.init(named: "cancelled")
                     CancelledCell.lblStatus.text = "Cancelled"
                     
-                    CancelledCell.lblPickupAddressTitle.text = "PICK UP LOCATION".localized
-                    CancelledCell.lblDropoffAddressTitle.text = "DROP OFF LOCATION".localized
+                    CancelledCell.lblPickupAddressTitle.text = "Pickup Location".localized
+                    CancelledCell.lblDropoffAddressTitle.text = "Dropoff Location".localized
                     CancelledCell.lblPickupAddressTitle.text = "PICKUP TIME".localized
                     
                     CancelledCell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
@@ -157,8 +157,8 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     cell.imgStatus.image = UIImage.init(named: "verified")
                     cell.lblStatus.text = "Completed"
                     
-                    cell.lblPickupAddressTitle.text = "PICK UP LOCATION".localized
-                    cell.lblDropoffAddressTitle.text = "DROP OFF LOCATION".localized
+                    cell.lblPickupAddressTitle.text = "Pickup Location".localized
+                    cell.lblDropoffAddressTitle.text = "Dropoff Location".localized
                     cell.lblPickupTimeTitle.text = "PICKUP TIME".localized
                     cell.lblDropoffTimeTitle.text = "DROPOFF TIME".localized
                     cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized

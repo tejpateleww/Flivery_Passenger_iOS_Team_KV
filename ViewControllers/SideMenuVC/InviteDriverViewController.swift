@@ -37,7 +37,7 @@ class InviteDriverViewController: BaseViewController, MFMailComposeViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
        
-
+        btnShare.setTitle("Share Via".localized, for: .normal)
         let profileData = SingletonClass.sharedInstance.dictProfile
 
         if let ReferralCode = profileData.object(forKey: "ReferralCode") as? String {
@@ -89,7 +89,7 @@ class InviteDriverViewController: BaseViewController, MFMailComposeViewControlle
     }
     func setLocalization()
     {
-//        lblWhenAFriendRegister.text = "When a friend register with your code, you will recieve referal amount.".localized
+        lblWhenAFriendRegister.text = "When a friend register with your code, you will recieve referal amount.".localized
 //        lblShareYourInviteCode.text = "SHARE YOUR INVITE CODE".localized
         btnShare.setTitle("SHARE".localized, for: .normal)
     }

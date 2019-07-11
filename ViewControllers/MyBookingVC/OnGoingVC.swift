@@ -98,8 +98,8 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "OnGoingTableViewCell") as! OnGoingTableViewCell
         
-        cell.lblPickupUpAddressTitle.text = "PICK UP LOCATION".localized
-        cell.lblDropOffAddressTitle.text = "DROP OFF LOCATION".localized
+        cell.lblPickupUpAddressTitle.text = "Pickup Location".localized
+        cell.lblDropOffAddressTitle.text = "Dropoff Location".localized
         cell.lblPickupTimeTitle.text = "PICKUP TIME".localized
         cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
         cell.lblPaymentTypeTitle.text = "PAYMENT TYPE".localized
@@ -246,10 +246,10 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     msg = res
                 }
                 else if let resDict = result as? NSDictionary {
-                    msg = resDict.object(forKey: "message") as! String
+                    msg = resDict.object(forKey: GetResponseMessageKey()) as! String
                 }
                 else if let resAry = result as? NSArray {
-                    msg = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                    msg = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                 }
                 
                 let alert = UIAlertController(title: appName, message: msg, preferredStyle: .alert)

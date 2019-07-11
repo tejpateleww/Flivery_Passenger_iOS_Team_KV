@@ -103,7 +103,7 @@ class GenerateTicketViewController: BaseViewController,UIGestureRecognizerDelega
                     print(result)
                     
                     
-                    UtilityClass.showAlertWithCompletion("", message: result["message"] as! String, vc: self, completionHandler: { (status) in
+                    UtilityClass.showAlertWithCompletion("", message: result[GetResponseMessageKey()] as! String, vc: self, completionHandler: { (status) in
                         self.navigationController?.popViewController(animated: true)
                     })
                     

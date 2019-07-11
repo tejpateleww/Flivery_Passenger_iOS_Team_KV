@@ -309,7 +309,7 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     
                     SingletonClass.sharedInstance.isSendMoneySuccessFully = true
                     
-                    UtilityClass.setCustomAlert(title: "Transaction", message: (result as! NSDictionary).object(forKey: "message")! as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Transaction", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey())! as! String) { (index, title) in
                     }
                     
                 }
@@ -323,11 +323,11 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 

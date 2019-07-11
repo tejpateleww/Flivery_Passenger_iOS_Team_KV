@@ -918,7 +918,7 @@
 "Rvc-16-6RH.text" = "History";
 
 /* Class = "UITextField"; placeholder = "Birth Date"; ObjectID = "RzK-gZ-j71"; */
-"RzK-gZ-j71.placeholder" = "Birth Date";
+"RzK-gZ-j71.placeholder" = "Date Of Birth";
 
 /* Class = "UILabel"; text = "Driver Info"; ObjectID = "Rzj-EW-cOf"; */
 "Rzj-EW-cOf.text" = "Driver Info";
@@ -1485,7 +1485,7 @@
 "hLK-CS-GgP.text" = ":";
 
 /* Class = "UITextField"; placeholder = "Birth Date"; ObjectID = "hMS-rA-t75"; */
-"hMS-rA-t75.placeholder" = "Birth Date";
+"hMS-rA-t75.placeholder" = "Date Of Birth";
 
 /* Class = "UIButton"; normalTitle = "TIPS"; ObjectID = "hNa-mF-6Gr"; */
 "hNa-mF-6Gr.normalTitle" = "TIPS";

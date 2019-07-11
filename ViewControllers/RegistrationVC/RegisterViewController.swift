@@ -19,14 +19,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
     let countoryz : Int = 0
     var imgflag = UIImageView()
     var countoryPicker = UIPickerView()
-    
+    @IBOutlet var btnNext: UIButton!
+
     
     
     @IBOutlet var txtContoryNum: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.btnNext.setTitle("Next".localized, for: .normal)
+
         self.txtEmail.text = SingletonClass.sharedInstance.strSocialEmail
         
         aryContoryNum = [["countoryCode" : "+1","countoryName" : "USA","countoryID" : "US", "countoryimage" : "US_Flag"]] as [[String : AnyObject]]
@@ -387,7 +389,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
 //                })
                 
                 
-                UtilityClass.setCustomAlert(title: "OTP Code", message: datas["message"] as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: "OTP Code", message: datas[GetResponseMessageKey()] as! String) { (index, title) in
                     if let otp = datas["otp"] as? String {
                         SingletonClass.sharedInstance.otpCode = otp
                         print("OTP is \(otp)")
@@ -432,11 +434,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 

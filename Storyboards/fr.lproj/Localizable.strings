@@ -435,7 +435,7 @@
 
 */
 
-
+"Thanks for feedback" = "Merci pour vos commentaires";
 "Email" = "Courriel";
 "Password" = "Mot de pase";
 "Mobile Number" = "Cellulaire";
@@ -445,6 +445,7 @@
 "First Name" = "Prénom";
 "Full Name" = "Nom complet";
 "Date Of Birth" = "Date de naissance";
+"Date of Birth" = "Date de naissance";
 "Address" = "Adresse";
 "Name" = "Nom";
 "Last Name" = "Nom de famille";
@@ -465,6 +466,8 @@
 "This app needs storage permission." = "Cette application requiert votre permission pour le stockage de vos informations";
 "Cards" = "Cartes";
 "Add Card" = "Ajouter une carte";
+"Add Card" = "Ajouter une carte";
+
 "OK" = "Ok";
 "Done" = "C'est fait!";
 "Card Number" = "Numéro sur la carte";
@@ -485,6 +488,7 @@
 "click here" = "Cliquez ici";
 "Become a Flivery Shipper" = "Devenir un livreur Flivery";
 "Save" = "Enregistrer/é";
+"SAVE" = "Enregistrer/é";
 "Change Password" = "Changer de mot de passe";
 "Submit" = "Soumettre";
 "Account" = "Compte";
@@ -508,8 +512,10 @@
 "Female" = "Femme";
 "Please enter all data." = "Veuillez répondre à toutes les questions";
 "Month" = "Mois";
+"MONTH" = "Mois";
 "Expiery Date";
 "Year" = "Année";
+"YEAR" = "Année";
 "Or" = "OU";
 "OR" = "OU";
 "Card List" = "Liste des cartes enregistrées";
@@ -517,6 +523,7 @@
 "Info Message" = "Messages";
 "My Receipts" = "Mes reçus";
 "Invite Friends" = "Inviter des amis";
+"INVITE FRIENDS" = "Inviter des amis";
 "Book Shipment" = "Réserver une expédition de colis";
 "Transport" = "Livraison";
 "Please enter a destination." = "Veuillez entrer une adresse de livraison";
@@ -527,7 +534,8 @@
 "Log In" = "Se connecter";
 "LOGIN" = "Se connecter";
 "Register" = "S'inscrire";
-"Please enter mobile number." = "Entrez un numéro de téléphone";
+"REGISTER" = "S'inscrire";
+"Please enter mobile number" = "Entrez un numéro de téléphone";
 "Pickup Location" = "Adresse de cueillette du colis";
 "Dropoff Location" = "Adresse de livraison du colis";
 "Enter Shiping Detail" = "Entrez les informations de livraison";
@@ -548,10 +556,13 @@
 "Confirm Password" = "Confirmez votre mot de passe";
 "Distance" = "Distance à parcourir";
 "Vehicle Type" = "Type de véhicule";
+"VEHICLE TYPE" = "Type de véhicule";
 "Promo Code" = "Code promotionnel";
 "Notes" = "Notes (facultatif)";
 "Confirm" = "Confirmation / Confirmez";
 "No data Found" = "Aucune donnée trouvée";
+"No Data Found" = "Aucune donnée trouvée";
+
 "Old Password" = "Ce mot de passe a déjà été utilisé pour ce compte";
 "Invite Via Facebook" = "Inviter des amis via Facebook";
 "More Options" = "Plus d'options";
@@ -565,18 +576,26 @@
 "Past Shipping" = "Livraisons passées";
 "Profile" = "Profil";
 "Base Fare" = "Tarif de base";
+"Base Fare:" = "Tarif de base";
+"Distance Fare:" = "Tarif selon la distance à parcourir:";
+"Night Fare:" = "Tarif de nuit:";
 "Parcel Type" = "Type de colis";
 "Parcel Weight" = "Poids du colis";
 "Parcel Image" = "Image du colis";
 "Distance Fare" = "Tarif selon la distance à parcourir";
 "Night Fare" = "Tarif de nuit";
+"NIGHT FARE" = "Tarif de nuit";
+
 "Waiting Cost" = "Coût d'attente";
+"WAITING COST" = "Coût d'attente";
 "Toll Fee" = "Gratuit";
 "Sub Total" = "Sous-Total";
 "Booking Charge" = "Frais de réservation";
+"BOOKING CHARGE" = "Frais de réservation";
 "Special Extra Charge" = "Frais supplémentaires";
 "Tax" = "Taxes";
 "Discount" = "Rabais / Remise";
+"DISCOUNT" = "Rabais / Remise";
 "Grand Total" = "Total";
 "Status" = "Statut";
 "Edit Profile" = "Modifier votre profil";
@@ -622,18 +641,24 @@
 "Additional:" = "Additionnel";
 "Gallery" = "Gallerie de photos";
 "Distance Travelled" = "Distance parcourue";
+"DISTANCE TRAVELLED" = "Distance parcourue";
 "Weight Charge" = "Coût selon le poids du colis";
 "Fare Total" = "Frais totaux";
 "Discounts Applied" = "Votre rabais a été appliqué";
 "Charged Card" = "Votre carte a été facturée";
 "Dropoff Time" = "Heure de la livraison du colis";
+"DROPOFF TIME" = "Heure de la livraison du colis";
 "Trip Fare" = "Frais de livraison";
+"TRIP FARE" = "Frais de livraison";
 "Waiting Time" = "Temps d'attente";
+"WAITING TIME" = "Temps d'attente";
 "Payment Type" = "Type de paiement";
+"PAYMENT TYPE" = "Type de paiement";
 "Total" = "Total";
 "Payment Status" = "Statut de paiement";
 "Description" = "Description:";
 "Trip Status" = "Statut de la livraison";
+"TRIP STATUS" = "Statut de la livraison";
 "GET RECEIPT" = "Obtenir votre reçu";
 "Date" = "Date";
 "Booking Id :" = "Numéro de réservation";
@@ -721,6 +746,7 @@
 "SMS and Location Services Permission required for this app" = "Cette application requiert votre permission pour accéder à vos SMS et à votre location";
 "Go to settings and enable permissions" = "Allez aux paramètres et autoriser l'accès";
 "Trip Detail" = "Détails de votre voyage";
+"TRIP DETAIL" = "Détails de votre voyage";
 "Select Card" = "Sélectionner une carte";
 "Transaction failed" = "La transaction a échoué";
 "Card delete successfully" = "Carte a été supprimée";
@@ -743,11 +769,12 @@
 "No vehicle found" = "Aucun véhicule trouvé";
 
 
-
-
-
-
-
+"TIPS" = "le pourboire";
+"PICKUP TIME" = "heure de ramassage";
+"TAX"= "Tax";
+"Completed" = "terminé";
+"Your trip has now started." = "Votre voyage a maintenant commencé";
+"Your trip has been completed successfully" = "Votre voyage a été complété avec succès";
 
 
 

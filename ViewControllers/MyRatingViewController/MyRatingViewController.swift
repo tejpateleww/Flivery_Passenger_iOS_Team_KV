@@ -212,12 +212,12 @@ class MyRatingViewController: BaseViewController,UITableViewDataSource, UITableV
                     if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
                         if SelectedLanguage == "en"
                         {
-                            UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
+                            UtilityClass.showAlert("Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
                             
                         }
                         else if SelectedLanguage == secondLanguage // "sw"
                         {
-                            UtilityClass.showAlert("Error", message: resDict.object(forKey: "swahili_message") as! String, vc: self)
+                            UtilityClass.showAlert("Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
                         }
                     }
                 }
@@ -227,12 +227,12 @@ class MyRatingViewController: BaseViewController,UITableViewDataSource, UITableV
                     if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
                         if SelectedLanguage == "en"
                         {
-                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
+                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                             
                         }
                         else if SelectedLanguage == secondLanguage // "sw"
                         {
-                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String, vc: self)
+                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                         }
                     }
                 }

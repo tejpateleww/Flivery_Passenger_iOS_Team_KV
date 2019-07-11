@@ -34,7 +34,7 @@ protocol deleagateForBookTaxiLater
     func btnRequestLater()
 }
 
-class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GMSAutocompleteViewControllerDelegate, FavouriteLocationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, FloatRatingViewDelegate, CompleterTripInfoDelegate, ARCarMovementDelegate, GMSMapViewDelegate, addCardFromHomeVCDelegate, SelectCardDelegate,delegateRateGiven,deleagateForBookTaxiLater,IQDropDownTextFieldDelegate
+class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GMSAutocompleteViewControllerDelegate, FavouriteLocationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, FloatRatingViewDelegate, CompleterTripInfoDelegate, ARCarMovementDelegate, GMSMapViewDelegate, addCardFromHomeVCDelegate, SelectCardDelegate,delegateRateGiven,deleagateForBookTaxiLater,IQDropDownTextFieldDelegate,didSelectPlace
 {
     
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
@@ -176,32 +176,32 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 {
                     
                     
-                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                        if SelectedLanguage == "en"
-                        {
-                            UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
-                            
-                        }
-                        else if SelectedLanguage == secondLanguage // "sw"
-                        {
-                            UtilityClass.showAlert("Error", message: resDict.object(forKey: "swahili_message") as! String, vc: self)
-                        }
-                    }
+//                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                        if SelectedLanguage == "en"
+//                        {
+//                            UtilityClass.showAlert("Error", message: resDict.object(forKey: "message") as! String, vc: self)
+//
+//                        }
+//                        else if SelectedLanguage == secondLanguage // "sw"
+//                        {
+                            UtilityClass.showAlert("Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
+//                        }
+//                    }
                 }
                 else if let resAry = result as? NSArray
                 {
                     
-                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                        if SelectedLanguage == "en"
-                        {
-                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
-                            
-                        }
-                        else if SelectedLanguage == secondLanguage // "sw"
-                        {
-                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String, vc: self)
-                        }
-                    }
+//                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                        if SelectedLanguage == "en"
+//                        {
+//                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
+//
+//                        }
+//                        else if SelectedLanguage == secondLanguage // "sw"
+//                        {
+                            UtilityClass.showAlert("Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
+//                        }
+//                    }
                 }
             }
         }
@@ -459,8 +459,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         self.viewParentFromToLocation.backgroundColor = UIColor.white
         //ThemeNaviBlueColor
         viewMainFinalRating.isHidden = true
-//        btnDriverInfo.layer.cornerRadius = 5
-//        btnDriverInfo.layer.masksToBounds = true
+        btnDriverInfo.layer.cornerRadius = 5
+        btnDriverInfo.layer.masksToBounds = true
+        btnDriverInfo.setTitle("Driver Info".localized, for: .normal)
         btnRequest.layer.cornerRadius = 5
         btnRequest.layer.masksToBounds = true
         btnCurrentLocation.layer.cornerRadius = 5
@@ -540,7 +541,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             print(self.strSelectedParcelID)
         }
         
-        currentLocationAction()
+//        currentLocationAction()
     }
     
     @objc private func OpenChatwhileAppisTerminated(notification: NSDictionary)
@@ -1733,19 +1734,19 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    if((resDict.object(forKey: "message") as? NSArray) != nil)
+                    if((resDict.object(forKey: GetResponseMessageKey()) as? NSArray) != nil)
                     {
-                        UtilityClass.setCustomAlert(title: "Error", message: (resDict.object(forKey: "message") as! NSArray).object(at: 0) as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "Error", message: (resDict.object(forKey: GetResponseMessageKey()) as! NSArray).object(at: 0) as! String) { (index, title) in
                         }
                     }
                     else
                     {
-                        UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                         }
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
@@ -2152,11 +2153,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     }
                 }
             }
@@ -2290,7 +2291,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 }
                 else if let res = result as? NSDictionary {
                     
-                    let alert = UIAlertController(title: nil, message: res.object(forKey: "message") as? String, preferredStyle: .alert)
+                    let alert = UIAlertController(title: nil, message: res.object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK".localized, style: .default, handler: { ACTION in
                         
                         UIView.transition(with: self.viewForMainFavourite, duration: 0.4, options: .transitionCrossDissolve, animations: {() -> Void in
@@ -3814,7 +3815,18 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             drinkViewController.delegate = self
             
         }
-        
+        if(segue.identifier == "presentPlacePicker")
+        {
+            let deiverInfo = segue.destination as! UINavigationController
+            let targetController = deiverInfo.topViewController as! PlacePickerViewController
+
+
+            let visibleRegion = mapView.projection.visibleRegion()
+            let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+            targetController.visibleRegion = visibleRegion
+            targetController.delegate = self
+            targetController.bounds = bounds
+         }
         if(segue.identifier == "segueDriverInfo")
         {
             //            let deiverInfo = segue.destination as! DriverInfoViewController
@@ -4080,7 +4092,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             let msg = (data as NSArray)
             
             self.alertForTip = self.storyboard?.instantiateViewController(withIdentifier: "AskForTipViewController") as! AskForTipViewController
-            self.alertForTip.strMessage = ((msg.object(at: 0) as! NSDictionary).object(forKey: "message") as? String)!
+            self.alertForTip.strMessage = ((msg.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String)!
             self.alertForTip.Delegate = self
             self.alertForTip.isBookNow = false
 //                UIAlertController(title: "Tip Alert".localized,
@@ -4195,7 +4207,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             let msg = (data as NSArray)
             self.alertForTip = self.storyboard?.instantiateViewController(withIdentifier: "AskForTipViewController") as! AskForTipViewController
-            self.alertForTip.strMessage = ((msg.object(at: 0) as! NSDictionary).object(forKey: "message") as? String)!
+            self.alertForTip.strMessage = ((msg.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String)!
             self.alertForTip.Delegate = self
             self.alertForTip.isBookNow = true
 //            self.alertForTip = UIAlertController(title: "Tip Alert".localized,
@@ -4288,20 +4300,20 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                             bookingIdIs = nowBookingID
                         }
                         print("bookingIdIs: \(bookingIdIs)")
-                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                            if SelectedLanguage == "en" {
-                                
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+//                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                            if SelectedLanguage == "en" {
+
+//                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
+
+//                                })
+//                            }
+//                            else if SelectedLanguage == secondLanguage // "sw"
+//                            {
+                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
                                     
                                 })
-                            }
-                            else if SelectedLanguage == secondLanguage // "sw"
-                            {
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                                    
-                                })
-                            }
-                        }
+//                            }
+//                        }
                         if SingletonClass.sharedInstance.bookingId != "" {
                             if SingletonClass.sharedInstance.bookingId == bookingIdIs {
                                 self.DriverInfoAndSetToMap(driverData: NSArray(array: data))
@@ -4616,21 +4628,21 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         self.viewActivity.stopAnimating()
                         self.viewMainActivityIndicator.isHidden = true
                         
-                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                            if SelectedLanguage == "en" {
-                                
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+//                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                            if SelectedLanguage == "en" {
+
+//                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+
+//                                })
+//                            }
+//                            else if SelectedLanguage == secondLanguage // "sw"
+//                            {
+                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
                                     
                                 })
-                            }
-                            else if SelectedLanguage == secondLanguage // "sw"
-                            {
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                                    
-                                })
-                            }
-                        }
-                        
+//                            }
+//                        }
+
                     }
                 }
                 else {
@@ -4639,20 +4651,20 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     //                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
                     //
                     //                    })
-                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                        if SelectedLanguage == "en" {
-                            
-                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+//                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                        if SelectedLanguage == "en" {
+
+//                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+
+//                            })
+//                        }
+//                        else if SelectedLanguage == secondLanguage // "sw"
+//                        {
+                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
                                 
                             })
-                        }
-                        else if SelectedLanguage == secondLanguage // "sw"
-                        {
-                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                                
-                            })
-                        }
-                    }
+//                        }
+//                    }
                 }
             }
             
@@ -4696,7 +4708,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     if SingletonClass.sharedInstance.bookingId == bookingId {
                         self.viewActivity.stopAnimating()
                         self.viewMainActivityIndicator.isHidden = true
-//                        self.currentLocationAction()
+                        //                        self.currentLocationAction()
                         self.getPlaceFromLatLong()
                         self.clearDataAfteCompleteTrip()
                         self.currentLocationAction()
@@ -4708,27 +4720,27 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         //                        UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
                         //
                         //                        })
-                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                            if SelectedLanguage == "en" {
-                                
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
-                                    
-                                })
-                            }
-                            else if SelectedLanguage == secondLanguage // "sw"
-                            {
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                                    
-                                })
-                            }
-                        }
-                        
+                        //                        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+                        //                            if SelectedLanguage == "en" {
+                        //
+                        //                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+                        //
+                        //                                })
+                        //                            }
+                        //                            else if SelectedLanguage == secondLanguage // "sw"
+                        //                            {
+                        UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
+
+                        })
+                        //                            }
+                        //                        }
+
                         
                     }
                 } else {
                     self.viewActivity.stopAnimating()
                     self.viewMainActivityIndicator.isHidden = true
-//                    self.currentLocationAction()
+                    //                    self.currentLocationAction()
                     self.getPlaceFromLatLong()
                     self.clearDataAfteCompleteTrip()
                     self.currentLocationAction()
@@ -4741,22 +4753,24 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     //
                     //                    })
                     
-                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                        if SelectedLanguage == "en" {
-                            
-                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
-                                
-                            })
-                        }
-                        else if SelectedLanguage == secondLanguage // "sw"
-                        {
-                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                                
-                            })
-                        }
-                    }
-                    
+                    //                    if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+                    //                        if SelectedLanguage == "en" {
+
+                    //                            UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+                    //
+                    //                            })
+                    //                        }
+                    //                        else if SelectedLanguage == secondLanguage // "sw"
+                    //                        {
+                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
+
+                    })
+                    //                        }
+                    //                    }
+
+                    //                }
                 }
+
             }
         })
     }
@@ -4787,21 +4801,21 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             //            alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
             
             
-            if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                if SelectedLanguage == "en" {
-                    
-                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+//            if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                if SelectedLanguage == "en" {
+
+//                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["message"]! as! String, completionHandler: { (index, title) in
+
+//                    })
+//                }
+//                else if SelectedLanguage == secondLanguage // "sw"
+//                {
+                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
                         
                     })
-                }
-                else if SelectedLanguage == secondLanguage // "sw"
-                {
-                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0]["swahili_message"]! as! String, completionHandler: { (index, title) in
-                        
-                    })
-                }
-            }
-            
+//                }
+//            }
+
             self.btnRequest.isHidden = true
             self.btnCancelStartedTrip.isHidden = true
             
@@ -5000,7 +5014,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         //        Utilities.hideActivityIndicator()
         self.scheduledTimerWithTimeInterval()
         
-        let alert = UIAlertController(title: appName, message: "Your trip has been completed".localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: appName, message: "Your trip has been completed successfully".localized, preferredStyle: .alert)
         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: { ACTION in
             
             
@@ -5205,7 +5219,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 if SingletonClass.sharedInstance.bookingId != "" {
                     if SingletonClass.sharedInstance.bookingId == bookingId {
                         
-                        UtilityClass.setCustomAlert(title: "\(appName)", message: "Your request has been Accepted.") { (index, title) in
+                        UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String) { (index, title) in
                             //               self.stopSound(fileName: "RequestConfirm", extensionType: "mp3")
                         }
                         self.strBookingType = "BookLater"
@@ -5213,7 +5227,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     }
                 }
                 else {
-                    UtilityClass.setCustomAlert(title: "\(appName)", message: "Your request has been Accepted.") { (index, title) in
+                    UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String) { (index, title) in
                         //               self.stopSound(fileName: "RequestConfirm", extensionType: "mp3")
                     }
                     self.strBookingType = "BookLater"
@@ -5230,7 +5244,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             //            self.playSound(fileName: "PickNGo", extensionType: "mp3")
             
-            let alert = UIAlertController(title: nil, message: "Your request has been rejected.".localized, preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message:(data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, preferredStyle: .alert)
             let OK = UIAlertAction(title: "OK".localized, style: .default, handler: { (ACTION) in
                 //                self.stopSound(fileName: "PickNGo", extensionType: "mp3")
             })
@@ -5259,7 +5273,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     
                     if SingletonClass.sharedInstance.bookingId == bookingId {
                         self.strBookingType = "BookLater"
-                        let alert = UIAlertController(title: nil, message: "Your trip has now started.".localized, preferredStyle: .alert)
+                        let alert = UIAlertController(title: nil, message:"Your trip has now started.".localized, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                         alert.addAction(OK)
 //                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -5304,7 +5318,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 if SelectedLanguage == "en" {
                     
                     if let resAry = NSArray(array: data) as? NSArray {
-                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                         //                UtilityClass.showAlert("", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
                     }
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -5319,7 +5333,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 else if SelectedLanguage == secondLanguage // "sw"
                 {
                     if let resAry = NSArray(array: data) as? NSArray {
-                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "swahili_message") as! String
+                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                         //                UtilityClass.showAlert("", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
                     }
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -5346,7 +5360,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             message = "Trip on Hold"
             
             if let resAry = NSArray(array: data) as? NSArray {
-                message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                 //                UtilityClass.showAlert("", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
             }
             
@@ -5546,7 +5560,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             message = "Trip on Hold"
             
             if let resAry = NSArray(array: data) as? NSArray {
-                message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                 
             }
             
@@ -5583,7 +5597,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         message = "Trip on Hold"
                         
                         if let resAry = NSArray(array: data) as? NSArray {
-                            message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                            message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                         }
                         
                         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -5598,7 +5612,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     message = "Trip on Hold"
                     
                     if let resAry = NSArray(array: data) as? NSArray {
-                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                        message = (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String
                     }
                     
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -5622,38 +5636,99 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     @IBAction func txtDestinationLocation(_ sender: UITextField) {
         
-        let visibleRegion = mapView.projection.visibleRegion()
-        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
-        
-        
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        acController.autocompleteBounds = bounds
-        
+//        let visibleRegion = mapView.projection.visibleRegion()
+//        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+//
+//
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = self
+//        acController.autocompleteBounds = bounds
+////        UIBarButtonItem.appearanceWhenContained(in: UISearchBar.self, nil).title = "Annuler"
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "CANCEL".localized
+////        UIButton.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Cancel".localized
+//        UIButton.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitle("CANCEL".localized, for: .normal)
+
+        self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+
         BoolCurrentLocation = false
         
-        present(acController, animated: true, completion: nil)
-        
+//        present(acController, animated: true, completion: nil)
+
     }
     
     @IBAction func txtCurrentLocation(_ sender: UITextField) {
         
         
-        let visibleRegion = mapView.projection.visibleRegion()
-        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
-        
-        
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        acController.autocompleteBounds = bounds
-        
+//        let visibleRegion = mapView.projection.visibleRegion()
+//        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
+//
+//
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = self
+//        acController.autocompleteBounds = bounds
+//
+          self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
         BoolCurrentLocation = true
         
         //        acController.tintColor = UIColor.white
         
-        present(acController, animated: true, completion: nil)
+//        present(acController, animated: true, completion: nil)
     }
-    
+
+    func didSelectPlaceFromPlacePicker(place: GMSPlace) {
+        self.MarkerCurrntLocation.isHidden = false
+        self.btnDoneForLocationSelected.isHidden = false
+        self.viewBookNowLater.isHidden = true
+        if BoolCurrentLocation {
+
+            self.strLocationType = currentLocationMarkerText
+            self.ConstantViewCarListsHeight.constant = 0
+            self.viewCarLists.isHidden = true
+            //            self.viewShareRideView.isHidden = true
+
+            txtCurrentLocation.text = place.formattedAddress
+            strPickupLocation = place.formattedAddress!
+            doublePickupLat = place.coordinate.latitude
+            doublePickupLng = place.coordinate.longitude
+
+            currentLocationMarker.map = nil
+
+            _ = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+
+            let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude,longitude: place.coordinate.longitude, zoom: 17)
+            self.mapView.camera = camera
+            mapView.animate(to: camera)
+
+        }
+        else {
+
+            strLocationType = destinationLocationMarkerText
+            self.strLocationType = destinationLocationMarkerText
+            self.ConstantViewCarListsHeight.constant = 0
+            self.viewCarLists.isHidden = true
+            //            self.viewShareRideView.isHidden = true
+
+            txtDestinationLocation.text = "\(place.name ?? ""), \(place.formattedAddress ?? "")"
+            strDropoffLocation = txtDestinationLocation.text!
+            doubleDropOffLat = place.coordinate.latitude
+            doubleDropOffLng = place.coordinate.longitude
+
+            destinationLocationMarker.map = nil
+
+            _ = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+
+
+            let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude,longitude: place.coordinate.longitude, zoom: 17)
+            self.mapView.camera = camera
+            mapView.animate(to: camera)
+
+        }
+
+        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
+            postPickupAndDropLocationForEstimateFare()
+        }
+
+    }
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
@@ -7205,7 +7280,7 @@ extension HomeViewController: CLLocationManagerDelegate {
             let position = CLLocationCoordinate2D(latitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude)
             
             MarkerCurrntLocation.isHidden = false
-            
+            currentLocationAction()
             let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,longitude: location.coordinate.longitude, zoom: 17)
             mapView.animate(to: camera)
             
@@ -7309,3 +7384,4 @@ extension HomeViewController:AskForTipDelegate {
         self.alertForTip.dismiss(animated: true, completion: nil)
     }
 }
+

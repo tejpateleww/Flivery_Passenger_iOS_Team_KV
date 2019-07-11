@@ -801,8 +801,8 @@ extension UILabel {
     override open func layoutSubviews() {
         super.layoutSubviews()
         if self.text != nil {
-            count = count + 1
-            self.text =  self.text!.localized
+//            count = count + 1
+            self.text =  self.text?.localized
 //            print("The count is \(count)")
         }
 
