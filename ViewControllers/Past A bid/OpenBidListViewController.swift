@@ -10,15 +10,19 @@ import UIKit
 import SDWebImage
 
 class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    
+   //MARK:- ===== Outlets ======
     @IBOutlet weak var tblView: UITableView!
+    
+    
+    //MARK:- ===== Variables ======
     private let refreshControl = UIRefreshControl()
     var aryData = [[String:AnyObject]]()
     let dateFormatter = DateFormatter(format: "yyyy/MM/dd")
     let date = Date()
     var arrNumberOfOnlineCars : [[String:AnyObject]]!
    
-    
+     //MARK:- ===== View Controller LifeCycle ======
     override func viewDidLoad() {
         super.viewDidLoad()
         tblView.refreshControl = refreshControl
@@ -29,6 +33,8 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
          arrNumberOfOnlineCars = SingletonClass.sharedInstance.arrCarLists as? [[String : AnyObject]]
         // Do any additional setup after loading the view.
     }
+    
+    //MARK:- ===== Data Refresh ======
     @objc private func refreshData(_ sender: Any) {
         // Fetch Weather Data
         webserviceCallToGetOpenBidList()
@@ -58,6 +64,27 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
             }
     }
     
+    //MARK:- ===== API Call Customer Bid Cancel ======
+    func webserviceCallToCancelBid(bidID : String)
+    {
+        webserviceForGetCustomerPostBidCancel(bidID as AnyObject) { (result, status) in
+            if (status) {
+                print(result)
+                
+                let message = (result as! NSDictionary).object(forKey: "message") as! String
+               // self.navigationController?.popViewController(animated: true)
+                //UtilityClass.showAlert("", message: message, vc: self)
+                self.webserviceCallToGetOpenBidList()
+            }
+            else {
+                print(result)
+                UtilityClass.defaultMsg(result: result)
+                // UtilityClass.setCustomAlert(title: "", message:UtilityClass.defaultMsg(result:result), completionHandler: nil)
+            }
+        }
+    }
+    
+    //MARK:- ===== TableView Datasource And Delegate Methods ======
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
@@ -80,7 +107,9 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
          
         customCell.selectionStyle = .none
         customCell.btnViewDetails.tag = indexPath.row
-           customCell.btnViewDetails.addTarget(self, action:#selector(viewDetailsBtnAction(_:)), for: .touchUpInside)
+        customCell.btnDelete.tag = indexPath.row
+        customCell.btnViewDetails.addTarget(self, action:#selector(viewDetailsBtnAction(_:)), for: .touchUpInside)
+        customCell.btnDelete.addTarget(self, action: #selector(btnDeleteAction(_:)), for:.touchUpInside)
         if let distance = aryData[indexPath.row]["Distance"] as? String{
             customCell.lblDistance.text = distance
         }
@@ -119,12 +148,6 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
        return customCell
         }
     }
-    @objc func viewDetailsBtnAction(_ sender:UIButton) {
-      let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
-        detailVC.aryData = [aryData[sender.tag]]
-      self.navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
     }
@@ -133,6 +156,42 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
         return aryData.count != 0 ?  UITableViewAutomaticDimension : self.tblView.frame.height
     }
 
+    
+    //MARK:- ===== View Details Button Action ======
+    @objc func viewDetailsBtnAction(_ sender:UIButton) {
+      let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
+        detailVC.aryData = [aryData[sender.tag]]
+      self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    
+    //MARK:- ===== Delete Button Action ======
+    @objc func btnDeleteAction(_ sender:UIButton){
+        let alertController = UIAlertController(title: appName, message: "Are you sure want to delete this bid?", preferredStyle: .alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+            if let bidID = self.aryData[sender.tag]["Id"] as? String{
+                print(bidID)
+                if bidID != "0"{
+                    self.webserviceCallToCancelBid(bidID: bidID)
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+            UIAlertAction in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+        
+        }
 }
 //"data": [
 //{

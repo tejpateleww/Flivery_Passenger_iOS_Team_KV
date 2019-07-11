@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class DriverOffersListViewCell: UITableViewCell {
 
@@ -15,6 +16,7 @@ class DriverOffersListViewCell: UITableViewCell {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var imgProfile: UIImageView!
     
+    @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var btnMessage: UIButton!
@@ -24,9 +26,13 @@ class DriverOffersListViewCell: UITableViewCell {
     @IBOutlet weak var lblRate: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+                imgProfile.layer.cornerRadius = imgProfile.frame.height/2
+                imgProfile.clipsToBounds = true
     }
 
+    
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
