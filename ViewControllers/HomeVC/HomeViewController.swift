@@ -724,7 +724,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
 //                UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
 //                }
                 if self.selectedIndexPath != nil {
-                    UtilityClass.setCustomAlert(title: "", message: "There is no car available".localized) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: "No driver available".localized) { (index, title) in
                     }
                 } else {
                     UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
