@@ -255,7 +255,6 @@
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="0.0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -288,7 +287,6 @@
                                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="0.0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -559,7 +557,6 @@
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                         <real key="value" value="0.0"/>
                                                                                     </userDefinedRuntimeAttribute>
-                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="0.0"/>
                                                                                     </userDefinedRuntimeAttribute>
@@ -579,7 +576,6 @@
                                                                                 </state>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                         <real key="value" value="0.0"/>
                                                                                     </userDefinedRuntimeAttribute>
@@ -1433,7 +1429,6 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1845,7 +1840,6 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="btnYesAction:" destination="loL-e9-XqE" eventType="touchUpInside" id="YDc-2p-1V2"/>
@@ -1860,7 +1854,6 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="btnNoAction:" destination="loL-e9-XqE" eventType="touchUpInside" id="kux-Ov-e2k"/>
@@ -2071,7 +2064,6 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="btnSubmitAction:" destination="D5o-7x-nTB" eventType="touchUpInside" id="okm-On-cbk"/>
@@ -4231,9 +4223,6 @@ Hours</string>
                                                                                 <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
-                                                                        <connections>
-                                                                            <action selector="txtLocation:" destination="sbp-oU-Blo" eventType="touchDown" id="WRV-79-Jj0"/>
-                                                                        </connections>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdE-qa-yWf">
                                                                         <rect key="frame" x="235" y="7.5" width="20" height="20"/>
@@ -4281,9 +4270,6 @@ Hours</string>
                                                                                 <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
-                                                                        <connections>
-                                                                            <action selector="txtLocation:" destination="sbp-oU-Blo" eventType="touchDown" id="ZJb-Wn-nxs"/>
-                                                                        </connections>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjr-p4-IN1">
                                                                         <rect key="frame" x="235" y="7.5" width="20" height="20"/>
@@ -4654,6 +4640,7 @@ Hours</string>
                         <outlet property="txtVehicleType" destination="9L5-UZ-LfF" id="F3c-Pb-6fG"/>
                         <outlet property="txtWeight" destination="P3l-Tr-KFz" id="1ag-aU-hPc"/>
                         <outlet property="viewSelectVehicle" destination="ArX-jh-nl2" id="pVX-uX-dWB"/>
+                        <segue destination="Z1b-ap-FvT" kind="presentation" identifier="presentPlacePicker" modalPresentationStyle="overCurrentContext" id="aTA-hd-Dug"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTv-W8-cdi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4785,7 +4772,6 @@ Hours</string>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="NO"/>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                     <real key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
@@ -6635,7 +6621,6 @@ Hours</string>
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="btnSubmitAction:" destination="ICf-Sa-UAP" eventType="touchUpInside" id="2Xc-ll-uuS"/>
@@ -8062,7 +8047,6 @@ Hours</string>
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="btnChangePassword:" destination="yRK-Jh-GNe" eventType="touchUpInside" id="2tA-ZM-7s8"/>
@@ -8083,7 +8067,6 @@ Hours</string>
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="btnSave:" destination="yRK-Jh-GNe" eventType="touchUpInside" id="e2A-7n-cVy"/>
@@ -9093,7 +9076,6 @@ Hours</string>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" red="0.89372241500000005" green="0.51922690869999999" blue="0.15725964310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="btnLogoutAction:" destination="JmO-tL-fGl" eventType="touchUpInside" id="SeF-kf-Mgw"/>
@@ -9903,7 +9885,6 @@ Hours</string>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
                                                             </subviews>
@@ -10656,7 +10637,6 @@ Hours</string>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
                                                             </subviews>
@@ -11095,15 +11075,15 @@ Hours</string>
                                                                     <rect key="frame" x="0.0" y="60" width="320" height="30"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RRB-W6-cqX">
-                                                                            <rect key="frame" x="10" y="0.0" width="300" height="14"/>
+                                                                            <rect key="frame" x="10" y="0.0" width="300" height="5.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv8-S6-tIm">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="14"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="5.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="start location" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnU-Wu-Ne0">
-                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="14"/>
+                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="5.5"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" priority="750" constant="14" id="crG-Tk-74N"/>
                                                                                     </constraints>
@@ -11114,15 +11094,15 @@ Hours</string>
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jrH-CY-Lrh">
-                                                                            <rect key="frame" x="10" y="19" width="300" height="6"/>
+                                                                            <rect key="frame" x="10" y="10.5" width="300" height="14.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEo-XQ-YdU">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="6"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="14.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="end location" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HpX-A4-hJf">
-                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="6"/>
+                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="14.5"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" priority="750" constant="16" id="NTj-AH-rFo"/>
                                                                                     </constraints>
@@ -11166,7 +11146,6 @@ Hours</string>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
                                                             </subviews>
@@ -13401,7 +13380,6 @@ Hours</string>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
@@ -14233,7 +14211,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6d-zr-oCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3045" y="4662.6760563380285"/>
+            <point key="canvasLocation" x="-2334" y="5361"/>
         </scene>
         <!--MyBidListViewController-->
         <scene sceneID="YcU-06-EOh">
@@ -16018,7 +15996,6 @@ Hours</string>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
@@ -17002,7 +16979,6 @@ Hours</string>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSubmitButton" value="YES"/>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="NoNeedBackground" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
                                                             </subviews>
@@ -21017,7 +20993,7 @@ Hours</string>
         <image name="to-from-address-ico" width="40" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JiC-d9-SMU"/>
+        <segue reference="aTA-hd-Dug"/>
         <segue reference="nL1-uq-0qs"/>
         <segue reference="Vrt-ic-0TM"/>
     </inferredMetricsTieBreakers>

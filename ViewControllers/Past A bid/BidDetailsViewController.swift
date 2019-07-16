@@ -29,6 +29,8 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblDriveOfferTitle: UILabel!
     @IBOutlet weak var tblView: UITableView!
+
+    var isFromOpenBid = Bool()
   
     //MARK:- ====== Variables ======
     private let refreshControl = UIRefreshControl()
@@ -77,17 +79,35 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         if let droplocation = aryData[0]["DropoffLocation"] as? String{
             lblDropoffLocation.text = droplocation
         }
-        
-        if let bids = aryData[0]["DriverBids"] as? String{
-            lblBidCount.text = "Bids - " + bids
-            if bids != "0"{
-                if let bidID = aryData[0]["Id"] as? String{
-                    print(bidID)
-                    if bidID != "0"{
-                        GetBidDetails(bidID: bidID)
+
+        if(isFromOpenBid == true)
+        {
+            if let bids = aryData[0]["DriverBids"] as? String{
+                lblBidCount.text = "Bids - " + bids
+                if bids != "0"{
+                    if let bidID = aryData[0]["Id"] as? String{
+                        print(bidID)
+                        if bidID != "0"{
+                            GetBidDetails(bidID: bidID)
+                        }
                     }
                 }
             }
+            else if let bids = aryData[0]["DriverBids"] as? Int{
+                lblBidCount.text = "Bids - " + "\(bids)"
+                if bids != 0{
+                    if let bidID = aryData[0]["Id"] as? String{
+                        print(bidID)
+                        if bidID != "0"{
+                            GetBidDetails(bidID: bidID)
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+             bidAcceptedByDriver()
         }
         if let modelId = aryData[0]["ModelId"] as? String{
             for i in arrNumberOfOnlineCars{
@@ -100,6 +120,41 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
             }
         }
     }
+
+
+    func bidAcceptedByDriver()
+    {
+
+        let dictData = aryData[0] as? [String:Any]
+
+
+        var strDriverID = String()
+
+        if let DriverID = dictData?["DriverId"] as? String
+        {
+            strDriverID = DriverID
+        }
+        else if let DriverID = dictData?["DriverId"] as? Int
+        {
+            strDriverID = String(DriverID)
+        }
+        if(strDriverID != "0")
+        {
+            self.arrBidDetails = self.aryData
+        }
+        self.tblView.reloadData()
+
+//        let dictData = [String:Any]()
+//        dictData["Fullname"] =
+//        dictData["DriverImage"] = 
+//        dictData["DriverBudget"] =
+//        dictData["DriverNotes"] =
+//        dictData["DriverRating"] =
+//        dictData["DeadHead"] =
+//        dictData["BidId"] =
+//        dictData["DriverId"] =
+
+    }
     
      //MARK:- ====== Api call For Get Bid Details ======
     func GetBidDetails(bidID : String){
@@ -108,7 +163,6 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
             if (status) {
                 print(result)
                 self.arrBidDetails = (result as! NSDictionary).object(forKey: "data") as! [[String:AnyObject]]
-               
                 SingletonClass.sharedInstance.CustomerBidDetails = self.arrBidDetails
                 self.tblView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -203,10 +257,38 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         webserviceForGetCustomerBidAccept(param as AnyObject) { (result, status) in
             if (status) {
                 print(result)
-                let objData = (result as! NSDictionary).object(forKey: "data") as! [String:AnyObject]
-                let msg = (result as! NSDictionary).object(forKey: "message") as! String
-                self.navigationController?.popViewController(animated: true)
-                UtilityClass.showAlert("", message: msg, vc: self)
+
+                if let objData = result["status"] as? String
+                {
+                    if(objData == "1")
+                    {
+                        UtilityClass.showAlert("", message: "Success", vc: self)
+                         self.navigationController?.popViewController(animated: true)
+                    }
+                    else
+                    {
+                        UtilityClass.showAlert("", message: "Error", vc: self)
+
+                    }
+                }
+                else if let objData = result["status"] as? Int
+                {
+                    if(objData == 1)
+                    {
+                        UtilityClass.showAlert("", message: "Success", vc: self)
+                         self.navigationController?.popViewController(animated: true)
+                    }
+                    else
+                    {
+                        UtilityClass.showAlert("", message: "Error", vc: self)
+
+                    }
+                }
+
+//                let objData = (result as! NSDictionary).object(forKey: "data") as! [String:AnyObject]
+//                let msg = (result as! NSDictionary).object(forKey: "message") as! String
+//                self.navigationController?.popViewController(animated: true)
+//                UtilityClass.showAlert("", message: msg, vc: self)
                 self.tblView.reloadData()
                 
                 self.refreshControl.endRefreshing()

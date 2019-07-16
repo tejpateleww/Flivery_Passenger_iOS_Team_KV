@@ -15,7 +15,7 @@ protocol RefreshData {
     func dataRefresh()
 }
 
-
+var shouldLocalize = true
 
 
 class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
@@ -50,6 +50,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     var dropOffCoordinate : CLLocationCoordinate2D!
     var pickerView = UIPickerView()
     var aryCards = [[String:AnyObject]]()
+    var NearByRegion:GMSCoordinateBounds!
     @IBOutlet weak var collectionviewCars: UICollectionView!
     @IBOutlet var viewSelectVehicle: UIView!
 
@@ -79,13 +80,15 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         pickerView.delegate = self
 
         webserviceOfCardList()
-//        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        leftView.backgroundColor = UIColor.clear
-//        let imgflag = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25)) as UIImageView
-//        imgflag.image = UIImage(named: "iconcard")
-//        leftView.addSubview(imgflag)
-//        self.txtPayment?.leftView = leftView
-//        self.txtPayment?.leftViewMode = .always
+
+
+        let bounds = GMSCoordinateBounds()
+        let latitude = SingletonClass.sharedInstance.currentLatitude
+        let longitude =  SingletonClass.sharedInstance.currentLongitude
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude:Double(latitude) ?? 00.00, longitude:Double(longitude) ?? 0.00)
+        NearByRegion = bounds.includingCoordinate(marker.position)
+
 
     }
 
@@ -534,11 +537,11 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     {
 //        let visibleRegion = mapView.projection.visibleRegion()
 //        let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = self
 //        acController.autocompleteBounds = bounds
-        
-        present(acController, animated: true, completion: nil)
+         self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+//        present(acController, animated: true, completion: nil)
     }
 
     //-------------------------------------------------------------
@@ -756,6 +759,17 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             }
         }
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "presentPlacePicker")
+        {
+            let deiverInfo = segue.destination as! UINavigationController
+            let targetController = deiverInfo.topViewController as! PlacePickerViewController
+            targetController.delegate = self
+            targetController.bounds = NearByRegion
+        }
+    }
+
     
 
     func setCardIcon(str: String) -> String {
@@ -810,6 +824,23 @@ extension PostABidViewController: ImagePickerDelegate {
     }
 }
 
+extension PostABidViewController : didSelectPlace
+{
+    func didSelectPlaceFromPlacePicker(place: GMSPlace)
+    {
+        if(isPickupLocation)
+        {
+            txtPickUpLocation?.text = "\(place.name ?? ""), \(place.formattedAddress ?? "")"
+            pickUpCoordinate = place.coordinate
+        }
+        else
+        {
+            txtDropLocation?.text = "\(place.name ?? ""), \(place.formattedAddress ?? "")"
+            dropOffCoordinate = place.coordinate
+        }
+    }
+}
+
 public protocol ImagePickerDelegate: class {
     func didSelect(image: UIImage?)
 }
@@ -830,6 +861,7 @@ open class ImagePicker: NSObject {
 
         self.pickerController.delegate = self
         self.pickerController.allowsEditing = true
+
         self.pickerController.mediaTypes = ["public.image"]
     }
 
@@ -840,6 +872,7 @@ open class ImagePicker: NSObject {
 
         return UIAlertAction(title: title, style: .default) { [unowned self] _ in
             self.pickerController.sourceType = type
+            shouldLocalize = false
             self.presentationController?.present(self.pickerController, animated: true)
         }
     }
@@ -879,13 +912,14 @@ open class ImagePicker: NSObject {
 extension ImagePicker: UIImagePickerControllerDelegate {
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        shouldLocalize = true
         self.pickerController(picker, didSelect: nil)
     }
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
 
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-
+        shouldLocalize = true
         self.pickerController(picker, didSelect: chosenImage)
     }
 }

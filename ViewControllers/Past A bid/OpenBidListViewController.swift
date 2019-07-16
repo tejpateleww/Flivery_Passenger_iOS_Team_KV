@@ -161,6 +161,7 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
     @objc func viewDetailsBtnAction(_ sender:UIButton) {
       let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BidDetailsViewController") as! BidDetailsViewController
         detailVC.aryData = [aryData[sender.tag]]
+        detailVC.isFromOpenBid = true
       self.navigationController?.pushViewController(detailVC, animated: true)
     }
     

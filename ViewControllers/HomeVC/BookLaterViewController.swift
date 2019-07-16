@@ -121,6 +121,15 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         }
 
 
+        let bounds = GMSCoordinateBounds()
+        let latitude = SingletonClass.sharedInstance.currentLatitude
+        let longitude =  SingletonClass.sharedInstance.currentLongitude
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude:Double(latitude) ?? 00.00, longitude:Double(longitude) ?? 0.00)
+        NearByRegion = bounds.includingCoordinate(marker.position)
+
+
+
         selectWeight.minimumValue = 1
         selectWeight.maximumValue = 1000
         selectWeight.value = [0.0]
