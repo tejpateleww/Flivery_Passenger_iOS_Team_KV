@@ -190,6 +190,8 @@
 		46DC9001225E08B600B13EB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DC9000225E08B600B13EB2 /* Constants.swift */; };
 		644429C122CB639A008B91EA /* NoDataFoundTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644429BF22CB6397008B91EA /* NoDataFoundTableViewCell.xib */; };
 		644429C222CB639A008B91EA /* NoDataFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */; };
+		7A1CD5F622E0828F0049191D /* ChatStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1CD5F522E0828F0049191D /* ChatStoryboard.storyboard */; };
+		7A1CD5F922E083370049191D /* BidChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1CD5F822E083370049191D /* BidChatViewController.swift */; };
 		8E3DD1613B5C20B5D5EFEE9A /* Pods_Flivery_User.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532191C9C750E283B0D6B08C /* Pods_Flivery_User.framework */; };
 		EE3BCCBA22C3A15E00BCBC9E /* PostABidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */; };
 		EEA4269822D71ACA008E2A55 /* PlacePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4269722D71ACA008E2A55 /* PlacePickerViewController.swift */; };
@@ -392,6 +394,8 @@
 		644429BF22CB6397008B91EA /* NoDataFoundTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataFoundTableViewCell.xib; sourceTree = "<group>"; };
 		644429C022CB6399008B91EA /* NoDataFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoDataFoundTableViewCell.swift; sourceTree = "<group>"; };
 		6C5BB4D02F5DAB560A69DD39 /* Pods_PickNGo_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickNGo_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1CD5F522E0828F0049191D /* ChatStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatStoryboard.storyboard; sourceTree = "<group>"; };
+		7A1CD5F822E083370049191D /* BidChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidChatViewController.swift; sourceTree = "<group>"; };
 		8AB9D1AFC2E46418F626C956 /* Pods-TickTok User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickTok User.release.xcconfig"; path = "Pods/Target Support Files/Pods-TickTok User/Pods-TickTok User.release.xcconfig"; sourceTree = "<group>"; };
 		94C0D7BC78B29F8F1DC79A5C /* Pods-Nexus User.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nexus User.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nexus User/Pods-Nexus User.debug.xcconfig"; sourceTree = "<group>"; };
 		9C1262322975117831B737CE /* Pods-Flivery User.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flivery User.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flivery User/Pods-Flivery User.release.xcconfig"; sourceTree = "<group>"; };
@@ -993,6 +997,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7A1CD5F722E083130049191D /* Bid Chat */ = {
+			isa = PBXGroup;
+			children = (
+				7A1CD5F822E083370049191D /* BidChatViewController.swift */,
+			);
+			path = "Bid Chat";
+			sourceTree = "<group>";
+		};
 		EEA4269922D71ACF008E2A55 /* CutomPlacePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,6 +1016,7 @@
 		EEE4D18922C3A080005181D9 /* Post A Bid */ = {
 			isa = PBXGroup;
 			children = (
+				7A1CD5F722E083130049191D /* Bid Chat */,
 				EE3BCCB922C3A15E00BCBC9E /* PostABidViewController.swift */,
 				4651A27422C72EB200E0CA2F /* MyBidListViewController.swift */,
 				4651A27822C740D200E0CA2F /* MyBidListViewCell.swift */,
@@ -1021,6 +1034,7 @@
 		EEFA6CA9220ECE30004F32E7 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7A1CD5F522E0828F0049191D /* ChatStoryboard.storyboard */,
 				34745434221FF95500952FDD /* Registration.storyboard */,
 				34E01A1F220EE898000D048E /* Main.storyboard */,
 				34E01A27220EED13000D048E /* LaunchScreen.storyboard */,
@@ -1135,6 +1149,7 @@
 				3A40739321B512280015C494 /* woolworths.jpg in Resources */,
 				3A40738921B512280015C494 /* proxima-nova-semibold-italic.otf in Resources */,
 				3A40737D21B512280015C494 /* proxima-nova-bold-italic.otf in Resources */,
+				7A1CD5F622E0828F0049191D /* ChatStoryboard.storyboard in Resources */,
 				34E01A2A220EEE2C000D048E /* Localizable.strings in Resources */,
 				3A4073FD21B512280015C494 /* circle2.png in Resources */,
 				34E01A25220EED13000D048E /* LaunchScreen.storyboard in Resources */,
@@ -1373,6 +1388,7 @@
 				3A4073C821B512280015C494 /* MyReceiptsViewController.swift in Sources */,
 				3A4073EC21B512280015C494 /* webViewVC.swift in Sources */,
 				3A4073C721B512280015C494 /* MainHeaderTableViewCell.swift in Sources */,
+				7A1CD5F922E083370049191D /* BidChatViewController.swift in Sources */,
 				EEA4269822D71ACA008E2A55 /* PlacePickerViewController.swift in Sources */,
 				342EEFAB2233865800E4354C /* EmptyTableViewCell.swift in Sources */,
 				3A4073F021B512280015C494 /* ACHUD+Animation.swift in Sources */,
