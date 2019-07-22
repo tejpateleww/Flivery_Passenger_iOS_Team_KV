@@ -329,7 +329,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         
         // Print full message.
         print(userInfo)
-        
+        if key as? String == "chatbid" {
+            if !SingletonClass.sharedInstance.isChatBoxOpen {
+                let dictData = userInfo["gcm.notification.data"] as! String
+                let data = dictData.data(using: .utf8)!
+                do
+                {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                    {
+                        var UserDict = [String:Any]()
+//                        UserDict["BidId"] = jsonResponse["BidId"] as! String
+//                        UserDict["SenderId"] = jsonResponse["SenderId"] as! String
+                        if let vwController = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                            if let vcChat = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController {
+                                
+                                guard let strBidID = jsonResponse["BidId"] as? String else {
+                                    return
+                                }
+                                guard let strSenderID = jsonResponse["SenderId"] as? String else {
+                                    return
+                                }
+                                vcChat.strDriverID = strSenderID
+                                vcChat.strBidID = strBidID
+                                vwController.navigationController?.pushViewController(vcChat, animated: true)
+                            }
+                        }
+                      
+                    }
+                    else {
+                        print("bad json")
+                    }
+                }
+                catch let error as NSError
+                {
+                    print(error)
+                }
+            }
+        }
         completionHandler(UIBackgroundFetchResult.newData)
         
     }

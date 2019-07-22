@@ -113,4 +113,9 @@ class SingletonClass: NSObject {
     var strChatNotificationWhenAppTerminated = String()
     var NotificationDetail = NSDictionary()
     
+    var strChatingNowBookingId = String()
+    var isChatingPresented = Bool()
+    var ChattingMessages = MessageObject()
+
+    
 }

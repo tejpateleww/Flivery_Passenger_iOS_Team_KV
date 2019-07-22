@@ -65,9 +65,9 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="mtH-ao-FfF"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.24313725490196078" green="0.25098039215686274" blue="0.58431372549019611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.80784313725490198" green="0.17254901960784313" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="imageEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
-                                        <state key="normal" image="send"/>
+                                        <state key="normal" image="icon_Send"/>
                                         <connections>
                                             <action selector="sendClick:" destination="FcY-NL-ear" eventType="touchUpInside" id="w4R-Dp-iOX"/>
                                         </connections>
@@ -271,7 +271,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imgVwPhoto" destination="Mnp-Fl-Wqa" id="6Lo-P8-RQH"/>
                                             <outlet property="lblMessage" destination="dnV-FD-fxz" id="wvB-zt-s9V"/>
                                             <outlet property="lblReadStatus" destination="DP9-xU-M4J" id="Sfb-zi-Rkf"/>
                                             <outlet property="lblTime" destination="Ryk-hM-Ob4" id="Iwn-Jp-z4Z"/>
@@ -343,7 +342,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imgVwPhoto" destination="m3R-FL-NvX" id="2yU-h3-Fbz"/>
                                             <outlet property="lblMessage" destination="6gm-BA-GRO" id="crP-tv-vxZ"/>
                                             <outlet property="lblReadStatus" destination="Pse-Nc-nas" id="WCZ-MN-f7P"/>
                                             <outlet property="lblTime" destination="DWf-2s-jDz" id="Vrg-0z-1i3"/>
@@ -403,6 +401,6 @@
         <image name="camera" width="16" height="16"/>
         <image name="ic_close" width="16" height="16"/>
         <image name="iconBack" width="26" height="26"/>
-        <image name="send" width="85" height="85"/>
+        <image name="icon_Send" width="21" height="21"/>
     </resources>
 </document>

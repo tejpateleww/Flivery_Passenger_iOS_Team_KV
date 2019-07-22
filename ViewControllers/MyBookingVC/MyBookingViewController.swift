@@ -111,7 +111,7 @@ self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack,
     
     @IBAction func btnBack(_ sender: UIButton) {
       
-        if isModal() {
+        if isModalNow() {
             self.dismiss(animated: true, completion: {
             })
         }
@@ -154,7 +154,7 @@ self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack,
        
     }
     
-    func isModal() -> Bool {
+     func isModalNow() -> Bool {
         if (presentingViewController != nil) {
             return true
         }

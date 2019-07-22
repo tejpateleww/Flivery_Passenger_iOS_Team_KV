@@ -255,7 +255,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     
     @IBAction func btnBackToNavigate(_ sender: UIButton) {
         
-        if isModal() {
+        if self.isModalNow() {
             self.dismiss(animated: true, completion: {
                 
             })
@@ -271,7 +271,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         }
     }
     
-    func isModal() -> Bool {
+    func isModalNow() -> Bool {
         if (presentingViewController != nil) {
             return true
         }

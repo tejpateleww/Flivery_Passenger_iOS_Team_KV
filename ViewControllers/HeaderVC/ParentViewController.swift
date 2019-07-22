@@ -90,7 +90,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     func BackButtonClicked()     //  Back Button
     {
 
-        if isModal() {
+        if isModalNow() {
             self.dismiss(animated: true, completion: {
                 NotificationCenter.default.post(name: Notification.Name("CallToRating"), object: nil)
 
@@ -127,7 +127,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
             }
         }
     }
-    func isModal() -> Bool {
+    func isModalNow() -> Bool {
         if (presentingViewController != nil) {
             return true
         }

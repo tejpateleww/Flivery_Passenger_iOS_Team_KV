@@ -4009,6 +4009,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 self.onAdvanceTripInfoBeforeStartTrip()                         // Start Later Req
                 self.onReceiveNotificationWhenDriverAcceptRequest()
                 self.onGetEstimateFare()
+                self.setSocketONforReceiveMessage()
             }
             
             // Get Estimate

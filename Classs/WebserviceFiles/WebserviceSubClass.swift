@@ -66,6 +66,7 @@ let GetCustomerOpenBid = WebserviceURLs.KGetCustomOpenBid
 let GetCustomerBidDetails    = WebserviceURLs.KGetCustomerBidDetails
 let CustomerBidAccept      = WebserviceURLs.KCustomerBidAccept
 let CancelPostBid          = WebserviceURLs.KCustomerCancelPostBid
+let ChatHistory             = WebserviceURLs.kChatHistory
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
@@ -205,6 +206,15 @@ func webserviceForChangePassword(_ dictParams: AnyObject, completion: @escaping(
     postData(dictParams, nsURL: url, completion: completion)
 }
 
+//-------------------------------------------------------------
+// MARK: - Webservice For Chat History
+//-------------------------------------------------------------
+
+func webserviceForBidChatHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = ChatHistory
+    postData(dictParams, nsURL: url, completion: completion)
+}
 //-------------------------------------------------------------
 // MARK: - Webservice For Update Profile
 //-------------------------------------------------------------

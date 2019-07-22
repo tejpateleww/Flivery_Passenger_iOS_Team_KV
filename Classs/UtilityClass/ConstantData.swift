@@ -131,6 +131,8 @@ struct WebserviceURLs {
     static let KGetCustomerBidDetails                   = "CustomerBidDetails/"
     static let KCustomerBidAccept                       = "CustomerBidAccept"
     static let KCustomerCancelPostBid                  = "CancelPostBid/"
+    
+    static let kChatHistory                  = "ChatHistory"
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
 }
 
@@ -170,6 +172,11 @@ struct SocketData {
 
     static let kReceiveTips = "ReceiveTips"
     static let kReceiveTipsForBookLater = "ReceiveTipsForBookLater"
+    
+    static let kReceiveMessage                              = "receive_message"
+    static let kSendMessage                                 = "send_message"
+    static let kUpdateUserLocation                          = "UpdatePassengerLatLong"
+
 }
 
 struct SocketDataKeys {

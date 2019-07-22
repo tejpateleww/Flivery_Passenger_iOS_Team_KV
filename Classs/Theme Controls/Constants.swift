@@ -26,8 +26,11 @@ let kHtmlReplaceString   :   String  =   "<[^>]+>"
 let currency : String = "$"
 let dictanceType : String = "km"
 
+///Chat//
+let NotificationgetResponseOfChatting = NSNotification.Name("NotificationgetResponseOfChatting")
+let NotificationgetResponseOfChattingOfSpecificDriver = NSNotification.Name("NotificationgetResponseOfChattingOfSpecificDriver")
 
-
+///
 let kIconMenu : String = "iconMenu"
 let kIconBack : String = "iconBack"
 

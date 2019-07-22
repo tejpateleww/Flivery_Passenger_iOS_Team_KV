@@ -195,7 +195,8 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         } else {
         
         let customCell = self.tblView.dequeueReusableCell(withIdentifier: "DriverOffersListViewCell") as! DriverOffersListViewCell
-        
+            customCell.btnMessage.addTarget(self, action: #selector(btnActionSendMessage(_:)), for: .touchUpInside)
+            customCell.btnMessage.tag = indexPath.row
         customCell.selectionStyle = .none
         customCell.btnAccept.tag = indexPath.row
             customCell.btnAccept.addTarget(self, action: #selector(btnActionAccept(_:)), for: .touchUpInside)
@@ -242,7 +243,31 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         isselected = true
         webserviceForBidAccept()
     }
-    
+    @objc func btnActionSendMessage(_ sender : UIButton){
+      var dict =  arrBidDetails[sender.tag]
+        
+        guard let vwChatController = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController else {
+            return
+        }
+        
+        guard let BidID = dict["BidId"] as? String else {
+            return
+        }
+        guard let DriverID = dict["DriverId"] as? String else {
+            return
+        }
+        guard let DriverName = dict["Fullname"] as? String else {
+            return
+        }
+     
+        vwChatController.strBidID = BidID
+        vwChatController.strDriverID = DriverID
+        vwChatController.strDriverName = DriverName
+        
+        self.navigationController?.pushViewController(vwChatController, animated: true)
+//        isselected = true
+//        webserviceForBidAccept()
+    }
     
     //MARK:- ====== Api call For AcceptBid ======
     func webserviceForBidAccept(){

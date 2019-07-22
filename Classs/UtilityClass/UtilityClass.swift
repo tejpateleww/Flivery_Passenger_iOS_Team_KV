@@ -314,6 +314,40 @@ class func formattedDateFromString(dateString: String, withFormat format: String
     
     return nil
 }
+    class func showAlertOfAPIResponse(param: Any, vc: UIViewController) {
+        
+        if let res = param as? String {
+            UtilityClass.showAlert(appName, message: res, vc: vc)
+        }
+        else if let resDict = param as? NSDictionary {
+            if let msg = resDict.object(forKey: "message") as? String {
+                UtilityClass.showAlert(appName, message: msg, vc: vc)
+            }
+            else if let msg = resDict.object(forKey: "msg") as? String {
+                UtilityClass.showAlert(appName, message: msg, vc: vc)
+            }
+            else if let msg = resDict.object(forKey: "message") as? [String] {
+                UtilityClass.showAlert(appName, message: msg.first ?? "", vc: vc)
+            }
+        }
+        else if let resAry = param as? NSArray {
+            
+            if let dictIndxZero = resAry.firstObject as? NSDictionary {
+                if let message = dictIndxZero.object(forKey: "message") as? String {
+                    UtilityClass.showAlert(appName, message: message, vc: vc)
+                }
+                else if let msg = dictIndxZero.object(forKey: "msg") as? String {
+                    UtilityClass.showAlert(appName, message: msg, vc: vc)
+                }
+                else if let msg = dictIndxZero.object(forKey: "message") as? [String] {
+                    UtilityClass.showAlert(appName, message: msg.first ?? "", vc: vc)
+                }
+            }
+            else if let msg = resAry as? [String] {
+                UtilityClass.showAlert(appName, message: msg.first ?? "", vc: vc)
+            }
+        }
+    }
 }
 
 
@@ -388,7 +422,7 @@ extension UIViewController {
     func ConvertSecondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
-    
+
 
 }
 extension DateFormatter {

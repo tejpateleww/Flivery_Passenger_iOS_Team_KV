@@ -652,9 +652,6 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var vwChatBg: UIView!
     @IBOutlet weak var constraintHeightOfImage: NSLayoutConstraint!
     
-    
-    
-    
     override func layoutSubviews() {
         
     }
@@ -671,7 +668,8 @@ class MessageObject  {
     var message : String? = nil
     var created_date : String? = nil
     
-    
+    var bookingId : String?
+    var type : String?
 }
 
 extension UIView {
@@ -706,4 +704,5 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
 
