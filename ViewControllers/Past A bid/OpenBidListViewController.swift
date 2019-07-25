@@ -122,6 +122,8 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
         if let deadHead = aryData[indexPath.row]["DeadHead"] as? String{
             customCell.lblDeadhead.text = deadHead
         }
+            customCell.lblBidId.text = "Bid Id - " + String(describing: aryData[indexPath.row]["BidId"]!)
+
         if let pickup = aryData[indexPath.row]["PickupDateTime"] as? String{
             let pickupDate : [String] = pickup.components(separatedBy: " ")
             var date : String = pickupDate[0]
@@ -143,6 +145,8 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         if let bids = aryData[indexPath.row]["DriverBids"] as? String{
             customCell.lblBidCount.text = "Bids - " + bids
+        }else if let bids = aryData[indexPath.row]["DriverBids"] as? String{
+            customCell.lblBidCount.text = "Bids - " + String(bids)
         }
           
        return customCell

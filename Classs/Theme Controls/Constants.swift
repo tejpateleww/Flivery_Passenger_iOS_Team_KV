@@ -13,6 +13,8 @@ import UIKit
 let App_Delegate = UIApplication.shared.delegate as! AppDelegate
 let ThemeYellowColor : UIColor = UIColor.init(hex: "ce2c31")
 let ThemeGrayColor : UIColor = UIColor.init(hex:  "8e8c80")
+
+let ThemeGreenColor : UIColor = UIColor(red: 46.0/255.0, green: 156.0/255.0, blue: 97.0/255.0, alpha: 1.0)
 let ThemeStatusBarColor : UIColor = UIColor.init(hex:  "cccccc")
 let themeGrayBGColor : UIColor = UIColor.init(hex: "DDDDDD")
 let themeGrayTextColor : UIColor = UIColor.init(hex: "7A7A7C")

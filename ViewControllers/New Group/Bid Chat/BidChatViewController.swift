@@ -12,7 +12,7 @@ import IQKeyboardManagerSwift
 
 //let windowWidth: CGFloat = CGFloat(UIScreen.main.bounds.size.width)
 
-class BidChatViewController: UIViewController, UINavigationControllerDelegate {
+class BidChatViewController: BaseViewController, UINavigationControllerDelegate {
     
     // ----------------------------------------------------
     // MARK: - Outlets
@@ -98,6 +98,7 @@ class BidChatViewController: UIViewController, UINavigationControllerDelegate {
         //
         //            arrData.append(obj)
         //        }
+        self.setDefaultBackButton()
         self.navigationItem.title = self.strDriverName
         if strBookingType == "Book Later" || strBookingType == "book later" || strBookingType == "BookLater" || strBookingType == "AdvanceBooking" {
             strBookingType = "AdvanceBooking"
@@ -431,6 +432,12 @@ class BidChatViewController: UIViewController, UINavigationControllerDelegate {
                             }
                         }
                         */
+                        if let recieverName = res["ReceiverName"] as? String {
+                             self.strDriverName = recieverName
+
+                            self.navigationItem.title = self.strDriverName
+
+                        }
                         if let message = res["data"] as? [[String:Any]] {
                             if message.count != 0 {
                                 aryMessages = message
@@ -483,7 +490,7 @@ class BidChatViewController: UIViewController, UINavigationControllerDelegate {
                     }
                 }
                 else {
-                    UtilityClass.showAlertOfAPIResponse(param: result, vc: self)
+//                    UtilityClass.showAlertOfAPIResponse(param: result, vc: self)
                 }
             }
     }

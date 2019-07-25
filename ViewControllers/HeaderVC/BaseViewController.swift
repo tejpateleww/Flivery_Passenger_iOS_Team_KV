@@ -37,6 +37,13 @@ class BaseViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightNavBarButton
     }
 
+    func setDefaultBackButton() {
+        
+        let leftNavBarButton = UIBarButtonItem(image: UIImage(named: kIconBack), style: .plain, target: self, action: #selector(self.btnBackAction))
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+
+    }
     func setNavBarWithMenuORBack(Title:String,LetfBtn : String, IsNeedRightButton:Bool ,isTranslucent : Bool)
     {
         //        self.navigationController?.navigationBar.isTranslucent = false

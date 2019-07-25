@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import Cosmos
 
-class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
+class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource
 {
     //MARK:- ====== Outlets ======
     @IBOutlet weak var viewLabel: UIView!
@@ -28,6 +28,7 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var lblDistance: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblDriveOfferTitle: UILabel!
+    @IBOutlet weak var lblBidId: UILabel!
     @IBOutlet weak var tblView: UITableView!
 
     var isFromOpenBid = Bool()
@@ -47,6 +48,8 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
   //MARK:- ====== View Controller Life Cycle ======
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Bid Detail"
+        self.setDefaultBackButton()
         self.tblView.register(UINib(nibName: "NoDataFoundTableViewCell", bundle: nil), forCellReuseIdentifier: "NoDataFoundTableViewCell")
         arrNumberOfOnlineCars = SingletonClass.sharedInstance.arrCarLists as? [[String : AnyObject]]
         DataSetup()
@@ -61,6 +64,8 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         if let distance = aryData[0]["Distance"] as? String{
             lblDistance.text = distance
         }
+        lblBidId.text = "Bid Id - " + String(describing: aryData[0]["BidId"]!)
+
         if let PickupLocation = aryData[0]["PickupLocation"] as? String{
             lblPickupLocation.text = PickupLocation
         }
@@ -182,7 +187,7 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-       return arrBidDetails.count > 0 ?  arrBidDetails.count : 1
+        return arrBidDetails.count > 0 ?  arrBidDetails.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -225,6 +230,19 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         if let DriverID = arrBidDetails[indexPath.row]["DriverId"] as? String{
            strDriverID = DriverID
         }
+             customCell.lblAccepted.textColor =  ThemeGreenColor
+            if isFromOpenBid {
+                customCell.vwChat.isHidden = false
+                customCell.vwAccept.isHidden = false
+                customCell.lblAccepted.isHidden = true
+                
+            }else {
+                customCell.vwChat.isHidden = true
+                customCell.vwAccept.isHidden = true
+                customCell.lblAccepted.isHidden = false
+                
+            }
+            
         return customCell
         }
     }
@@ -282,7 +300,7 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
         webserviceForGetCustomerBidAccept(param as AnyObject) { (result, status) in
             if (status) {
                 print(result)
-
+                /*
                 if let objData = result["status"] as? String
                 {
                     if(objData == "1")
@@ -308,15 +326,21 @@ class BidDetailsViewController: UIViewController,UITableViewDelegate,UITableView
                         UtilityClass.showAlert("", message: "Error", vc: self)
 
                     }
-                }
+                } */
 
 //                let objData = (result as! NSDictionary).object(forKey: "data") as! [String:AnyObject]
 //                let msg = (result as! NSDictionary).object(forKey: "message") as! String
 //                self.navigationController?.popViewController(animated: true)
 //                UtilityClass.showAlert("", message: msg, vc: self)
-                self.tblView.reloadData()
+                
+//                self.tblView.reloadData()
                 
                 self.refreshControl.endRefreshing()
+                if let VwBidList = self.navigationController?.viewControllers[1] as? BidListContainerViewController {
+                    VwBidList.dataRefresh()
+                    self.navigationController?.popViewController(animated: true)
+                }
+               
             }
             else {
                 print(result)

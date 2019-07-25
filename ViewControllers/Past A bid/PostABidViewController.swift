@@ -61,7 +61,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 
         txtDropLocation?.delegate = self
         txtPickUpLocation?.delegate = self
-        
+        let profileData = SingletonClass.sharedInstance.dictProfile
+
+        txtShippersName!.text = profileData.object(forKey: "Fullname") as? String ?? ""
         self.setNavBarWithMenuORBack(Title: "Post a Bid".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
         setupButtonAndTextfield()
 
@@ -127,7 +129,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         pickerController.mediaTypes = ["public.image"]
         self.imagePicker.present(from: sender)
     }
-
+    @IBAction func selectVehicleClick(_ sender: UIButton) {
+        txtVehicleType!.resignFirstResponder()
+    }
     func PickingImageFromCamera(_ sender: UIButton)
     {
         let picker = UIImagePickerController()
@@ -435,6 +439,67 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 
     func validations() -> Bool
     {
+        if(txtShippersName?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Shipper Name", vc: self)
+            return false
+        }
+        else if(txtPickUpLocation?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Pickup Location", vc: self)
+            return false
+        }
+        else if(txtDropLocation?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Drop Location", vc: self)
+            return false
+        }
+        else if(txtBudget?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Budget", vc: self)
+            return false
+        }
+        else if(TxtDateAndTime?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Select Date and time", vc: self)
+            return false
+        }
+        else if(txtWeight?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Weight", vc: self)
+            return false
+        }
+        else if(txtQuantity?.text?.isBlank == true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Quantity", vc: self)
+            return false
+        }
+        else if imgDocument.image == nil {
+            UtilityClass.showAlert("Error", message: "Please Select Document", vc: self)
+            return false
+        }
+        else if(strModelId == "0")
+        {
+            UtilityClass.showAlert("Error", message: "Please Select Car Type", vc: self)
+            return false
+            
+        }
+        else if(CardID.isBlank==true)
+        {
+            UtilityClass.showAlert("Error", message: "Please Enter Card Number", vc: self)
+            return false
+        }
+        else if(pickUpCoordinate == nil)
+        {
+            return false
+        }
+        else if(dropOffCoordinate == nil)
+        {
+            return false
+        }
+        return true
+//        ========================================
+        /*
         if(strModelId == "0")
         {
             UtilityClass.showAlert("Error", message: "Please Select Car Type", vc: self)
@@ -497,6 +562,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 
 
         return true
+         */
     }
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -511,6 +577,11 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             placepickerMethodForLocation()
             isPickupLocation = false
             return false
+        }else if textField == txtPayment {
+            guard self.aryCards.count != 0 else {
+                 UtilityClass.showAlert("Error", message: "Please Add card first", vc: self)
+                return false
+            }
         }
         
         return true
@@ -642,9 +713,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             //            self.addNewCard()
         }
 
-            if data["Id"] as? String != "" {
-                CardID = data["Id"] as! String
-            }
+        if data["Id"] as? String != "" {
+            CardID = data["Id"] as! String
+        }
 
     }
 
@@ -682,7 +753,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
                         self.aryCards = cards
                     }
                 }
-
+                guard self.aryCards.count != 0 else {
+                    return
+                }
                 self.pickerView.selectedRow(inComponent: 0)
                 let data = self.aryCards[0]
 

@@ -47,6 +47,10 @@ extension BidListContainerViewController : RefreshData{
         if let bidListVC = self.childViewControllers[1] as? OpenBidListViewController{
             bidListVC.webserviceCallToGetOpenBidList()
         }
+        if let myBid = self.childViewControllers[0] as? MyBidListViewController {
+            myBid.refreshData(myBid.refreshControl)
+            
+        }
     }
     
     

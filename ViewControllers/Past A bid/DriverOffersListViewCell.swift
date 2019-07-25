@@ -23,6 +23,9 @@ class DriverOffersListViewCell: UITableViewCell {
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblDriverName: UILabel!
     
+    @IBOutlet weak var vwChat: UIView!
+    @IBOutlet weak var vwAccept: UIView!
+       @IBOutlet weak var lblAccepted: UILabel!
     @IBOutlet weak var lblRate: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

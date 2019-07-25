@@ -14,7 +14,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
     @IBOutlet weak var tblView: UITableView!
     
       //MARK: ===== Variables ======
-    private let refreshControl = UIRefreshControl()
+     let refreshControl = UIRefreshControl()
     var arrNumberOfOnlineCars : [[String:AnyObject]]!
     var aryData = [[String:AnyObject]]()
     let dateFormatter = DateFormatter()
@@ -32,7 +32,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
    
       //MARK: ===== Refresh Data ======
-    @objc private func refreshData(_ sender: Any) {
+    @objc func refreshData(_ sender: Any) {
         // Fetch Weather Data
         webserviceCallToGetBidList()
     }
@@ -98,6 +98,11 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
         if let price = aryData[indexPath.row]["Budget"] as? String{
             customCell.lblPrice.text = price
         }
+            customCell.lblBidId.text = "Bid Id - " + String(describing: aryData[indexPath.row]["BidId"]!)
+//            if let bidID = String(describing: aryData[indexPath.row]["BidId"]) {
+//
+//            }
+            
         if let deadHead = aryData[indexPath.row]["DeadHead"] as? String{
             customCell.lblDeadhead.text = deadHead
         }
@@ -122,6 +127,8 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
             if let bids = aryData[indexPath.row]["DriverBids"] as? String{
                 customCell.lblBidCount.text = "Bids - " + bids
+            }else if let bids = aryData[indexPath.row]["DriverBids"] as? Int{
+                customCell.lblBidCount.text = "Bids - " + String(bids)
             }
             
         return customCell
