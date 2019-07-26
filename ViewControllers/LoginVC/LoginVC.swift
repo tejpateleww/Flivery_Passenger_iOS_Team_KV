@@ -173,7 +173,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         btnSignup.setTitle("Sign Up".localized, for: .normal)
         btnForgotPassword.setTitle("Forgot Password?".localized, for: .normal)
         lblLoginTitle.text = "LOGIN".localized
-        lblDontHaveAnAccountTitle.text = "Don't have an account?".localized
+        lblDontHaveAnAccountTitle.text = "Create your account".localized
         txtEmail.placeholder = "Mobile/Email".localized
         txtPassword.placeholder = "Password".localized
         lblOrTitle.text = "OR".localized
@@ -258,10 +258,10 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                     
                     UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
                     UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
+                    (UIApplication.shared.delegate as! AppDelegate).GoToHome()
                     
-                    
-                    self.webserviceForAllDrivers()
-                    
+//                    self.webserviceForAllDrivers()
+
                     
                     //                    self.btnLogin.stopAnimation(animationStyle: .normal, completion: {
                     //
@@ -372,7 +372,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                         if(SingletonClass.sharedInstance.isUserLoggedIN)
                         {
                             //                            self.webserviceForAllDrivers()
-                            self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+//                            self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+                            (UIApplication.shared.delegate as! AppDelegate).GoToHome()
                         }
                     })
                     alert.addAction(UPDATE)
@@ -382,8 +383,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                 else {
                     
                     if(SingletonClass.sharedInstance.isUserLoggedIN) {
-                        
-                        self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+
+                        (UIApplication.shared.delegate as! AppDelegate).GoToHome()
+//                        self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
                     }
                 }
             }
@@ -655,10 +657,10 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
                     
                     UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
                     UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
+                    (UIApplication.shared.delegate as! AppDelegate).GoToHome()
                     
-                    
-                    self.webserviceForAllDrivers()
-                    
+//                    self.webserviceForAllDrivers()
+
                     
                     //                    self.btnLogin.stopAnimation(animationStyle: .normal, completion: {
                     //

@@ -107,6 +107,8 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
          
         customCell.selectionStyle = .none
         customCell.btnViewDetails.tag = indexPath.row
+            customCell.btnViewDetails.setTitle("View Detail".localized, for: .normal)
+
         customCell.btnDelete.tag = indexPath.row
         customCell.btnViewDetails.addTarget(self, action:#selector(viewDetailsBtnAction(_:)), for: .touchUpInside)
         customCell.btnDelete.addTarget(self, action: #selector(btnDeleteAction(_:)), for:.touchUpInside)
@@ -117,12 +119,12 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
             customCell.lblPickupLocation.text = PickupLocation
         }
         if let price = aryData[indexPath.row]["Budget"] as? String{
-            customCell.lblPrice.text = "USD " + price
+            customCell.lblPrice.text = "$ " + price
         }
         if let deadHead = aryData[indexPath.row]["DeadHead"] as? String{
             customCell.lblDeadhead.text = deadHead
         }
-            customCell.lblBidId.text = "Bid Id - " + String(describing: aryData[indexPath.row]["BidId"]!)
+            customCell.lblBidId.text = "Bid Id - ".localized + String(describing: aryData[indexPath.row]["BidId"]!)
 
         if let pickup = aryData[indexPath.row]["PickupDateTime"] as? String{
             let pickupDate : [String] = pickup.components(separatedBy: " ")
@@ -144,9 +146,9 @@ class OpenBidListViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
         if let bids = aryData[indexPath.row]["DriverBids"] as? String{
-            customCell.lblBidCount.text = "Bids - " + bids
+            customCell.lblBidCount.text = "Bids - ".localized + bids
         }else if let bids = aryData[indexPath.row]["DriverBids"] as? String{
-            customCell.lblBidCount.text = "Bids - " + String(bids)
+            customCell.lblBidCount.text = "Bids - ".localized + String(bids)
         }
           
        return customCell

@@ -14,13 +14,19 @@ class BidListContainerViewController: BaseViewController {
     @IBOutlet weak var scrollObject: UIScrollView!
     @IBOutlet weak var viewLineHeight: UIView!
     
-    
-    
+    @IBOutlet weak var btnMyBid: UIButton!
+
+    @IBOutlet weak var btnOpenBid: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Bid List"
+//        self.title = "Bid List"
         self.setNavBarWithBackWithAdd(Title: "Bid List")
+//        self.setNavBarWithMenuORBack(Title: "Bid List".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+
+        btnMyBid.setTitle("My Bid".localized, for: .normal)
+        btnOpenBid.setTitle("Open Bid".localized, for: .normal)
         
     }
 

@@ -19,7 +19,7 @@ let ThemeStatusBarColor : UIColor = UIColor.init(hex:  "cccccc")
 let themeGrayBGColor : UIColor = UIColor.init(hex: "DDDDDD")
 let themeGrayTextColor : UIColor = UIColor.init(hex: "7A7A7C")
 let Appdelegate = UIApplication.shared.delegate as! AppDelegate
-let AppNAME : String = "Flivery User"
+let AppNAME : String = "Flivery Shipper".localized
 
 let navigationBarHeightIphoneX = 84
 //var utility = Utilities()

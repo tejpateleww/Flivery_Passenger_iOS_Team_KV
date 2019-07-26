@@ -140,7 +140,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         // picker.stopVideoCapture()
         picker.mediaTypes = [kUTTypeImage as String]
             //UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        
+        shouldLocalize = false
         setNavigationFontBlack()
         present(picker, animated: true, completion: nil)
     }
@@ -149,7 +149,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     func PickingImageFromCamera()
     {
         let picker = UIImagePickerController()
-        
+        shouldLocalize = false
         picker.delegate = self
         picker.allowsEditing = false
         picker.sourceType = .camera
@@ -162,7 +162,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        shouldLocalize = true
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imgProfile.contentMode = .scaleToFill
             imgProfile.image = pickedImage
@@ -173,6 +173,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        shouldLocalize = true
         setNavigationClear()
 
         dismiss(animated: true, completion: nil)

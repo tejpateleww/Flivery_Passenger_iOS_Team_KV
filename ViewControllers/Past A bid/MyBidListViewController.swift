@@ -87,6 +87,7 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         customCell.selectionStyle = .none
         customCell.btnViewDetails.tag = indexPath.row
+        customCell.btnViewDetails.setTitle("View Detail".localized, for: .normal)
         customCell.btnViewDetails.addTarget(self, action:#selector(viewDetailsBtnAction(_:)), for: .touchUpInside)
         
         if let distance = aryData[indexPath.row]["Distance"] as? String{
@@ -96,9 +97,11 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
             customCell.lblPickupLocation.text = PickupLocation
         }
         if let price = aryData[indexPath.row]["Budget"] as? String{
-            customCell.lblPrice.text = price
+//            customCell.lblPrice.text = price
+            customCell.lblPrice.text = "$ " + price
+
         }
-            customCell.lblBidId.text = "Bid Id - " + String(describing: aryData[indexPath.row]["BidId"]!)
+            customCell.lblBidId.text = "Bid Id - ".localized + String(describing: aryData[indexPath.row]["BidId"]!)
 //            if let bidID = String(describing: aryData[indexPath.row]["BidId"]) {
 //
 //            }
@@ -126,9 +129,9 @@ class MyBidListViewController: UIViewController,UITableViewDelegate,UITableViewD
             customCell.lblDropofLocation.text = droplocation
         }
             if let bids = aryData[indexPath.row]["DriverBids"] as? String{
-                customCell.lblBidCount.text = "Bids - " + bids
+                customCell.lblBidCount.text = "Bids - ".localized + bids
             }else if let bids = aryData[indexPath.row]["DriverBids"] as? Int{
-                customCell.lblBidCount.text = "Bids - " + String(bids)
+                customCell.lblBidCount.text = "Bids - ".localized + String(bids)
             }
             
         return customCell

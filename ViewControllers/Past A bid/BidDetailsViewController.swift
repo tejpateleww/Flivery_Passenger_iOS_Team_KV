@@ -48,7 +48,8 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
   //MARK:- ====== View Controller Life Cycle ======
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Bid Detail"
+         self.setNavBarWithMenuORBack(Title: "Bid Detail".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+
         self.setDefaultBackButton()
         self.tblView.register(UINib(nibName: "NoDataFoundTableViewCell", bundle: nil), forCellReuseIdentifier: "NoDataFoundTableViewCell")
         arrNumberOfOnlineCars = SingletonClass.sharedInstance.arrCarLists as? [[String : AnyObject]]
@@ -64,7 +65,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
         if let distance = aryData[0]["Distance"] as? String{
             lblDistance.text = distance
         }
-        lblBidId.text = "Bid Id - " + String(describing: aryData[0]["BidId"]!)
+        lblBidId.text = "Bid Id - ".localized + String(describing: aryData[0]["BidId"]!)
 
         if let PickupLocation = aryData[0]["PickupLocation"] as? String{
             lblPickupLocation.text = PickupLocation
@@ -88,7 +89,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
         if(isFromOpenBid == true)
         {
             if let bids = aryData[0]["DriverBids"] as? String{
-                lblBidCount.text = "Bids - " + bids
+                lblBidCount.text = "Bids - ".localized + bids
                 if bids != "0"{
                     if let bidID = aryData[0]["Id"] as? String{
                         print(bidID)
@@ -99,7 +100,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
                 }
             }
             else if let bids = aryData[0]["DriverBids"] as? Int{
-                lblBidCount.text = "Bids - " + "\(bids)"
+                lblBidCount.text = "Bids - ".localized + "\(bids)"
                 if bids != 0{
                     if let bidID = aryData[0]["Id"] as? String{
                         print(bidID)
@@ -112,6 +113,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
         }
         else
         {
+            lblBidCount.isHidden = true
              bidAcceptedByDriver()
         }
         if let modelId = aryData[0]["ModelId"] as? String{

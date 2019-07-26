@@ -337,6 +337,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
         if id == "1" {
             self.picker.allowsEditing = false
             self.picker.sourceType = .photoLibrary
+            shouldLocalize = false
             self.present(self.picker, animated: true, completion: nil)
             
         }else {
@@ -344,6 +345,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
                 self.picker.sourceType = .camera
                 self.picker.allowsEditing = true
                 self.picker.cameraDevice = .front
+                shouldLocalize = false
                 self.present(self.picker, animated: true, completion: nil)
             } else {
                 

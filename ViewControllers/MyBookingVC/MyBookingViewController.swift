@@ -42,7 +42,7 @@ class MyBookingViewController: BaseViewController, UIScrollViewDelegate, GiveTip
         heightOfLayer = 2.0
         heighMinusFromY = 2.0
         
-self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
         webserviceOfBookingHistory()
         scrollObject.isUserInteractionEnabled = true
         scrollObject.delegate = self
@@ -85,8 +85,9 @@ self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack,
     {
         lbltitile.text = "My Shipping".localized
         btnOnGoing.setTitle("OnGoing".localized, for: .normal)
-        btnUpComming.setTitle("UpComing".localized, for: .normal)
+        btnUpComming.setTitle("To come up".localized, for: .normal)
         btnPastBooking.setTitle("Past Shipping".localized, for: .normal)
+        btnPastBooking.titleLabel?.lineBreakMode = .byWordWrapping
         
     }
     
@@ -456,7 +457,7 @@ self.setNavBarWithMenuORBack(Title: "My Bookings".localized, LetfBtn: kIconBack,
             ValidatorMessage = "Please enter tip."
         } else if self.txtSelectPaymentOption.text == "" {
             isValid = false
-            ValidatorMessage = "Please select Card."
+            ValidatorMessage = "Select a card".localized
         }
         return (ValidatorMessage,isValid)
     }

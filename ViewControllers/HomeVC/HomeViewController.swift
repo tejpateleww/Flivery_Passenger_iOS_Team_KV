@@ -73,7 +73,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     var zoomLevel: Float = 17.0
     var likelyPlaces: [GMSPlace] = []
     var selectedPlace: GMSPlace?
-    var defaultLocation = CLLocation(latitude: 6.9422744, longitude: 79.9196117)
+    var defaultLocation = CLLocation()//CLLocation(latitude: 6.9422744, longitude: 79.9196117)
     var arrNumberOfAvailableCars = NSMutableArray()
     var arrTotalNumberOfCars = NSMutableArray()
     var arrNumberOfOnlineCars = NSMutableArray()
@@ -727,7 +727,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     UtilityClass.setCustomAlert(title: "", message: "No driver available".localized) { (index, title) in
                     }
                 } else {
-                    UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: "Please select car!".localized) { (index, title) in
                     }
                 }
             }
@@ -807,8 +807,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         txtNote.placeholder = "Notes".localized
         lblYourRequestPendingStatusTitle.text = "Your request status pending...".localized
         btnCancelStartedTrip.setTitle("Cancel Request".localized, for: .normal)
+        btnCancelStartedTrip.titleLabel?.lineBreakMode = .byWordWrapping
+
         btnRequest.setTitle("Cancel Request".localized, for: .normal)
         btnDriverInfo.setTitle("Driver Info".localized, for: .normal)
+        btnDriverInfo.titleLabel?.lineBreakMode = .byWordWrapping
         txtHavePromocode.placeholder = "Enter Promocode".localized
     }
     
@@ -2466,10 +2469,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 else if strModelId == ""
                 {
                     if self.selectedIndexPath != nil {
-                        UtilityClass.setCustomAlert(title: "", message: "There is no car available".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "No driver available".localized) { (index, title) in
                         }
                     } else {
-                        UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "Please select car!".localized) { (index, title) in
                         }
                     }
                     
@@ -2831,10 +2834,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 if strCarModelID == ""
                 {
                     if self.selectedIndexPath != nil {
-                        UtilityClass.setCustomAlert(title: "", message: "There is no car available".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "No driver available".localized) { (index, title) in
                         }
                     } else {
-                        UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "Please select car!".localized) { (index, title) in
                         }
                     }
 //                    UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
@@ -2873,10 +2876,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 
                 if strCarModelID == "" && strCarModelIDIfZero == ""{
                     if self.selectedIndexPath != nil {
-                        UtilityClass.setCustomAlert(title: "", message: "There is no car available".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "No driver available".localized) { (index, title) in
                         }
                     } else {
-                        UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
+                        UtilityClass.setCustomAlert(title: "", message: "Please select car!".localized) { (index, title) in
                         }
                     }
 //                    UtilityClass.setCustomAlert(title: "", message: "Please Select Car".localized) { (index, title) in
@@ -3231,7 +3234,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             })
             
             cell.lblMinutes.text = "No cabs"
-                        cell.lblPrices.text = "\(currency) 0.00"
+            cell.lblPrices.text = "\(currency) 0.00"
             cell.lblCarType.text = (dictOnlineCarData["Name"] as? String)?.uppercased()
             
             
@@ -3251,8 +3254,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
 //                    "trip_fare" = 100;
 //            }
             
-            if dictOnlineCarData["carCount"] as! Int != 0 {
-                
+//            if dictOnlineCarData["carCount"] as! Int != 0 {
+
                 if self.aryEstimateFareData.count != 0 {
                     
                     if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
@@ -3272,7 +3275,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         cell.lblPrices.text = "\(currency) \(EstimateFare)"
                     }
                 }
-            }
+//            }
         }
         
         

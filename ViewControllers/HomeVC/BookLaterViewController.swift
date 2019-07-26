@@ -105,6 +105,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         txtTransportSesrvice.delegate = self
         mapView = GMSMapView()
         mapView?.delegate = self
+        txtSelectPaymentMethod.delegate = self
         txtDropOffLocation.delegate = self
         txtPickupLocation.delegate = self
         //        txtSelectPaymentMethod.text = "Cash"
@@ -192,16 +193,16 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         let arrNameTransport = self.aryParcelTransport.map({$0["Name"] as! String})
         self.txtTransportSesrvice.itemList = arrNameTransport
         
-        self.strSelectedParcelID = self.aryParcelTransport.first?["Id"] as? String ?? ""
-        self.txtTransportSesrvice.selectedRow = 1
+        //        self.strSelectedParcelID = self.aryParcelTransport.first?["Id"] as? String ?? ""
+        //        self.txtTransportSesrvice.selectedRow = 1
 
         
         webserviceOfGetEstimateFareForDeliveryService()
-        
+        btnUploadParcelPhoto.setTitle("Upload your parcel photo here".localized, for: .normal)
         #if targetEnvironment(simulator)
-        btnUploadParcelPhoto.setImage(UIImage(named: "HeaderLogo"), for: .normal)
-        btnUploadParcelPhoto.setTitle("", for: .normal)
-        btnUploadParcelPhoto.imageView?.contentMode = .scaleAspectFit
+        //        btnUploadParcelPhoto.setImage(UIImage(named: "HeaderLogo"), for: .normal)
+        //        btnUploadParcelPhoto.setTitle("", for: .normal)
+        //        btnUploadParcelPhoto.imageView?.contentMode = .scaleAspectFit
         //            txtParcelWeight.text = "10"
         #endif
 
@@ -230,8 +231,9 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             if SingletonClass.sharedInstance.CardsVCHaveAryData.count != 0 {
                 pickerView.reloadAllComponents()
                 txtSelectPaymentMethod.text = ""
+                paymentType = ""
                 imgPaymentOption.image = UIImage(named: "iconDummyCard")
-                //            paymentType = "cash"
+                //            paymentType = "Cash"
                 pickerView.selectedRow(inComponent: 0)
                 txtSelectPaymentMethod.becomeFirstResponder()
                 txtSelectPaymentMethod.resignFirstResponder()
@@ -264,13 +266,13 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         lblFlightnum.text = "Flight Number (If applicable)".localized
         lblNotes.text = "Notes (Optional)".localized
         txtDescription.placeholder = "Notes".localized
-        btnhavePromoCode.setTitle("Have a promocode?".localized, for: .normal)
+        btnhavePromoCode.setTitle("Have a Promocode?".localized, for: .normal)
         lblSelectPaymentMethod.text = "Select Payment Type".localized
         txtSelectPaymentMethod.placeholder = "Select Payment Type".localized
         btnSubmit.setTitle("Submit".localized, for: .normal)
         lblYouhaveToNotified.text =   ""
         
-        btnhavePromoCode.setTitle("Have a promocode?".localized, for: .normal)
+        btnhavePromoCode.setTitle("Have a Promocode?".localized, for: .normal)
         
         lblapplyPromoTitle.text = "Apply Promocode".localized
         txtPromoCode.placeholder = "Enter promocode here".localized
@@ -471,7 +473,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     @IBOutlet weak var btnApply: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnUploadParcelPhoto: UIButton!
-//    @IBOutlet weak var txtParcelWeight: UITextField!
+    //    @IBOutlet weak var txtParcelWeight: UITextField!
     @IBOutlet weak var btnRemovePromoCode: UIButton!
     
     
@@ -626,7 +628,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
         self.lblWeight.text = "\(slider.value.first ?? 0.00) Kgs"
 
-                print("\(slider.value)")
+        print("\(slider.value)")
     }
 
     @IBAction func btnNotes(_ sender: M13Checkbox) {
@@ -701,6 +703,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
         strPassengerType = "myself"
     }
+
     
     @objc func ActionForViewOther() {
         viewMySelf.checkState = .unchecked
@@ -749,14 +752,15 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         //            location = CLLocationCoordinate2DMake(Double(SingletonClass.sharedInstance.currentLatitude)!, Double(SingletonClass.sharedInstance.currentLongitude)!)
         //        }
         
-//        //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
-//        self.isOpenPlacePickerController = true
-//        let acController = GMSAutocompleteViewController()
-//        acController.delegate = self
-//        acController.autocompleteBounds = NearByRegion
+        //        //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
+        //        self.isOpenPlacePickerController = true
+        //        let acController = GMSAutocompleteViewController()
+        //        acController.delegate = self
+        //        acController.autocompleteBounds = NearByRegion
+        self.isOpenPlacePickerController = true
         BoolCurrentLocation = true
-//        present(acController, animated: true, completion: nil)
-         self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+        //        present(acController, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
 
     }
     
@@ -772,12 +776,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         //
         //        let bounds = GMSCoordinateBounds(coordinate: location, coordinate: location)
         self.isOpenPlacePickerController = true
-//        let acController = GMSAutocompleteViewController()
-//        acController.delegate = self
-//        acController.autocompleteBounds = NearByRegion
+        //        let acController = GMSAutocompleteViewController()
+        //        acController.delegate = self
+        //        acController.autocompleteBounds = NearByRegion
         BoolCurrentLocation = false
-         self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
-//        present(acController, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "presentPlacePicker", sender: nil)
+        //        present(acController, animated: true, completion: nil)
 
     }
     
@@ -852,6 +856,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         picker.sourceType = .photoLibrary
         // picker.stopVideoCapture()
         picker.mediaTypes = [kUTTypeImage as String]
+        shouldLocalize = false
         //UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         present(picker, animated: true, completion: nil)
     }
@@ -863,11 +868,13 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         picker.allowsEditing = true
         picker.sourceType = .camera
         picker.cameraCaptureMode = .photo
+        shouldLocalize = false
         present(picker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        self.isOpenPlacePickerController = true
+        shouldLocalize = true
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             btnUploadParcelPhoto.imageView?.contentMode = .scaleAspectFill
             btnUploadParcelPhoto.imageView?.clipsToBounds = true
@@ -881,6 +888,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.isOpenPlacePickerController = true
+        shouldLocalize = true
         dismiss(animated: true, completion: nil)
     }
     
@@ -902,10 +911,10 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             UtilityClass.setCustomAlert(title: "", message: "Please select parcel") { (index, title) in }
             return false
         }
-//        else if txtParcelWeight.text == "" {
-//            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
-//            return false
-//        }
+            //        else if txtParcelWeight.text == "" {
+            //            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
+            //            return false
+            //        }
         else if btnUploadParcelPhoto.imageView?.image == nil {
             UtilityClass.setCustomAlert(title: "", message: "Please insert parcel image") { (index, title) in }
             return false
@@ -923,6 +932,48 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         
         return true
     }
+
+
+
+    func validationForBooklater() -> Bool {
+
+        if txtFullName.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter full name") { (index, title) in }
+            return false
+        } else if txtMobileNumber.text == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter mobile number") { (index, title) in }
+            return false
+        } else if txtPickupLocation.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter pick up location") { (index, title) in }
+            return false
+        } else if txtDropOffLocation.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter drop off location") { (index, title) in }
+            return false
+        } else if strSelectedParcelID.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            UtilityClass.setCustomAlert(title: "", message: "Please select parcel") { (index, title) in }
+            return false
+        }
+            //        else if txtParcelWeight.text == "" {
+            //            UtilityClass.setCustomAlert(title: "", message: "Please enter parcel weight") { (index, title) in }
+            //            return false
+            //        }
+        else if btnUploadParcelPhoto.imageView?.image == nil {
+            UtilityClass.setCustomAlert(title: "", message: "Please insert parcel image") { (index, title) in }
+            return false
+        }
+        else if !isRequestIsBookNow {
+            if (txtDataAndTimeFromCalendar.text?.isEmpty)! {
+                UtilityClass.setCustomAlert(title: "", message: "Please select date and time") { (index, title) in }
+                return false
+            }
+        }
+        else if paymentType == "" {
+            UtilityClass.setCustomAlert(title: "", message: "Please select payment type") { (index, title) in }
+            return false
+        }
+
+        return true
+    }
     
     @IBAction func btnSubmit(_ sender: ThemeButton) {
         
@@ -932,10 +983,12 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 webserviceForBookNow()
             }
         } else {
-            if txtFullName.text == "" || txtMobileNumber.text == "" || txtPickupLocation.text == "" || txtDropOffLocation.text == "" || txtDataAndTimeFromCalendar.text == "" || strPassengerType == "" || paymentType == "" || strSelectedParcelID == "" {
+
+
+            if validationForBooklater() == false{
                 
-                UtilityClass.setCustomAlert(title: "", message: "All fields are required...".localized) { (index, title) in
-                }
+//                UtilityClass.setCustomAlert(title: "", message: "All fields are required...".localized) { (index, title) in
+//                }
             }
                 //        else if viewMySelf.checkState == .unchecked && viewOthers.checkState == .unchecked {
                 //
@@ -1230,8 +1283,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         if type  == "wallet" {
             paymentType = "wallet"
         }
-        else if type == "cash" {
-            paymentType = "cash"
+        else if type == "Cash" {
+            paymentType = "Cash"
         }
         else {
             paymentType = "card"
@@ -1441,8 +1494,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 }
                 
                 var dict = [String:AnyObject]()
-                dict["CardNum"] = "cash" as AnyObject
-                dict["CardNum2"] = "cash" as AnyObject
+                dict["CardNum"] = "Cash" as AnyObject
+                dict["CardNum2"] = "Cash" as AnyObject
                 dict["Type"] = "iconCashBlack" as AnyObject
                 
                 //                var dict2 = [String:AnyObject]()
@@ -1477,8 +1530,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 //                }
                 //                else
                 
-                if type == "cash" {
-                    self.paymentType = "cash"
+                if type == "Cash" {
+                    self.paymentType = "Cash"
                 } else {
                     self.paymentType = "card"
                 }
@@ -1489,7 +1542,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                         self.CardID = data["Id"] as! String
                     }
                 }
-                //                 self.paymentType = "cash"
+                //                 self.paymentType = "Cash"
                 self.pickerView.reloadAllComponents()
 
                 /*

@@ -141,6 +141,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             
             bookinType = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingType") as! String
             cell.btnCancelRequest.setTitle("Cancel Request".localized, for: .normal)
+            cell.btnCancelRequest.titleLabel?.lineBreakMode = .byWordWrapping
             cell.btnCancelRequest.addTarget(self, action: #selector(self.CancelRequest), for: .touchUpInside)
             cell.btnCancelRequest.tag = indexPath.row
             cell.btnCancelRequest.layer.cornerRadius = 5

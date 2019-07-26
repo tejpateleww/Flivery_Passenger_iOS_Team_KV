@@ -30,9 +30,8 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var txtNotes: ACFloatingTextfield?
     @IBOutlet weak var txtVehicleType: ACFloatingTextfield?
     @IBOutlet weak var txtPayment: ACFloatingTextfield?
-    @IBOutlet weak var imgDocument : UIImageView!
     @IBOutlet weak var btnSubmit: UIButton!
-    @IBOutlet weak var btnSelectLuggage: UIButton!
+    @IBOutlet weak var btnSelectLuggage: UIButton?
     var CardID = String()
     var arrNumberOfOnlineCars : [[String:AnyObject]]!
     var selectedIndexPath: IndexPath?
@@ -90,8 +89,28 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude:Double(latitude) ?? 00.00, longitude:Double(longitude) ?? 0.00)
         NearByRegion = bounds.includingCoordinate(marker.position)
+        btnSelectLuggage?.imageView?.contentMode = .scaleAspectFit
+        btnSelectLuggage?.setTitle("Upload your parcel photo here".localized, for: .normal)
 
 
+    }
+
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        cornerRadiusToView(tempView: btnSelectLuggage!, isRounded: false, corner: 3, border: 1, borderColor: UIColor.lightGray)
+    }
+
+    func cornerRadiusToView(tempView: UIView, isRounded: Bool ,corner: CGFloat, border: CGFloat, borderColor: UIColor) {
+
+        if isRounded {
+            tempView.layer.cornerRadius = tempView.frame.width / 2
+        } else {
+            tempView.layer.cornerRadius = corner
+        }
+        tempView.layer.borderWidth = border
+        tempView.layer.borderColor = borderColor.cgColor
+        tempView.layer.masksToBounds = true
     }
 
     func setupButtonAndTextfield()
@@ -474,13 +493,13 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             UtilityClass.showAlert("Error", message: "Please Enter Quantity", vc: self)
             return false
         }
-        else if imgDocument.image == nil {
+        else if self.btnSelectLuggage?.imageView?.image == nil {
             UtilityClass.showAlert("Error", message: "Please Select Document", vc: self)
             return false
         }
         else if(strModelId == "0")
         {
-            UtilityClass.showAlert("Error", message: "Please Select Car Type", vc: self)
+            UtilityClass.showAlert("Error", message: "Please select car!", vc: self)
             return false
             
         }
@@ -820,7 +839,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
             dictParams["Notes"] = txtNotes?.text ?? ""
 
             print(dictParams)
-            webserviceForPostABid(dictParams as AnyObject, image1: self.imgDocument.image ?? UIImage()) { (result, status) in
+            webserviceForPostABid(dictParams as AnyObject, image1: self.btnSelectLuggage?.imageView?.image ?? UIImage()) { (result, status) in
                 if(status == true)
                 {
                     print(result)
@@ -893,7 +912,9 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
 extension PostABidViewController: ImagePickerDelegate {
 
     func didSelect(image: UIImage?) {
-        self.imgDocument.image = image
+
+        self.btnSelectLuggage?.setImage(image, for: .normal)
+//        self.btnSelectLuggage?.imageView?.image = image
     }
 }
 

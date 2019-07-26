@@ -105,7 +105,7 @@
 "MissingTranslation0" = "MissingTranslation0";
 "Avail\u0020" = "Avail\u0020";
 "MissingTranslation20" = "MissingTranslation20";
-"Have a promocode?" = "Have a promocode?";
+"Have a Promocode?" = "Have a Promocode?";
 "%1$s Applied" = "%1$s Applied";
 "OK" = "OK";
 "Card Number" = "Card Number";
@@ -403,7 +403,7 @@
 "Pickup Location" = "Pickup Location";
 "Book Now" = "Book Now";
 "Book Later" = "Book Later";
-"Have a promocode?" = "Have a promocode?";
+"Have a Promocode?" = "Have a Promocode?";
 "REQUEST NOW" = "REQUEST NOW";
 "Your request status pending..." = "Your request status pending...";
 "Cancel Request" = "Cancel Request";

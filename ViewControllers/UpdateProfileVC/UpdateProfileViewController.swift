@@ -310,6 +310,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
         
         // picker.stopVideoCapture()
         picker.mediaTypes = [kUTTypeImage as String]
+        shouldLocalize = false
             //UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         present(picker, animated: true, completion: nil)
     }
@@ -317,7 +318,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     func PickingImageFromCamera()
     {
         let picker = UIImagePickerController()
-        
+        shouldLocalize = false
         picker.delegate = self
         picker.allowsEditing = true
         picker.sourceType = .camera
@@ -328,7 +329,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        shouldLocalize = true
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imgProfile.contentMode = .scaleToFill
             imgProfile.image = pickedImage
@@ -339,6 +340,7 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        shouldLocalize = true
         dismiss(animated: true, completion: nil)
     }
 
