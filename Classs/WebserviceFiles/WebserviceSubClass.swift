@@ -21,7 +21,15 @@ let BookingHistory = WebserviceURLs.kBookingHistory
 let GetEstimateFare =  WebserviceURLs.kGetEstimateFare
 let ChangePassword = WebserviceURLs.kChangePassword
 let UpdateProfile = WebserviceURLs.kUpdateProfile
+//let PastBooking = WebserviceURLs.kPastBooking
+
+/// Change history
+
 let PastBooking = WebserviceURLs.kPastBooking
+let Upcoming    = WebserviceURLs.kUpcomingBooking
+let OnGoing     = WebserviceURLs.kOnGoing
+
+//////////
 let FeedbackList = WebserviceURLs.kFeedbackList
 let cardsList = WebserviceURLs.kCardsList
 let bookPackage = WebserviceURLs.kBookPackage
@@ -652,4 +660,35 @@ func webserviceForGetCustomerPostBidCancel(_ dictParams: AnyObject, completion: 
 {
     let url = CancelPostBid + "\(dictParams)"
     getData(dictParams, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For PastBooking Newwwww
+//-------------------------------------------------------------
+
+func webserviceForPastBookingList( dictParams: AnyObject,PageNumber : AnyObject, completion: @escaping( _ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(PastBooking)/\(dictParams)/\(PageNumber)/taxi"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For UpcomingBooking
+//-------------------------------------------------------------
+
+func webserviceForUpcomingBookingList( dictParams: AnyObject, completion: @escaping( _ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(Upcoming)/\(dictParams)"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+
+//-------------------------------------------------------------
+// MARK: - Webservice For OnGoingBooking
+//-------------------------------------------------------------
+
+func webserviceForOnGoingBookingList( dictParams: AnyObject, completion: @escaping( _ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(OnGoing)/\(dictParams)"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
 }

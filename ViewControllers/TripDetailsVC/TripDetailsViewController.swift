@@ -18,39 +18,61 @@ class TripDetailsViewController: BaseViewController {
     // MARK: - Outlets
     //-------------------------------------------------------------
 
+    
+    
+    //CHange
+    @IBOutlet weak var lblParcelTypeTitle: UILabel!
+    @IBOutlet weak var lblParcelType: UILabel!
+    
+    @IBOutlet weak var lblParcelWeightTitle: UILabel!
+    @IBOutlet weak var lblParcelWeight: UILabel!
+    
+    @IBOutlet weak var lblDistanceFare: UILabel!
+    
+    @IBOutlet weak var lblDistanceTitle: UILabel!
+    @IBOutlet weak var lblDistance: UILabel!
+    @IBOutlet weak var lblWeightChargeTitle: UILabel!
+    @IBOutlet weak var  lblWeightCharge: UILabel!
+    @IBOutlet weak var lblParcelInformation: UILabel!
+    @IBOutlet weak var lblParcelImage: UILabel!
+    @IBOutlet weak var lblDeliveredParcelImage: UILabel!
+    @IBOutlet weak var imgVwParcelImage: UIImageView!
+    @IBOutlet weak var imgVwParcelDeliveredSign: UIImageView!
+    
+    @IBOutlet weak var lblDeliveryFareTitle: UILabel!
+    @IBOutlet weak var  lblDeliveryFare: UILabel!
+    //
     @IBOutlet weak var lblPickUpTitle: UILabel!
     @IBOutlet weak var lblDropOfTitle: UILabel!
     
+    @IBOutlet weak var lblDeliveryDistanceTitle: UILabel!
     @IBOutlet weak var lblPickupLocation: UILabel!
     @IBOutlet weak var lblDropoffLocation: UILabel!
-    @IBOutlet weak var lblBaseFare: UILabel!
-    @IBOutlet weak var lblDistanceFare: UILabel!
-    @IBOutlet weak var lblNightFare: UILabel!
-    @IBOutlet weak var lblWaitingCost: UILabel!
-    @IBOutlet weak var lblTollFee: UILabel!
-    @IBOutlet weak var lblSubTotal: UILabel!
+//    @IBOutlet weak var lblBaseFare: UILabel!
+//    @IBOutlet weak var lblNightFare: UILabel!
+//    @IBOutlet weak var lblWaitingCost: UILabel!
+//    @IBOutlet weak var lblTollFee: UILabel!
+//    @IBOutlet weak var lblSubTotal: UILabel!
     @IBOutlet weak var lblBookingCharge: UILabel!
-    @IBOutlet weak var lblSpecialExtraCharge: UILabel!
+//    @IBOutlet weak var lblSpecialExtraCharge: UILabel!
     @IBOutlet weak var lblTax: UILabel!
     @IBOutlet weak var lblDiscount: UILabel!
     @IBOutlet weak var lblGrandTotal: UILabel!
-    @IBOutlet weak var stackViewSpecialExtraCharge: UIStackView!
+    @IBOutlet weak var stackViewDiscount: UIStackView!
     @IBOutlet weak var tblObject : UITableView!
-//    @IBOutlet weak var lblPickUpLocaltion: UILabel!
-//    @IBOutlet weak var lblDropuplocation: UILabel!
-//    @IBOutlet weak var lblDrpupLocationDetail: UILabel!
-//    @IBOutlet weak var lblBaseFareDesc: UILabel!
-    @IBOutlet weak var lblBaseFareTitle: UILabel!
-    @IBOutlet weak var lblDistanceFareTitle: UILabel!
-    @IBOutlet weak var lblNightFareTitle: UILabel!
-    @IBOutlet weak var lblSubTotalTitle: UILabel!
+
+//    @IBOutlet weak var lblBaseFareTitle: UILabel!
+//    @IBOutlet weak var lblDistanceTitle: UILabel!
+    
+//    @IBOutlet weak var lblNightFareTitle: UILabel!
+//    @IBOutlet weak var lblSubTotalTitle: UILabel!
     @IBOutlet weak var lblGrandTotalTitle: UILabel!
     @IBOutlet weak var lblDiscountTitle: UILabel!
     @IBOutlet weak var lblTaxTitle: UILabel!
-    @IBOutlet weak var lblSpecialChargeTitle: UILabel!
+//    @IBOutlet weak var lblSpecialChargeTitle: UILabel!
     @IBOutlet weak var lblBookingChargeTitle: UILabel!
-    @IBOutlet weak var lblTollFreeTitle: UILabel!
-    @IBOutlet weak var lblWaitingCostTitle: UILabel!
+//    @IBOutlet weak var lblTollFreeTitle: UILabel!
+//    @IBOutlet weak var lblWaitingCostTitle: UILabel!
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -64,16 +86,16 @@ class TripDetailsViewController: BaseViewController {
 //        self.tblObject.rowHeight = UITableViewAutomaticDimension;
 //        self.tblObject.tableFooterView = UIView()
 
-        let dict = NSMutableDictionary(dictionary: arrData.object(at: 0) as! NSDictionary) as NSMutableDictionary
-        dictData.setObject(dict.object(forKey: "PickupLocation")!, forKey: "Pickup Location" as NSCopying)
-        dictData.setObject(dict.object(forKey: "DropoffLocation")!, forKey: "Dropoff Location" as NSCopying)
-        dictData.setObject(dict.object(forKey: "NightFare")!, forKey: "Night Fee" as NSCopying)
-        dictData.setObject(dict.object(forKey: "TripFare")!, forKey: "Trip Fee" as NSCopying)
-        dictData.setObject(dict.object(forKey: "WaitingTimeCost")!, forKey: "Waiting Cost" as NSCopying)
-        dictData.setObject(dict.object(forKey: "BookingCharge")!, forKey: "Booking Charge" as NSCopying)
-        dictData.setObject(dict.object(forKey: "Discount")!, forKey: "Discount" as NSCopying)
-        dictData.setObject(dict.object(forKey: "SubTotal")!, forKey: "Sub Total" as NSCopying)
-        dictData.setObject(dict.object(forKey: "Status")!, forKey: "Status" as NSCopying)
+//        let dict = NSMutableDictionary(dictionary: arrData.object(at: 0) as! NSDictionary) as NSMutableDictionary
+//        dictData.setObject(dict.object(forKey: "PickupLocation")!, forKey: "Pickup Location" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "DropoffLocation")!, forKey: "Dropoff Location" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "NightFare")!, forKey: "Night Fee" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "TripFare")!, forKey: "Trip Fee" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "WaitingTimeCost")!, forKey: "Waiting Cost" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "BookingCharge")!, forKey: "Booking Charge" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "Discount")!, forKey: "Discount" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "SubTotal")!, forKey: "Sub Total" as NSCopying)
+//        dictData.setObject(dict.object(forKey: "Status")!, forKey: "Status" as NSCopying)
 
         // Do any additional setup after loading the view.
     }
@@ -90,14 +112,30 @@ class TripDetailsViewController: BaseViewController {
         lblPickUpTitle.text = "Pickup Location".localized
         lblDropOfTitle.text = "Dropoff Location".localized
         
-        lblBaseFareTitle.text = "Base Fare:".localized
-        lblDistanceFareTitle.text = "Distance Fare:".localized
-        lblNightFareTitle.text = "Night Fare:".localized
-        lblWaitingCostTitle.text = "Waiting Cost".localized
-        lblTollFreeTitle.text = "Tips".localized
-        lblSubTotalTitle.text = "Sub Total".localized
+        lblDeliveryFareTitle.text = "Delivery Fare".localized
+        
+        lblDistanceTitle.text = "Distance Fare".localized
+        
+        lblParcelTypeTitle.text =  "Parcel Type".localized
+        
+        lblParcelInformation.text = "PARCEL INFORMATION".localized
+        lblParcelImage.text = "PARCEL IMAGE".localized
+        lblDeliveredParcelImage.text = "DELIVERED PARCEL IMAGE".localized
+        
+        lblParcelWeightTitle.text = "Parcel Weight".localized
+        
+        lblDeliveryDistanceTitle.text = "Delivery Distance".localized
         lblBookingChargeTitle.text = "Booking Charge".localized
-        lblSpecialChargeTitle.text = "Special Extra Charge".localized
+        lblWeightChargeTitle.text = "Weight Charge".localized
+        
+                
+                
+//        lblNightFareTitle.text = "Night Fare:".localized
+//        lblWaitingCostTitle.text = "Waiting Cost".localized
+//        lblTollFreeTitle.text = "Tips".localized
+//        lblSubTotalTitle.text = "Sub Total".localized
+//        lblBookingChargeTitle.text = "Booking Charge".localized
+//        lblSpecialChargeTitle.text = "Special Extra Charge".localized
         lblTaxTitle.text = "Tax".localized
         lblDiscountTitle.text = "Discount".localized
         lblGrandTotalTitle.text = "Grand Total".localized
@@ -110,26 +148,90 @@ class TripDetailsViewController: BaseViewController {
     
     func setData() {
         
-        if let data = arrData.object(at: 0) as? NSDictionary {
-            
-            let distanceFare = "\(data.object(forKey: "DistanceFare")!) (\(data.object(forKey: "TripDistance")!) km)"
+        if let dictInfo = arrData.object(at: 0) as? NSDictionary {
+            guard let data = (((dictInfo).object(forKey: "Info") as! NSArray)[0] as? NSDictionary) else {
+                return
+            }
+            let distanceFare = "\(data.object(forKey: "DistanceFare")!)"
         
             lblPickupLocation.text = data.object(forKey: "PickupLocation") as? String
             lblDropoffLocation.text = data.object(forKey: "DropoffLocation") as? String
             
-            lblBaseFare.text = "\(currencySign) \(data.object(forKey: "TripFare") as! String)"
-            lblDistanceFare.text = "\(currencySign) \(distanceFare)"
+//            lblBaseFare.text = "\(currencySign) \(data.object(forKey: "TripFare") as! String)"
+            lblDistanceFare.text = ": " + "\(currencySign) \(distanceFare)"
+            
+            if let dictParcelDetails = (dictInfo["Parcel"] as? [[String:Any]])?.first {
+                if let parcelName = dictParcelDetails["Name"] as? String {
+                    lblParcelType.text =  ": " + parcelName
+                }
+            }
+            //                        if let parcelType = currentData["Model"] as? String {
+            //                            cell.lblParcelType.text =  ": " + parcelType
+            //                        }
+            if let parcelWeight = data["Weight"] as? String {
+                lblParcelWeight.text =  ": " + String(format: "%.2f", Double((parcelWeight != "") ? parcelWeight : "0.0")!) + " Kg"
+            }
+            if let DistanceTravelled = data["TripDistance"] as? String {
+                lblDistance.text = ": \(String(format: "%.2f", Double((DistanceTravelled != "") ? DistanceTravelled : "0.0")!)) Km"
+                
+            }
+            if let TripFare = data["TripFare"] as? String {
+                lblDeliveryFare.text = ": \(currencySign)" +  String(format: "%.2f", Double((TripFare != "") ? TripFare : "0.0")!)
+            }
+            /*
             lblNightFare.text =  "\(currencySign) \(data.object(forKey: "NightFare") as! String)"
             lblWaitingCost.text = "\(currencySign) \(data.object(forKey: "WaitingTimeCost") as! String)"
             lblTollFee.text = "\(currencySign) \(data.object(forKey: "TollFee") as! String)"
             lblSubTotal.text = "\(currencySign) \(data.object(forKey: "SubTotal") as! String)"
             
-            lblBookingCharge.text = "\(currencySign) \(data.object(forKey: "BookingCharge") as! String)"
-            lblTax.text = "\(currencySign) \(data.object(forKey: "Tax") as! String)"
-            lblDiscount.text = "\(currencySign) \(data.object(forKey: "Discount") as! String)"
+            */
             
+            if let strParcelImage = data["ParcelImage"] as? String {
+                imgVwParcelImage.sd_setShowActivityIndicatorView(true)
+                imgVwParcelImage.sd_setIndicatorStyle(.gray)
+                imgVwParcelImage?.sd_setImage(with: URL(string: WebserviceURLs.kImageBaseURL + strParcelImage), completed: { (image, error, cacheType, url) in
+                    self.imgVwParcelImage.sd_removeActivityIndicator()
+                    self.imgVwParcelImage.contentMode = .scaleAspectFit
+                })
+            }
             
-            lblGrandTotal.text = "\(currencySign) \(data.object(forKey: "GrandTotal") as! String)"
+//            cell.ViewDeliveredParcelImage.isHidden = false
+            if let strDeliveredParcelImage = data["DeliveredParcelImage"] as? String {
+                imgVwParcelDeliveredSign.sd_setShowActivityIndicatorView(true)
+                imgVwParcelDeliveredSign.sd_setIndicatorStyle(.gray)
+                imgVwParcelDeliveredSign?.sd_setImage(with: URL(string: WebserviceURLs.kImageBaseURL + strDeliveredParcelImage)) { (image, error, cacheType, url) in
+                    self.imgVwParcelDeliveredSign.sd_removeActivityIndicator()
+                    self.imgVwParcelDeliveredSign.contentMode = .scaleAspectFit
+                }
+                
+            }
+            if let bookingCharge = data["BookingCharge"] as? String {
+               lblBookingCharge.text = ": \(currencySign)" + String(format: "%.2f", Double((bookingCharge != "") ? bookingCharge : "0.0")!)
+                
+
+            }
+//            lblBookingCharge.text = "\(currencySign) \(data.object(forKey: "BookingCharge") as! String)"
+//            lblTax.text = "\(currencySign) \(data.object(forKey: "Tax") as! String)"
+            if let Tax = data["Tax"] as? String {
+               lblTax.text = ": \(currencySign)\(String(format: "%.2f", Double((Tax != "") ? Tax : "0.0")!))"
+            
+            }
+         
+            if let discount = data["Discount"] as? String, discount != "0" {
+                lblDiscount.text = ": \(currencySign)\(String(format: "%.2f", Double((discount != "") ? discount : "0.0")!))"
+            }else {
+                stackViewDiscount.isHidden = true
+            }
+           
+            if let GrandTotal = data["GrandTotal"] as? String {
+              lblGrandTotal.text = ": \(currencySign)\(String(format: "%.2f", Double((GrandTotal != "") ? GrandTotal : "0.0")!))"
+                
+            }
+            if let weightCharge = data["WeightCharge"] as? String {
+                lblWeightCharge.text = ": \(currencySign)\(String(format: "%.2f", Double((weightCharge != "") ? weightCharge : "0.0")!))"
+                
+            }
+//            lblGrandTotal.text = "\(currencySign) \(data.object(forKey: "GrandTotal") as! String)"
             
             var strSpecial = String()
             
@@ -139,12 +241,13 @@ class TripDetailsViewController: BaseViewController {
                 strSpecial = String(special)
             }
             
-            stackViewSpecialExtraCharge.isHidden = true
-            if strSpecial == "1" {
-                stackViewSpecialExtraCharge.isHidden = false
-                lblSpecialExtraCharge.text = "\(currencySign) \(data.object(forKey: "SpecialExtraCharge") as! String)"
-            }
+//            stackViewSpecialExtraCharge.isHidden = true
+//            if strSpecial == "1" {
+//                stackViewSpecialExtraCharge.isHidden = false
+//                lblSpecialExtraCharge.text = "\(currencySign) \(data.object(forKey: "SpecialExtraCharge") as! String)"
+//            }
         }
+        
     }
     @IBAction func btnBackAction(sender: UIButton) {
         

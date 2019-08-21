@@ -779,8 +779,6 @@ extension BidChatViewController {
 
         self.socket.emit(SocketData.kUpdateUserLocation, with: [myJSON])
       
-        
-        
     }
 }
 extension HomeViewController {

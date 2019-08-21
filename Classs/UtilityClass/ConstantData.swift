@@ -80,7 +80,7 @@ struct WebserviceURLs {
     static let kAdvancedBooking                         = "AdvancedBooking"
     static let kDriver                                  = "Driver"
     static let kBookingHistory                          = "BookingHistory"
-    static let kPastBooking                             = "PastBooking"
+//    static let kPastBooking                             = "PastBooking"
     static let kGetEstimateFare                         = "GetEstimateFare"
     static let kImageBaseURL                            = "http://34.73.215.81/web/"
     //"https://nexusappllc.com/web/"
@@ -132,7 +132,14 @@ struct WebserviceURLs {
     static let KCustomerBidAccept                       = "CustomerBidAccept"
     static let KCustomerCancelPostBid                  = "CancelPostBid/"
     
-    static let kChatHistory                  = "ChatHistory"
+    static let kChatHistory                             = "ChatHistory"
+    
+    
+    
+    static let kPastBooking                             = "PastBooking"
+    static let kUpcomingBooking                     = "UpcomingBooking"
+    static let kOnGoing                                     = "OngoingBooking"
+
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
 }
 

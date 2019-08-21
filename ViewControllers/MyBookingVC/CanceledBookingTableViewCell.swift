@@ -23,6 +23,19 @@ class CanceledBookingTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDropoffAddress: UILabel!
     @IBOutlet weak var lblPickupAddress: UILabel!
     @IBOutlet weak var lblDateAndTime: UILabel!
+//    =============
+    @IBOutlet weak var lblParcelTypeTitle: UILabel!
+    @IBOutlet weak var lblParcelWeightTitle: UILabel!
+    @IBOutlet weak var lblDeliveryDistanceTitle: UILabel!
+    @IBOutlet weak var lblDeliveryDurationTitle: UILabel!
+    
+    @IBOutlet weak var lblParcelType: UILabel!
+    @IBOutlet weak var lblParcelWeight: UILabel!
+    @IBOutlet weak var lblDeliveryDistance: UILabel!
+    @IBOutlet weak var lblDeliveryDuration: UILabel!
+    @IBOutlet weak var imgvwParcelImage: UIImageView!
+/////////////
+    
     
     @IBOutlet weak var lblVehicleTypeTitle: UILabel!
     @IBOutlet weak var lblPaymentTypeTitle: UILabel!
@@ -33,6 +46,7 @@ class CanceledBookingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imgStatus: UIImageView!
     @IBOutlet weak var lblStatus: UILabel!
+    
     
     
     override func awakeFromNib() {

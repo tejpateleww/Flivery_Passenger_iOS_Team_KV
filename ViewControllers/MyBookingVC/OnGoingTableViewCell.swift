@@ -44,6 +44,13 @@ class OnGoingTableViewCell: UITableViewCell {
     @IBOutlet weak var lblVehicleType: UILabel!
     @IBOutlet weak var lblPaymentType: UILabel!
     
+    
+    @IBOutlet var imgParcelImage: UIImageView!
+    @IBOutlet var imgDeliveredParcelImage: UIImageView!
+    
+    @IBOutlet var ViewParcelImage: UIView!
+    @IBOutlet var ViewDeliveredParcelImage: UIView!
+
     /*
     @IBOutlet weak var lblDropoffTime: UILabel!
     @IBOutlet weak var lblSecoundDescription: UILabel!
@@ -59,5 +66,28 @@ class OnGoingTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTotalCost: UILabel!
     */
     
+    ////
+    
+    @IBOutlet weak var lblParcelTypeTitle: UILabel!
+    @IBOutlet weak var lblParcelWeightTitle: UILabel!
+    
+    @IBOutlet weak var lblParcelType: UILabel!
+    @IBOutlet weak var lblParcelWeight: UILabel!
+    
+    
+    @IBOutlet weak var lblTaxTitle: UILabel!
+    @IBOutlet weak var lblTax: UILabel!
+    
+    @IBOutlet weak var lblTripFareTitle: UILabel!
+    @IBOutlet weak var lblTripFare: UILabel!
+    
+    @IBOutlet weak var lblTotalTitle: UILabel!
+    @IBOutlet weak var lblTotal: UILabel!
+    
+    @IBOutlet weak var vwDeliveryFare: UIStackView!
+    @IBOutlet weak var vwTax: UIStackView!
+    @IBOutlet weak var vwTotal: UIStackView!
+    
+    ////
 
 }

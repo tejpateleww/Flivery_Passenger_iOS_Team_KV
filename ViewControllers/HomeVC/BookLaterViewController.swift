@@ -18,6 +18,19 @@ import IQDropDownTextField
 import MultiSlider
 import SideMenuController
 
+class CustomUITextField: UITextField {
+    override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+
+        return false
+    }
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        return .zero
+    }
+    
+//    override func selectionRects(for range: UITextRange) -> [Any] {
+//        return []
+//    }
+}
 
 protocol isHaveCardFromBookLaterDelegate {
     
@@ -443,7 +456,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
     @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint? // 10
     
-    @IBOutlet weak var txtSelectPaymentMethod: UITextField!
+    @IBOutlet weak var txtSelectPaymentMethod: CustomUITextField!
     @IBOutlet weak var imgPaymentOption: UIImageView!
     
     @IBOutlet weak var btnNotes: M13Checkbox!
@@ -1690,7 +1703,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         dictData["PickupDateTime"] = convertDateToString as AnyObject
         dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
         dictData["RequestFor"] = "delivery" as AnyObject
-        //        dictData["Weight"] = txtParcelWeight.text as AnyObject
+        dictData["Weight"] = selectWeight.value.first as AnyObject
 
         dictData["PickupLat"] = "\(doublePickupLat)" as AnyObject
         dictData["PickupLng"] = "\(doublePickupLng)" as AnyObject

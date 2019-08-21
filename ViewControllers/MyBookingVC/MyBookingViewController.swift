@@ -42,8 +42,8 @@ class MyBookingViewController: BaseViewController, UIScrollViewDelegate, GiveTip
         heightOfLayer = 2.0
         heighMinusFromY = 2.0
         
-self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
-        webserviceOfBookingHistory()
+        self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack, IsNeedRightButton: false, isTranslucent: false)
+//        webserviceOfBookingHistory()
         scrollObject.isUserInteractionEnabled = true
         scrollObject.delegate = self
         scrollObject.layoutIfNeeded()
@@ -187,6 +187,9 @@ self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack,
         btnOnGoing.setTitleColor(selectedTextColor, for: .normal)
         
         scrollObject.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        if let ongoingVC = self.childViewControllers[0] as? OnGoingVC {
+            ongoingVC.webserviceOfBookingHistory()
+        }
     }
     
     func Upcomming() {
@@ -199,6 +202,8 @@ self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack,
         btnUpComming.setTitleColor(selectedTextColor, for: .normal)
         btnOnGoing.setTitleColor(unselectedTextColor, for: .normal)
         btnPastBooking.setTitleColor(unselectedTextColor, for: .normal)
+        
+        
        
 //        bottomBorderUpComming.frame = CGRect(x: 0.0, y: btnUpComming.frame.size.height - heighMinusFromY, width: btnUpComming.frame.size.width, height: heightOfLayer)
 //        bottomBorderUpComming.backgroundColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0).cgColor
@@ -207,7 +212,9 @@ self.setNavBarWithMenuORBack(Title: "My Shipping".localized, LetfBtn: kIconBack,
 //
 //        bottomBorderOnGoing.removeFromSuperlayer()
 //        bottomBorderPastBooking.removeFromSuperlayer()
-        
+        if let UpcomingScreen = self.childViewControllers[1] as? UpCommingVC {
+            UpcomingScreen.webserviceOfBookingHistory()
+        }
         
         
         

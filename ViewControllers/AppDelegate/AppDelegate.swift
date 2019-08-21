@@ -36,7 +36,7 @@ let kDeviceType : String = "1"
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSignInDelegate,UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var isAlreadyLaunched : Bool?
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
             UserDefaults.standard.set("en", forKey: "i18n_language")
             UserDefaults.standard.synchronize()
 
-             #endif
+            #endif
         }
 
         isAlreadyLaunched = false
@@ -147,6 +147,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         registerForPushNotification()
         
         let remoteNotif = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
+        
+        //For foreground push
+        UNUserNotificationCenter.current().delegate = self
+        
         
         if remoteNotif != nil {
             let key = (remoteNotif as! NSDictionary).object(forKey: "gcm.notification.type")!
@@ -305,8 +309,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         
     }
     
+    //Call when silent push coming or app on background
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+        completionHandler(UIBackgroundFetchResult.newData)
+        notificationHandler(userInfo)
+        
+        /*
         let key = (userInfo as NSDictionary).object(forKey: "gcm.notification.type")!
         
         if(application.applicationState == .background)
@@ -314,20 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
             self.pushAfterReceiveNotification(typeKey: key as! String)
         }
         
-        // Let FCM know about the message for analytics etc.
-        
-//        Messaging.messaging().appDidReceiveMessage(userInfo)
-
-        
-        //        Messaging.messaging().appDidReceiveMessage(userInfo)
-        // handle your message
-        
-        // Print message ID.
-        //        if let messageID = userInfo[gcmMessageIDKey] {
-        //            print("Message ID: \(messageID)")
-        //        }
-        
-        // Print full message.
+ 
         print(userInfo)
         if key as? String == "chatbid" {
             if !SingletonClass.sharedInstance.isChatBoxOpen {
@@ -367,12 +364,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
             }
         }
         completionHandler(UIBackgroundFetchResult.newData)
-        
+        */
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
     {
+        print("Push Notification present method call : \(notification)")
+        let userInfo = notification.request.content.userInfo
+        //         notificationHandler(userInfo)
+        // Print full message.
+        print(userInfo)
+        completionHandler([.alert, .badge, .sound])
         
+        /*
         print(notification.request.content.userInfo)
         
         let dictNoti = notification.request.content.userInfo as! [String : AnyObject]
@@ -421,9 +425,105 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         {
             completionHandler([.alert, .badge, .sound])
         }
-        
+        */
+    }
+    func notificationHandler(_ notification:[AnyHashable : Any]) {
+        if let apsData = (notification as! [String:AnyObject])["aps"] {
+            print("APS Data: \(apsData)")
+            
+            if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "chatbid")
+            {
+                if !SingletonClass.sharedInstance.isChatBoxOpen {
+                    let dictData = notification["gcm.notification.data"] as! String
+                    let data = dictData.data(using: .utf8)!
+                    do
+                    {
+                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                        {
+//                            var UserDict = [String:Any]()
+                            //                        UserDict["BidId"] = jsonResponse["BidId"] as! String
+                            //                        UserDict["SenderId"] = jsonResponse["SenderId"] as! String
+                            if let vwController = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                                if let vcChat = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController {
+                                    
+                                    guard let strBidID = jsonResponse["BidId"] as? String else {
+                                        return
+                                    }
+                                    guard let strSenderID = jsonResponse["SenderId"] as? String else {
+                                        return
+                                    }
+                                    vcChat.strDriverID = strSenderID
+                                    vcChat.strBidID = strBidID
+                                    vwController.navigationController?.pushViewController(vcChat, animated: true)
+                                }
+                            }
+                            
+                        }
+                        else {
+                            print("bad json")
+                        }
+                    }
+                    catch let error as NSError
+                    {
+                        print(error)
+                    }
+                }
+            }else if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "RejectBid") {
+//                BidListContainerViewController
+                if let _ = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) as? BidListContainerViewController {
+                    return
+                }
+                
+                if let vwController = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                    if let vwBidList = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BidListContainerViewController") as? BidListContainerViewController {
+                        
+                    
+                        vwController.navigationController?.pushViewController(vwBidList, animated: true)
+                    }
+                }
+            }else if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "BookLaterTripNotify") {
+                //                BidListContainerViewController
+                if let vwMyBooking = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) as? MyBookingViewController {
+                    vwMyBooking.Upcomming()
+                    return
+                }
+                
+                if let vwController = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                    if let vwMyBooking = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyBookingViewController") as? MyBookingViewController {
+                        vwController.navigationController?.pushViewController(vwMyBooking, animated: true)
+                          DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            vwMyBooking.Upcomming()
+                        }
+                        
+                    }
+                }
+            }
+            /*
+            if((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "silent") {
+                NotificationCenter.default.post(name: .LogoutUser, object: nil)
+            }else {
+                if let topVw = UIApplication.topViewController() {
+                    
+                    if let vwTop = topVw as? NotificationsViewController {
+                        vwTop.pageIndex = 1
+                        vwTop.webserviceOfNotificationList(vwTop.pageIndex, showLoader: true)
+                    }else {
+                        if let rootVc = self.window?.rootViewController as? UINavigationController {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let vwNotification = storyboard.instantiateViewController(withIdentifier: "NotificationsViewController") as!  NotificationsViewController
+                            //                            OrderDetail.nameofLastViewController = "OrderViewController"
+                            //                            OrderDetail.strOrderId = storeId
+                            let navController = UINavigationController(rootViewController: vwNotification)
+                            rootVc.present(navController, animated: true, completion: nil)
+                        }
+                    }
+                    
+                }
+            } */
+        }
     }
     
+    /*
     func handleRemoteNotification(key : String, userInfo : NSDictionary, application: UIApplication)
     {
         
@@ -520,13 +620,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
         
         print(userInfo)
     }
-
-    
+*/
+    //    call when app is close and tap on notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
-        print(response.notification.request.content.userInfo)
+        
+        print("Push Notification : \(response.notification.request.content.userInfo)")
+        completionHandler()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.notificationHandler(response.notification.request.content.userInfo)
+        }
+        /* ===============================
         let dictNoti = response.notification.request.content.userInfo as! [String : AnyObject]
         let key = (dictNoti)["gcm.notification.type"] as! String
         self.handleRemoteNotification(key: key, userInfo: dictNoti as NSDictionary, application: UIApplication.shared)
+        ===============================
+         
+         */
+        
         
         /*
          // 1
@@ -1051,3 +1161,31 @@ func localizeUI(parentView:UIView)
     }
 }
 
+extension UIApplication {
+    
+    var currentVisibleViewController: UIViewController? {
+        
+        guard let rootViewController = keyWindow?.rootViewController else {
+            return nil
+        }
+        
+        return getVisibleViewController(rootViewController)
+    }
+    
+    private func getVisibleViewController(_ rootViewController: UIViewController) -> UIViewController? {
+        
+        if let presentedViewController = rootViewController.presentedViewController {
+            return getVisibleViewController(presentedViewController)
+        }
+        
+        if let navigationController = rootViewController as? UINavigationController {
+            return navigationController.visibleViewController
+        }
+        
+        if let tabBarController = rootViewController as? UITabBarController {
+            return tabBarController.selectedViewController
+        }
+        
+        return rootViewController
+    }
+}

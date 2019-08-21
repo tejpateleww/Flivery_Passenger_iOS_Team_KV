@@ -41,7 +41,7 @@ class ChangePasswordVC: BaseViewController {
     
     func setLocalization()
     {
-        
+        txtOldPassword.placeholder = "Current Password".localized
         lblChangePassWorld.text = "Change Password".localized
         txtNewPassword.placeholder = "New Password".localized
         txtConfirmPassword.placeholder = "Confirm Password".localized
@@ -58,7 +58,7 @@ class ChangePasswordVC: BaseViewController {
     
     @IBOutlet weak var txtNewPassword: ACFloatingTextfield!
     @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
-    
+     @IBOutlet weak var txtOldPassword: ACFloatingTextfield!
     
     @IBOutlet weak var btnSubmit: ThemeButton!
     
@@ -66,15 +66,17 @@ class ChangePasswordVC: BaseViewController {
     @IBAction func btnSubmit(_ sender: ThemeButton) {
             
         let str = txtNewPassword.text
-        
-        if txtNewPassword.text == txtConfirmPassword.text {
+        if txtOldPassword.text!.isEmpty {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter current password".localized) { (index, title) in
+            }
+        }else if txtNewPassword.text == txtConfirmPassword.text {
         
             if str!.count >= 8  {
                 webserviceOfChangePassword()
             }
             else {
                 UtilityClass.setCustomAlert(title: "", message: "Password must contain at least 8 characters".localized) { (index, title) in
-            }
+                }
             }
         }
         else {
@@ -127,7 +129,7 @@ class ChangePasswordVC: BaseViewController {
         
         dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         dictData["Password"] = txtNewPassword.text as AnyObject
-        
+         dictData["OldPassword"] = txtOldPassword.text as AnyObject
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData,nil)
         
@@ -140,7 +142,7 @@ class ChangePasswordVC: BaseViewController {
                 
                 self.txtNewPassword.text = ""
                 self.txtConfirmPassword.text = ""
-                
+                self.txtOldPassword.text = ""                    
                 UtilityClass.setCustomAlert(title: appName, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
                     
                     self.navigationController?.popViewController(animated: true)

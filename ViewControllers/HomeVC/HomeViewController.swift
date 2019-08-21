@@ -5026,7 +5026,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             self.setHideAndShowTopViewWhenRequestAcceptedAndTripStarted(status: false)
             self.dismiss(animated: true, completion: nil)
             //                    self.socket.off(SocketData.kBookingCompletedNotification)
-            self.arrDataAfterCompletetionOfTrip = NSMutableArray(array: (self.aryCompleterTripData[0] as! NSDictionary).object(forKey: "Info") as! NSArray)
+            self.arrDataAfterCompletetionOfTrip =   NSMutableArray(array: (self.aryCompleterTripData as NSArray)) //NSMutableArray(array: (self.aryCompleterTripData[0] as! NSDictionary).object(forKey: "Info") as! NSArray)
             self.viewTripActions.isHidden = true
             self.viewCarLists.isHidden = false
             //                self.viewShareRideView.isHidden = false

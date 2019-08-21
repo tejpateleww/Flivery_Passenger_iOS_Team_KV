@@ -13,7 +13,7 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var strPickupLat = String()
     var strPickupLng = String()
-    var aryData = NSArray()
+    var aryData:[[String:Any]] = []
     
     var strDropoffLat = String()
     var strDropoffLng = String()
@@ -61,7 +61,7 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @objc func reloadDataOfTableView() {
         
-        self.aryData = SingletonClass.sharedInstance.aryOnGoing
+        //        self.aryData = SingletonClass.sharedInstance.aryOnGoing
         
         if self.aryData.count > 0 {
             self.lblNoDataFound.isHidden = true
@@ -95,7 +95,184 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OnGoingTableViewCell") as! OnGoingTableViewCell
+        
+        cell.lblPickupUpAddressTitle.text = "PICK UP LOCATION".localized
+        cell.lblDropOffAddressTitle.text = "DROP OFF LOCATION".localized
+        cell.lblPickupTimeTitle.text = "PICKUP TIME".localized
+        cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
+        cell.lblPaymentTypeTitle.text = "PAYMENT TYPE".localized
+        
+        cell.btnTrackYourTrip.setTitle("Track Your Trip".localized, for: .normal)
+        cell.btnTrackYourTrip.titleLabel?.font = UIFont.bold(ofSize: 8.0)
+        
+        if aryData.count > 0 {
+            
+            cell.selectionStyle = .none
+            
+            //            cell.viewCell.layer.cornerRadius = 10
+            //            cell.viewCell.clipsToBounds = true
+            if let name = aryData[ indexPath.row]["DriverName"] as? String {
+                if name == "" {
+                    cell.lblDriverName.text = "NULL"
+                }
+                else {
+                    cell.lblDriverName.text = name
+                }
+            }
+            else {
+                cell.lblDriverName.text = "NULL"
+            }
+            
+            let dictData = aryData[indexPath.row]
+            
+            //            let formattedString = NSMutableAttributedString()
+            //            formattedString
+            //                .normal("\("Booking Id :".localized)")
+            //                .bold("\(String(describing: (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Id")!))", 14)
+            
+            if let BookingID = dictData["Id"] as? String {
+                cell.lblBookingID.text = "\("Booking Id".localized) : \(BookingID)"
+            }
+            
+            if let strParcelImage = dictData["ParcelImage"] as? String {
+                cell.imgParcelImage.sd_setShowActivityIndicatorView(true)
+                cell.imgParcelImage.sd_setIndicatorStyle(.gray)
+                cell.imgParcelImage?.sd_setImage(with: URL(string: strParcelImage), completed: { (image, error, cacheType, url) in
+                    cell.imgParcelImage.sd_removeActivityIndicator()
+                    cell.imgParcelImage.contentMode = .scaleAspectFit
+                })
+            }
+            
+            cell.ViewDeliveredParcelImage.isHidden = true
+            //            if let strDeliveredParcelImage = dictData["DeliveredParcelImage"] as? String {
+            //                cell.imgDeliveredParcelImage.sd_setShowActivityIndicatorView(true)
+            //                cell.imgDeliveredParcelImage.sd_setIndicatorStyle(.gray)
+            //                cell.imgDeliveredParcelImage?.sd_setImage(with: URL(string: strDeliveredParcelImage)) { (image, error, cacheType, url) in
+            //                    cell.imgDeliveredParcelImage.sd_removeActivityIndicator()
+            //                     cell.imgDeliveredParcelImage.contentMode = .scaleAspectFit
+            //                }
+            //
+            //            }
+            
+            //            cell.lblBookingID.attributedText = formattedString
+            if let Createdate = dictData[ "CreatedDate"] as? String {
+                cell.lblDateAndTime.text =  ": " + Createdate
+            }
+            if let PickupLocation = dictData[ "PickupLocation"] as? String {
+                cell.lblPickupAddress.text = ": " + PickupLocation // PickupLocation
+            }
+            if let DropOffAddress = dictData[ "DropoffLocation"] as? String {
+                cell.lblDropoffAddress.text =  ": " + DropOffAddress  // DropoffLocation
+            }
+            
+            if let pickupTime = dictData["PickupTime"] as? String {
+                if pickupTime == "" {
+                    cell.lblPickupTime.text = "Date and Time not available"
+                }
+                else {
+                    cell.lblPickupTime.text = ": " + setTimeStampToDate(timeStamp: pickupTime)
+                }
+            }
+            if let vehicleType = dictData["Model"] as? String {
+                cell.lblVehicleType.text = ": " + vehicleType
+            }
+            if let PaymentType = dictData["PaymentType"] as? String {
+                cell.lblPaymentType.text = ": " + PaymentType
+            }
+            
+            
+            /////
+            
+            cell.lblParcelTypeTitle.text = "PARCEL TYPE".localized
+            cell.lblParcelWeightTitle.text = "PARCEL WEIGHT".localized
+            cell.lblTripFareTitle.text = "DELIVERY FARE".localized
+            
+            cell.lblTaxTitle.text = "TAX".localized
+            cell.lblTotalTitle.text = "TOTAL".localized
+            
+            
+            if let parcelWeight = dictData["Weight"] as? String {
+                cell.lblParcelWeight.text =  ": " + String(format: "%.2f", Double((parcelWeight != "") ? parcelWeight : "0.0")!) + " Kg"
+            }
+            if let TripFare = dictData["TripFare"] as? String {
+                cell.lblTripFare.text = ": \(currencySign)" +  String(format: "%.2f", Double((TripFare != "") ? TripFare : "0.0")!)
+            }
+            if let dictParcelDetails = dictData["Parcel"] as? [String:Any] {
+                if let parcelName = dictParcelDetails["Name"] as? String {
+                    cell.lblParcelType.text =  ": " + parcelName
+                }
+            }
+            if let Tax = dictData["Tax"] as? String {
+                cell.lblTax.text = ": \(currencySign)\(String(format: "%.2f", Double((Tax != "") ? Tax : "0.0")!))"
+                //                        if Tax == "" || Tax == "0" {
+                //                            cell.StackTax.isHidden = true
+                //                        } else {
+                //                            cell.StackTax.isHidden = false
+                //                        }
+            }
+            if let GrandTotal = dictData["GrandTotal"] as? String {
+                cell.lblTotal.text = ": \(currencySign)\(String(format: "%.2f", Double((GrandTotal != "") ? GrandTotal : "0.0")!))"
+                
+                //                        if GrandTotal == "" || GrandTotal == "0" {
+                //                            cell.StackGrandTotal.isHidden = true
+                //                        } else {
+                //                            cell.StackGrandTotal.isHidden = false
+                //                        }
+            }
+            
+            /// changeeee
+            
+            
+            //            if let DropoffTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String {
+            //                if DropoffTime == "" {
+            //                    cell.lbldrop.text = "Date and Time not available"
+            //                }
+            //                else {
+            //                    cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
+            //                }
+            //            }
+            
+            //            cell.lblPickupTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String
+            //            cell.lblDropoffTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String
+            
+            //            cell.lblDistanceTravelled.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String
+            //            cell.lblTripFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String
+            //            cell.lblNightFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String
+            //            cell.lblTollFee.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
+            //            cell.lblWaitingCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
+            //            cell.lblBookingCharge.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
+            //            cell.lblTax.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
+            //            cell.lblDiscount.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
+            //            cell.lblTotalCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "GrandTotal") as? String
+//
+//            if let ParcelArray = dictData["parcel_info"] as? [[String:Any]] {
+//                cell.arrParcel = ParcelArray
+//                cell.setParcelDetail()
+//            }
+            if let strBidID = dictData["BidId"] as? String, strBidID != "0" {
+                cell.vwDeliveryFare.isHidden = false
+                cell.vwTax.isHidden = false
+                cell.vwTotal.isHidden = false
+            }else {
+                cell.vwDeliveryFare.isHidden = true
+                cell.vwTax.isHidden = true
+                cell.vwTotal.isHidden = true
+            }
+            
+            cell.btnTrackYourTrip.layer.cornerRadius = 5
+            cell.btnTrackYourTrip.layer.masksToBounds = true
+            cell.btnTrackYourTrip.tag = indexPath.row
+            cell.btnTrackYourTrip.addTarget(self, action: #selector(self.trackYourTrip(sender:)), for: .touchUpInside)
+            
+            cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
+            
+        }
+        
+        return cell
+        
+        /*
         let cell = tableView.dequeueReusableCell(withIdentifier: "OnGoingTableViewCell") as! OnGoingTableViewCell
         
         cell.lblPickupUpAddressTitle.text = "Pickup Location".localized
@@ -186,6 +363,7 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
  
         return cell
+        */
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -214,14 +392,13 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
     @objc func trackYourTrip(sender: UIButton) {
         
-        let currentData = aryData.object(at: sender.tag)
+        let currentData = aryData[sender.tag]
         
-        let id:String = (currentData as! NSDictionary).object(forKey: "Id")! as! String
+        let id:String = currentData["Id"] as! String
         
         RunningTripTrack(param: id)
         
     }
-    
     
     func RunningTripTrack(param: String) {
         
@@ -259,7 +436,52 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
+    @objc func webserviceOfBookingHistory()
+    {
+        //        let activityData = ActivityData()
+        //        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        //
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        webserviceForOnGoingBookingList(dictParams: SingletonClass.sharedInstance.strPassengerID as AnyObject ) { (result, status) in
+            
+            if (status) {
+                self.aryData = (result as! [String:Any])["history"] as! [[String:Any]]
+                print(self.aryData)
+                self.reloadDataOfTableView()
+                self.refreshControl.endRefreshing()
+                
+            }
+            else {
+                
+                print(result)
+                var ErrorMessage = String()
+                
+                if let res = result as? String {
+                    ErrorMessage = res
+                    //                    UtilityClass.setCustomAlert(title: "", message: res) { (index, title) in
+                    //                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    ErrorMessage = resDict.object(forKey: "message") as! String
+                    //                    UtilityClass.setCustomAlert(title: "", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    //                    }
+                }
+                else if let resAry = result as? NSArray {
+                    ErrorMessage = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                    //                    UtilityClass.setCustomAlert(title: "", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    //                    }
+                }
+                UtilityClass.setCustomAlert(title: "Error", message: ErrorMessage) { (index, title) in
+                }
+//                AlertMessage.showMessageForError(ErrorMessage)
+            }
+        }
+    }
     //-------------------------------------------------------------
     // MARK: - Custom Methods
     //-------------------------------------------------------------
