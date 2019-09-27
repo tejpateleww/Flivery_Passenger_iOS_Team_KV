@@ -71,7 +71,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
             lblPickupLocation.text = PickupLocation
         }
         if let price = aryData[0]["Budget"] as? String{
-            lblPrice.text = "USD " + price
+            lblPrice.text = "\(currencySign) " + price
         }
         if let deadHead = aryData[0]["DeadHead"] as? String{
             lblDeahead.text = deadHead
@@ -214,7 +214,7 @@ class BidDetailsViewController: BaseViewController,UITableViewDelegate,UITableVi
              customCell.imgProfile.sd_setImage(with: URL(string: WebserviceURLs.kImageBaseURL + imageUrl), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
         }
         if let bidPrice = arrBidDetails[indexPath.row]["DriverBudget"] as? String{
-            customCell.lblAmount.text = "USD " + bidPrice
+            customCell.lblAmount.text = "\(currencySign) " + bidPrice
         }
         if let driverNotes = arrBidDetails[indexPath.row]["DriverNotes"] as? String{
             customCell.lblDetail.text = driverNotes

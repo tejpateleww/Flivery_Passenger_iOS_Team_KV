@@ -18,6 +18,8 @@ import IQDropDownTextField
 import MultiSlider
 import SideMenuController
 
+var strWeight = "LBS"
+
 class CustomUITextField: UITextField {
     override public func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 
@@ -54,6 +56,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
     // MARK: - Globle Declaration Methods
     // ----------------------------------------------------
     
+
     @IBOutlet weak var selectWeight: MultiSlider!
     var delegateBookLater : deleagateForBookTaxiLater!
     var mapView : GMSMapView?
@@ -145,7 +148,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
 
         selectWeight.minimumValue = 1
-        selectWeight.maximumValue = 1000
+        selectWeight.maximumValue = 500
         selectWeight.value = [0.0]
         selectWeight.orientation = .horizontal // default is .vertical
         selectWeight.thumbCount = 1
@@ -154,7 +157,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
         selectWeight.tintColor = UIColor.red
         selectWeight.outerTrackColor = UIColor.black // outside of first and last thumbs
-        lblWeight.text = "1Kgs"
+        lblWeight.text = "1\(strWeight)"
 
         txtDropOffLocation.text = strDropoffLocation
 
@@ -394,7 +397,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         constantNoteHeight.constant = 0
         imgViewLineForFlightNumberHeight.constant = 0
         imgViewLineForNotesHeight.constant = 0
-        
+
         txtFlightNumber.isHidden = true
         txtFlightNumber.isEnabled = false
         txtDescription.isEnabled = false
@@ -424,7 +427,25 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         //        viewDestinationLocation.layer.shadowOpacity = 0.3
         //        viewDestinationLocation.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
     }
-    
+
+    @IBAction func changeWeight(_ sender: UIButton) {
+        var weight : Int
+        if (sender.tag == 1) {
+            //Your Code You Wanted To Perform On Increment
+            weight = Int(selectWeight.value.first ?? 0.0) + 1
+
+        }
+        else
+        {
+            //Your Code You Wanted To Perform On Decrement
+            weight = Int(selectWeight.value.first ?? 0.0) - 1
+
+        }
+
+        selectWeight.value = [CGFloat(weight)]
+        self.lblWeight.text = "\(weight) \(strWeight)"
+
+    }
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -639,7 +660,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
     @objc func sliderChanged(_ slider: MultiSlider) {
 
-        self.lblWeight.text = "\(slider.value.first ?? 0.00) Kgs"
+        let value = Int(slider.value.first ?? 0)
+        self.lblWeight.text = "\(value) \(strWeight)"
 
         print("\(slider.value)")
     }
@@ -1404,8 +1426,8 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         dictData["ParcelId"] = self.strSelectedParcelID as AnyObject
         dictData["RequestFor"] = "delivery" as AnyObject
 
-        let strWeight = lblWeight.text?.replacingOccurrences(of: "Kgs", with: "", options: NSString.CompareOptions.literal, range: nil)
-        dictData["Weight"] = strWeight?.trimmingCharacters(in: .whitespacesAndNewlines) as AnyObject
+        let strWeightLocal = lblWeight.text?.replacingOccurrences(of: "\(strWeight)", with: "", options: NSString.CompareOptions.literal, range: nil)
+        dictData["Weight"] = strWeightLocal?.trimmingCharacters(in: .whitespacesAndNewlines) as AnyObject
 
         if lblPromoCode.text != "" {
             dictData["PromoCode"] = lblPromoCode.text as AnyObject
@@ -1418,7 +1440,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             }
         }
         else {
-            dictData["PaymentType"] = paymentType as AnyObject
+            dictData["PaymentType"] = paymentType.lowercased() as AnyObject
         }
         
         if CardID != "" {
@@ -1722,7 +1744,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
             }
         }
         else {
-            dictData["PaymentType"] = paymentType as AnyObject
+            dictData["PaymentType"] = paymentType.lowercased() as AnyObject
         }
         
         if CardID != "" {

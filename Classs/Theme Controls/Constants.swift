@@ -25,7 +25,7 @@ let navigationBarHeightIphoneX = 84
 //var utility = Utilities()
 
 let kHtmlReplaceString   :   String  =   "<[^>]+>"
-let currency : String = "$"
+//let currency : String = "$"
 let dictanceType : String = "km"
 
 ///Chat//

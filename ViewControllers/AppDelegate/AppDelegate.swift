@@ -36,7 +36,7 @@ let kDeviceType : String = "1"
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSignInDelegate,UNUserNotificationCenterDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSignInDelegate,UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var isAlreadyLaunched : Bool?
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate, GIDSign
 
         // Set Stored Language from Local Database
 
-        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
+        if (UserDefaults.standard.value(forKey: "i18n_language") == nil || (UserDefaults.standard.value(forKey: "i18n_language") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0)  {
 
             #if targetEnvironment(simulator)
             let langStr = Locale.current.languageCode

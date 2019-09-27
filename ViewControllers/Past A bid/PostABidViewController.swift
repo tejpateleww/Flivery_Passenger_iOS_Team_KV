@@ -93,6 +93,14 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         btnSelectLuggage?.setTitle("Upload your parcel photo here".localized, for: .normal)
 
 
+
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        label.text = "LBS"
+        label.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
+        txtWeight?.rightViewMode = .always
+        txtWeight?.rightView = label
+
+
     }
 
 

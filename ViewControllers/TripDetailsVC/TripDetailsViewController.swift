@@ -232,15 +232,15 @@ class TripDetailsViewController: BaseViewController {
                 
             }
 //            lblGrandTotal.text = "\(currencySign) \(data.object(forKey: "GrandTotal") as! String)"
-            
-            var strSpecial = String()
-            
-            if let special = data.object(forKey: "Special") as? String {
-                strSpecial = special
-            } else if let special = data.object(forKey: "Special") as? Int {
-                strSpecial = String(special)
-            }
-            
+//
+//            var strSpecial = String()
+//
+//            if let special = data.object(forKey: "Special") as? String {
+//                strSpecial = special
+//            } else if let special = data.object(forKey: "Special") as? Int {
+//                strSpecial = String(special)
+//            }
+
 //            stackViewSpecialExtraCharge.isHidden = true
 //            if strSpecial == "1" {
 //                stackViewSpecialExtraCharge.isHidden = false
