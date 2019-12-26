@@ -34,7 +34,7 @@ target 'Flivery User' do
   pod 'IQDropDownTextField'
   pod 'GoogleAnalytics'
   pod 'MultiSlider'
-  pod 'Cosmos'
+  pod 'Cosmos', '9.0.0'
 
   # pod 'WWCalendarTimeSelector'
 #  pod 'DOAlertController', :git => 'https://github.com/okmr-d/DOAlertController.git', :branch => 'master'

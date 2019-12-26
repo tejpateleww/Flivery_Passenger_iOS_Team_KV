@@ -26,11 +26,11 @@ PODS:
   - CHIPageControl/Jaloro (0.1.7)
   - CHIPageControl/Paprika (0.1.7)
   - CHIPageControl/Puya (0.1.7)
-  - Cosmos (19.0.3)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
+  - Cosmos (9.0.0)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
   - CreditCardForm (0.1.8)
-  - Fabric (1.9.0)
+  - Fabric (1.10.2)
   - FacebookCore (0.5.0):
     - Bolts (~> 1.9)
     - FBSDKCoreKit (~> 4.37)
@@ -124,7 +124,7 @@ DEPENDENCIES:
   - Alamofire
   - CardIO
   - CHIPageControl
-  - Cosmos
+  - Cosmos (= 9.0.0)
   - Crashlytics
   - CreditCardForm
   - Fabric
@@ -148,17 +148,14 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ACFloatingTextfield-Swift
     - Alamofire
     - AvailableHapticFeedback
     - Bolts
     - CardIO
     - CHIPageControl
-    - Cosmos
-    - Crashlytics
     - CreditCardForm
-    - Fabric
     - FacebookCore
     - FacebookLogin
     - FacebookShare
@@ -190,6 +187,10 @@ SPEC REPOS:
     - SideMenuController
     - Socket.IO-Client-Swift
     - StarscreamSocketIO
+  trunk:
+    - Cosmos
+    - Crashlytics
+    - Fabric
 
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: df075d5ed5d441d8603f985fc106ec7ebe0c673f
@@ -198,10 +199,10 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   CHIPageControl: bbe1ddd0c688c02ec65b7f7e7d34551a3d16f37c
-  Cosmos: a6fb17284281fa12cf4c85c2efecd440a215ec44
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Cosmos: 33eee62b2a0418452aef470f711f83c3ea061b7b
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   CreditCardForm: 7e67bc394545eda9e502652af0858552b4931728
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
@@ -234,6 +235,6 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: b8e59ddc16bc3609ca2f49a4b50253f095d535c8
   StarscreamSocketIO: 00b54e4208481ca5cef089545353aaf126bae16d
 
-PODFILE CHECKSUM: 987a74595ece7aaf5e02dc017b6a51904e13ec62
+PODFILE CHECKSUM: 0d39d308ebd6a3a7b629f443130905fe67c27a9e
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.4

@@ -69,7 +69,7 @@ class PostABidViewController: BaseViewController,UIImagePickerControllerDelegate
         arrNumberOfOnlineCars = SingletonClass.sharedInstance.arrCarLists as? [[String : AnyObject]]
 
         txtVehicleType?.inputView = viewSelectVehicle
-
+        datePickerView.minimumDate = Date().addingTimeInterval(1800)
         TxtDateAndTime?.inputView = datePickerView
         TxtDateAndTime?.delegate = self
 

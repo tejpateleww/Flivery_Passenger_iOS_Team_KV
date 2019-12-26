@@ -160,7 +160,7 @@ All files are released under the MIT License:
 
 The MIT License
 
-Copyright (c) 2015 Evgenii Neumerzhitckii
+Copyright (c) 2015 Marketplacer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

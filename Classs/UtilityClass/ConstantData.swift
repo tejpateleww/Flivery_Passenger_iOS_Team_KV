@@ -67,7 +67,7 @@ let screenWidthDeveloper : Double = 320
 //http://34.73.215.81/web/Passenger_Api/PostBid/
 
 struct WebserviceURLs {
-    static let kBaseURL                                  = "http://34.73.215.81/web/Passenger_Api/"//https://nexusappllc.com/web/Passenger_Api/"
+    static let kBaseURL                                  = "http://104.196.119.234/web/Passenger_Api/"//"http://34.73.215.81/web/Passenger_Api/"//https://nexusappllc.com/web/Passenger_Api/"
 //    "http://3.17.200.7/web/Passenger_Api/"
     static let kDriverRegister                          = "Register"
     static let kDriverLogin                             = "Login"
@@ -82,7 +82,7 @@ struct WebserviceURLs {
     static let kBookingHistory                          = "BookingHistory"
 //    static let kPastBooking                             = "PastBooking"
     static let kGetEstimateFare                         = "GetEstimateFare"
-    static let kImageBaseURL                            = "http://34.73.215.81/web/"
+    static let kImageBaseURL                            = "http://104.196.119.234/web/"
     //"https://nexusappllc.com/web/"
     //"http://3.17.200.7/web/"
     
@@ -147,7 +147,7 @@ struct WebserviceURLs {
 
 struct SocketData {
     
-    static let kBaseURL                                     = "http://34.73.215.81:8080"//"https://nexusappllc.com:8080/"
+    static let kBaseURL                                     = "http://104.196.119.234:8080"//"https://nexusappllc.com:8080/"
 //    "http://3.17.200.7:8080/"
 
     static let kNearByDriverList                            = "NearByDriverListIOS"

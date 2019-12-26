@@ -142,18 +142,18 @@ class DriverInfoPageViewController: UIViewController {
 //            imgDriver.sd_setImage(with: URL(string: driverImg), completed: nil)
 //        }
         
-        lblCareName.text = strCareName
-        lblCarPlateNumber.text = strCarPlateNumber
+        lblCareName.text = "Car Name : \(strCareName)"
+        lblCarPlateNumber.text = "Car Plate Number : \(strCarPlateNumber)"
         
         lblPickupLocation.text = "Pickup Location : \(strPickupLocation)"
         lblDropoffLocation.text = "Dropoff Location : \(strDropoffLocation)"
         lblDriverName.text = strDriverName
         
         if strCarClass.count == 1 {
-            lblCarClass.text = carClass(strClass: strCarClass)
+            lblCarClass.text = "Car Class : \(carClass(strClass: strCarClass))"
         }
         else {
-            lblCarClass.text = strCarClass
+            lblCarClass.text = "Car Class : \(strCarClass)"
         }
     }
     

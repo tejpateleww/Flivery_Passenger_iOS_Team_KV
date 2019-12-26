@@ -60,7 +60,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAm-Zz-bnb">
-                                        <rect key="frame" x="10" y="10" width="20" height="80"/>
+                                        <rect key="frame" x="10" y="17.5" width="20" height="65"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="From_Add_Pin" translatesAutoresizingMaskIntoConstraints="NO" id="TI8-Uf-esC">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -68,15 +68,15 @@
                                                     <constraint firstAttribute="height" constant="20" id="PYh-P0-qew"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pick_Drop_Line_white" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-Cd-tFq">
-                                                <rect key="frame" x="9" y="21" width="2" height="38"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconLine" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-Cd-tFq">
+                                                <rect key="frame" x="9" y="21" width="2" height="23"/>
                                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="2" id="p9Y-SV-uS3"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="To_Add_Pin" translatesAutoresizingMaskIntoConstraints="NO" id="f7b-yq-m1s">
-                                                <rect key="frame" x="0.0" y="60" width="20" height="20"/>
+                                                <rect key="frame" x="0.0" y="45" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="sw8-yU-99p"/>
                                                 </constraints>
@@ -207,16 +207,16 @@
                                     <constraint firstItem="J8C-VY-RMW" firstAttribute="leading" secondItem="1mN-Ys-BSz" secondAttribute="trailing" constant="10" id="0T1-2y-wfh"/>
                                     <constraint firstAttribute="height" constant="100" id="18y-Y3-VIm"/>
                                     <constraint firstItem="cvy-xK-kh4" firstAttribute="top" secondItem="tDV-Of-XaG" secondAttribute="top" constant="10" id="2NB-ca-MjF"/>
-                                    <constraint firstItem="aAm-Zz-bnb" firstAttribute="top" secondItem="tDV-Of-XaG" secondAttribute="top" constant="10" id="Ecf-B6-rLr"/>
+                                    <constraint firstItem="f7b-yq-m1s" firstAttribute="centerY" secondItem="Rf6-Y9-l6j" secondAttribute="centerY" id="6dQ-Jj-bUE"/>
                                     <constraint firstItem="J8C-VY-RMW" firstAttribute="centerY" secondItem="tDV-Of-XaG" secondAttribute="centerY" id="P67-Gz-0AU"/>
                                     <constraint firstItem="aAm-Zz-bnb" firstAttribute="leading" secondItem="tDV-Of-XaG" secondAttribute="leading" constant="10" id="SDm-Mg-7Bh"/>
-                                    <constraint firstAttribute="bottom" secondItem="aAm-Zz-bnb" secondAttribute="bottom" constant="10" id="Ss3-5G-k8x"/>
                                     <constraint firstItem="JZw-dN-DtT" firstAttribute="trailing" secondItem="cvy-xK-kh4" secondAttribute="trailing" id="Suh-Uk-sy3"/>
                                     <constraint firstItem="JZw-dN-DtT" firstAttribute="top" secondItem="cvy-xK-kh4" secondAttribute="bottom" constant="4" id="UJO-M3-9nm"/>
                                     <constraint firstItem="JZw-dN-DtT" firstAttribute="leading" secondItem="cvy-xK-kh4" secondAttribute="leading" id="VJO-mg-vPl"/>
                                     <constraint firstItem="1mN-Ys-BSz" firstAttribute="leading" secondItem="aAm-Zz-bnb" secondAttribute="trailing" constant="10" id="cmA-4A-zsE"/>
                                     <constraint firstItem="J8C-VY-RMW" firstAttribute="leading" secondItem="cvy-xK-kh4" secondAttribute="trailing" constant="10" id="d9A-qx-Vgc"/>
                                     <constraint firstItem="cvy-xK-kh4" firstAttribute="leading" secondItem="aAm-Zz-bnb" secondAttribute="trailing" constant="10" id="dGb-C2-KYh"/>
+                                    <constraint firstItem="TI8-Uf-esC" firstAttribute="centerY" secondItem="BGh-il-TZs" secondAttribute="centerY" id="isE-s1-o19"/>
                                     <constraint firstItem="1mN-Ys-BSz" firstAttribute="top" secondItem="cvy-xK-kh4" secondAttribute="bottom" constant="10" id="j5e-LM-WeF"/>
                                     <constraint firstAttribute="trailing" secondItem="J8C-VY-RMW" secondAttribute="trailing" constant="10" id="zpl-BZ-qUU"/>
                                 </constraints>
@@ -866,7 +866,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-pi-6cf">
-                                <rect key="frame" x="0.0" y="-8" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="192" width="320" height="504"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQN-XG-KsX">
                                         <rect key="frame" x="142.5" y="30.5" width="35" height="35"/>
@@ -11753,15 +11753,15 @@ Hours</string>
                                                                     <rect key="frame" x="0.0" y="60" width="320" height="14.5"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="OB2-iC-oM2">
-                                                                            <rect key="frame" x="10" y="0.0" width="300" height="0.0"/>
+                                                                            <rect key="frame" x="10" y="0.0" width="300" height="4.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2f-5Z-KMA">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="4.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="start location" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdJ-LT-vAo">
-                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="0.0"/>
+                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="4.5"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" priority="750" constant="14" id="bqL-nD-M8D"/>
                                                                                     </constraints>
@@ -11772,15 +11772,15 @@ Hours</string>
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="E6E-0j-CJM">
-                                                                            <rect key="frame" x="10" y="5" width="300" height="4.5"/>
+                                                                            <rect key="frame" x="10" y="9.5" width="300" height="0.0"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-3H-l4c">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="4.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="end location" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sx3-aq-zcP">
-                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="4.5"/>
+                                                                                    <rect key="frame" x="150" y="0.0" width="150" height="0.0"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" priority="750" constant="16" id="T9M-Rl-OkY"/>
                                                                                     </constraints>
@@ -14643,9 +14643,10 @@ Hours</string>
                                                                     <rect key="frame" x="0.0" y="155" width="304" height="45"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBG-E7-q26">
-                                                                            <rect key="frame" x="120" y="8.5" width="64" height="28"/>
+                                                                            <rect key="frame" x="102" y="8.5" width="100" height="28"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
+                                                                                <constraint firstAttribute="width" constant="100" id="0zl-2g-1eR"/>
                                                                                 <constraint firstAttribute="height" constant="28" id="vhU-SW-0IH"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -24829,7 +24830,6 @@ Hours</string>
         <image name="From_Add_Pin" width="85" height="85"/>
         <image name="HeaderLogo" width="205" height="168"/>
         <image name="Logo" width="345" height="345"/>
-        <image name="Pick_Drop_Line_white" width="1" height="85"/>
         <image name="Pickup" width="21" height="21"/>
         <image name="Title_logo" width="205" height="168"/>
         <image name="To_Add_Pin" width="85" height="85"/>
@@ -24913,7 +24913,7 @@ Hours</string>
         <image name="to-from-address-ico" width="40" height="180"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iLa-GX-ZFX"/>
+        <segue reference="JiC-d9-SMU"/>
         <segue reference="G3b-R1-jU2"/>
         <segue reference="gGJ-ai-0u6"/>
     </inferredMetricsTieBreakers>

@@ -11,7 +11,7 @@ import UIKit
 class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate { 
 
     
-//    var aryData = NSArray()
+    //    var aryData = NSArray()
     var aryData:[[String:Any]] = []
     var strPickupLat = String()
     var strPickupLng = String()
@@ -60,10 +60,10 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-        
+
     @objc func reloadDataTableView()
     {
-//        self.aryData = SingletonClass.sharedInstance.aryUpComming
+        //        self.aryData = SingletonClass.sharedInstance.aryUpComming
         
         if self.aryData.count > 0 {
             self.lblNoDataFound.isHidden = true
@@ -74,7 +74,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         self.tableView.reloadData()
         
         
-//        self.tableView.frame.size = tableView.contentSize
+        //        self.tableView.frame.size = tableView.contentSize
     }
     
     //-------------------------------------------------------------
@@ -88,7 +88,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     // MARK: - Table View Methods
     //-------------------------------------------------------------
     
-  
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return aryData.count
@@ -111,7 +111,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             
             
             
-          
+
             
             
             cell.btnCancelRequest.setTitle("Track Your Trip".localized, for: .normal)
@@ -201,10 +201,10 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
                 cell.lblPaymentType.text = ": " + PaymentType
             }
             
-//            if let ParcelArray = dictData["parcel_info"] as? [[String:Any]] {
-//                cell.arrParcel = ParcelArray
-//                cell.setParcelDetail()
-//            }
+            //            if let ParcelArray = dictData["parcel_info"] as? [[String:Any]] {
+            //                cell.arrParcel = ParcelArray
+            //                cell.setParcelDetail()
+            //            }
             
             
             if let strParcelImage = dictData["ParcelImage"] as? String {
@@ -216,13 +216,13 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
                 })
             }
             if let strBidID = dictData["BidId"] as? String, strBidID != "0"{
-               cell.vwDeliveryFare.isHidden = false
+                cell.vwDeliveryFare.isHidden = false
                 cell.vwTax.isHidden = false
-               cell.vwTotal.isHidden = false
+                cell.vwTotal.isHidden = false
             }else {
                 cell.vwDeliveryFare.isHidden = true
                 cell.vwTax.isHidden = true
-               cell.vwTotal.isHidden = true
+                cell.vwTotal.isHidden = true
             }
             cell.ViewDeliveredParcelImage.isHidden = true
             let myString = aryData[ indexPath.row]["DriverName"] as? String
@@ -239,69 +239,71 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         }
         
         return cell
+
+
         /*
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UpCommingTableViewCell") as! UpCommingTableViewCell
-        
-        if aryData.count > 0 {
-//            let currentData = (aryData.object(at: indexPath.row) as! [String:AnyObject])
-            
-            cell.selectionStyle = .none
-            
-            cell.lblPickupAddressTitle.text = "Pickup Location".localized
-            cell.lblDropoffAddressTitle.text = "Dropoff Location".localized
-            cell.lblPickUpTimeTitle.text = "PICKUP TIME".localized
-            cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
-            cell.lblPaymentTypeTitle.text = "PAYMENT TYPE".localized
-            
-            cell.btnCancelRequest.setTitle("Track Your Trip".localized, for: .normal)
-            cell.btnCancelRequest.titleLabel?.font = UIFont.bold(ofSize: 11.0)
-            
-//            cell.viewCell.layer.cornerRadius = 10
-//            cell.viewCell.clipsToBounds = true
-            
-            let dictData = aryData.object(at: indexPath.row) as! NSDictionary
-            
-            if let BookingID = dictData.object(forKey: "Id") as? String {
-                cell.lblBookingId.text = "\("Booking Id".localized) : \(BookingID)"
-            }
-            
-            //            cell.lblBookingID.attributedText = formattedString
-            cell.lblDateAndTime.text = dictData.object(forKey: "CreatedDate") as? String
-            cell.lblPickupAddress.text = dictData.object(forKey: "PickupLocation") as? String // PickupLocation
-            cell.lblDropoffAddress.text = dictData.object(forKey: "DropoffLocation") as? String  // DropoffLocation
-            
-            if let pickupTime = dictData.object(forKey: "PickupDateTime") as? String {
-                if pickupTime == "" {
-                    cell.lblPickUpTime.text = "Date and Time not available"
-                }
-                else {
-                    cell.lblPickUpTime.text = pickupTime
-//                        setTimeStampToDate(timeStamp: pickupTime)
-                }
-            }
-            cell.lblVehicleType.text = dictData.object(forKey: "Model") as? String
-            cell.lblPaymentType.text = dictData.object(forKey: "PaymentType") as? String
-            
-            let myString = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String
-            cell.lblDriverName.text = myString
-            
-            bookinType = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingType") as! String
-            cell.btnCancelRequest.setTitle("Cancel Request".localized, for: .normal)
-            cell.btnCancelRequest.titleLabel?.lineBreakMode = .byWordWrapping
-            cell.btnCancelRequest.addTarget(self, action: #selector(self.CancelRequest), for: .touchUpInside)
-            cell.btnCancelRequest.tag = indexPath.row
-            cell.btnCancelRequest.layer.cornerRadius = 5
-            cell.btnCancelRequest.layer.masksToBounds = true
-            
-            cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
-        }
-        
-        return cell
-        */
+         let cell = tableView.dequeueReusableCell(withIdentifier: "UpCommingTableViewCell") as! UpCommingTableViewCell
+
+         if aryData.count > 0 {
+         //            let currentData = (aryData.object(at: indexPath.row) as! [String:AnyObject])
+
+         cell.selectionStyle = .none
+
+         cell.lblPickupAddressTitle.text = "Pickup Location".localized
+         cell.lblDropoffAddressTitle.text = "Dropoff Location".localized
+         cell.lblPickUpTimeTitle.text = "PICKUP TIME".localized
+         cell.lblVehicleTypeTitle.text = "VEHICLE TYPE".localized
+         cell.lblPaymentTypeTitle.text = "PAYMENT TYPE".localized
+
+         cell.btnCancelRequest.setTitle("Track Your Trip".localized, for: .normal)
+         cell.btnCancelRequest.titleLabel?.font = UIFont.bold(ofSize: 11.0)
+
+         //            cell.viewCell.layer.cornerRadius = 10
+         //            cell.viewCell.clipsToBounds = true
+
+         let dictData = aryData.object(at: indexPath.row) as! NSDictionary
+
+         if let BookingID = dictData.object(forKey: "Id") as? String {
+         cell.lblBookingId.text = "\("Booking Id".localized) : \(BookingID)"
+         }
+
+         //            cell.lblBookingID.attributedText = formattedString
+         cell.lblDateAndTime.text = dictData.object(forKey: "CreatedDate") as? String
+         cell.lblPickupAddress.text = dictData.object(forKey: "PickupLocation") as? String // PickupLocation
+         cell.lblDropoffAddress.text = dictData.object(forKey: "DropoffLocation") as? String  // DropoffLocation
+
+         if let pickupTime = dictData.object(forKey: "PickupDateTime") as? String {
+         if pickupTime == "" {
+         cell.lblPickUpTime.text = "Date and Time not available"
+         }
+         else {
+         cell.lblPickUpTime.text = pickupTime
+         //                        setTimeStampToDate(timeStamp: pickupTime)
+         }
+         }
+         cell.lblVehicleType.text = dictData.object(forKey: "Model") as? String
+         cell.lblPaymentType.text = dictData.object(forKey: "PaymentType") as? String
+
+         let myString = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String
+         cell.lblDriverName.text = myString
+
+         bookinType = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingType") as! String
+         cell.btnCancelRequest.setTitle("Cancel Request".localized, for: .normal)
+         cell.btnCancelRequest.titleLabel?.lineBreakMode = .byWordWrapping
+         cell.btnCancelRequest.addTarget(self, action: #selector(self.CancelRequest), for: .touchUpInside)
+         cell.btnCancelRequest.tag = indexPath.row
+         cell.btnCancelRequest.layer.cornerRadius = 5
+         cell.btnCancelRequest.layer.masksToBounds = true
+
+         cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
+         }
+
+         return cell
+         */
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-     
+
         if let cell = tableView.cellForRow(at: indexPath) as? UpCommingTableViewCell {
             cell.viewDetails.isHidden = !cell.viewDetails.isHidden
             if cell.viewDetails.isHidden {
@@ -337,7 +339,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
                     
                     //                    UtilityClass.setCustomAlert(title: "Your trip has started", message: "You cannot cancel this request.") { (index, title) in
                     //                    }
-//                    AlertMessage.showMessageForError("Your trip has started \n You cannot cancel this request.")
+                    //                    AlertMessage.showMessageForError("Your trip has started \n You cannot cancel this request.")
                     //            }
                     UtilityClass.setCustomAlert(title: "", message: "Your trip has started \n You cannot cancel this request.") { (index, title) in
                     }
@@ -459,7 +461,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
                 }
                 UtilityClass.setCustomAlert(title: "", message: ErrorMessage) { (index, title) in
                 }
-//                AlertMessage.showMessageForError(ErrorMessage)
+                //                AlertMessage.showMessageForError(ErrorMessage)
                 //                if let res = result as? String {
                 //                    UtilityClass.setCustomAlert(title: "", message: res) { (index, title) in
                 //                    }

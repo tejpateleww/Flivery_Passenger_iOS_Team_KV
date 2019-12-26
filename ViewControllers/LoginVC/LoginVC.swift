@@ -345,8 +345,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     
     func webserviceOfAppSetting() {
         //        version : 1.0.0 , (app_type : AndroidPassenger , AndroidDriver , IOSPassenger , IOSDriver)
-        
-        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
+
+        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleVersion"] as AnyObject
         let version = nsObject as! String
         
         print("Vewsion : \(version)")

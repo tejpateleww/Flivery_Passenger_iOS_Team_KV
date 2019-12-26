@@ -17,6 +17,7 @@ import IQKeyboardManagerSwift
 import IQDropDownTextField
 import MultiSlider
 import SideMenuController
+import Foundation
 
 var strWeight = "LBS"
 
@@ -1679,9 +1680,14 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                 
                 if let res = result as? [String:Any] {
                     if let estimateFare = res["estimate_fare"] as? [String:Any] {
-                        
-                        self.lblEstimatedFare.text = currencySign + " " + "\(estimateFare["total"] ?? "")"
-                        
+                        if let float = estimateFare["total"] as? Float
+                        {
+                            self.lblEstimatedFare.text = String(format: "\(currencySign) %.2f", float)//currencySign + " " + "\(estimateFare["total"] ?? "")"
+                        }
+                        else if let float = estimateFare["total"] as? String
+                        {
+                            self.lblEstimatedFare.text = String(format: "\(currencySign) %.2f", (float as NSString).floatValue)
+                        }
                         //                        if let totalInt = estimateFare["total"] as? Int {
                         //                            self.lblEstimatedFare.text = "\(currencySign) \(totalInt)"
                         //                        }

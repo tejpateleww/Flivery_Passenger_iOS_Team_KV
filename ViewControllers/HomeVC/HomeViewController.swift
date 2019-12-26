@@ -46,7 +46,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
 //    let apikey = googlPlacesApiKey //"AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"
     
-    let socket = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
+    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager//SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
     
     //    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
     var boolTimeEnd = Bool()
@@ -3019,8 +3019,14 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         let DriverInfo = ((self.aryRequestAcceptedData.object(at: 0) as! NSDictionary).object(forKey: "DriverInfo") as! NSArray).object(at: 0) as! NSDictionary
         let carInfo = ((self.aryRequestAcceptedData.object(at: 0) as! NSDictionary).object(forKey: "CarInfo") as! NSArray).object(at: 0) as! NSDictionary
         let bookingInfo = ((self.aryRequestAcceptedData.object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! NSArray).object(at: 0) as! NSDictionary
-        
-        showDriverInfo(bookingInfo: bookingInfo, DriverInfo: DriverInfo, carInfo: carInfo)
+        if let modelInfo = ((self.aryRequestAcceptedData.object(at: 0) as! NSDictionary).object(forKey: "ModelInfo") as? NSArray)?.object(at: 0) as? NSDictionary
+        {
+            showDriverInfo(bookingInfo: bookingInfo, DriverInfo: DriverInfo, carInfo: carInfo,modelInfo: modelInfo)
+        }
+        else if let modelInfo = (((self.aryRequestAcceptedData.object(at: 0) as! NSDictionary).object(forKey: "CarInfo") as? NSArray)?.object(at: 0) as? NSDictionary)?.object(forKey: "Model") as? NSDictionary
+        {
+            showDriverInfo(bookingInfo: bookingInfo, DriverInfo: DriverInfo, carInfo: carInfo,modelInfo: modelInfo)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -3663,9 +3669,16 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         
         //        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
         
-        let sortedArray = (self.aryTempOnlineCars as NSArray).sortedArray(using: [NSSortDescriptor(key: "Sort", ascending: true)]) as! [[String:AnyObject]]
-        
-        self.arrNumberOfOnlineCars = NSMutableArray(array: sortedArray)
+//        let sortedArray = (self.aryTempOnlineCars as NSArray).sortedArray(using: [NSSortDescriptor(key: "Sort", ascending: true)]) as! [[String:AnyObject]]
+        let sortedPersons = (self.aryTempOnlineCars as! [[String:Any]]).sorted(by: { (_$0, _$1) -> Bool in
+            if(Int(_$0["Sort"] as! String)! < Int(_$1["Sort"] as! String)!)
+            {
+                return true
+            }
+            return false
+        })
+
+        self.arrNumberOfOnlineCars = NSMutableArray(array: sortedPersons)
         
         if self.checkTempData.count == 0 {
             
@@ -4002,6 +4015,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         
         socket.on(clientEvent: .reconnect) { (data, ack) in
             print ("socket is reconnected")
+            self.webserviceOfCurrentBooking()
         }
         
         socket.on(clientEvent: .connect) {data, ack in
@@ -4042,21 +4056,21 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             self.socket.on(SocketData.kNearByDriverList, callback: { (data, ack) in
                 //                print("data is \(data)")
                 
-                var lat : Double!
-                var long : Double!
+//                var lat : Double!
+//                var long : Double!
 //                print("near by driverList : \(data)")
                 self.arrNumberOfAvailableCars = NSMutableArray(array: ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray)
                 //                self.setData()
-                
+                    self.aryOfOnlineCarsIds.removeAll()
                 if (((data as NSArray).object(at: 0) as! NSDictionary).count != 0)
                 {
                     for i in 0..<(((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray).count
                     {
                         
                         let arrayOfCoordinte = ((((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray).object(at: i) as! NSDictionary).object(forKey: "Location") as! NSArray
-                        lat = arrayOfCoordinte.object(at: 0) as! Double
-                        long = arrayOfCoordinte.object(at: 1) as! Double
-                        
+//                        lat = arrayOfCoordinte.object(at: 0) //as! Double
+//                        long = arrayOfCoordinte.object(at: 1) //as! Double
+
                         let DriverId = ((((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray).object(at: i) as! NSDictionary).object(forKey: "DriverId") as! String
                         
                         self.aryOfTempOnlineCarsIds.append(DriverId)
@@ -4596,19 +4610,19 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     //MARK:- Show Driver Information
     
-    func showDriverInfo(bookingInfo : NSDictionary, DriverInfo: NSDictionary, carInfo : NSDictionary) {
+    func showDriverInfo(bookingInfo : NSDictionary, DriverInfo: NSDictionary, carInfo : NSDictionary, modelInfo : NSDictionary = [:]) {
         let next = self.storyboard?.instantiateViewController(withIdentifier: "DriverInfoPageViewController") as! DriverInfoPageViewController
         
         next.strDriverName = DriverInfo.object(forKey: "Fullname") as! String
         next.strPickupLocation = "\(bookingInfo.object(forKey: "PickupLocation") as! String)"
         next.strDropoffLocation = "\(bookingInfo.object(forKey: "DropoffLocation") as! String)"
-        if let carClass = carInfo.object(forKey: "Model") as? NSDictionary {
-            next.strCarClass = carClass.object(forKey: "Name") as! String // String(describing: carInfo.object(forKey: "VehicleModel")!)
+        if let carClass = modelInfo.object(forKey: "Name") as? String {
+            next.strCarClass = carClass// as! String // String(describing: carInfo.object(forKey: "VehicleModel")!)
         }
-        else {
-            next.strCarClass = String(describing: carInfo.object(forKey: "VehicleModel")!)
-        }
-        
+//        else {
+//            next.strCarClass = String(describing: carInfo.object(forKey: "VehicleModel")!)
+//        }
+
         if let carPlateNumber = carInfo.object(forKey: "VehicleRegistrationNo") as? String {
             next.strCarPlateNumber = carPlateNumber
         }

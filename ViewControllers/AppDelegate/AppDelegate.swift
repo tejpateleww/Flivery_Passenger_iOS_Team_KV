@@ -98,7 +98,14 @@ let kDeviceType : String = "1"
         //   self.logUser()
         
         // ------------------------------------------------------------
-        
+
+
+        var bgTask = UIBackgroundTaskIdentifier()
+        bgTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            UIApplication.shared.endBackgroundTask(bgTask)
+        })
+
+
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
         SideMenuController.preferences.drawing.sidePanelWidth = (window?.frame.width)! * 0.85//(((window?.frame.width)! / 2) + ((window?.frame.width)! / 4))
@@ -110,7 +117,7 @@ let kDeviceType : String = "1"
         
         if ((UserDefaults.standard.object(forKey: "profileData")) != nil)
         {
-            SingletonClass.sharedInstance.dictProfile = UserDefaults.standard.object(forKey: "profileData") as! NSMutableDictionary
+            SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: UserDefaults.standard.object(forKey: "profileData") as? NSDictionary ?? NSDictionary())
             SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)
             SingletonClass.sharedInstance.arrCarLists = NSMutableArray(array:  UserDefaults.standard.object(forKey: "carLists") as! NSArray)
             SingletonClass.sharedInstance.isUserLoggedIN = true
@@ -231,6 +238,10 @@ let kDeviceType : String = "1"
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        SocketManager.connect()
+        SocketManager.on(clientEvent: .connect) { (data, ack) in
+            print ("socket connected in background")
+        }
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -254,7 +265,15 @@ let kDeviceType : String = "1"
             initialViewController.isFromAppDelegate = true
             self.window?.rootViewController?.present(initialViewController, animated: true, completion: nil)
         }
-        
+
+
+
+//        SocketClientManager.sharedManager.establishConnection()
+//        SocketIOManager.shared.socket.on(clientEvent: .connect) { (data, ack) in
+//
+//            print ("socket connected")
+//        }
+//        print(SocketIOManager.shared.isSocketOn)
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
