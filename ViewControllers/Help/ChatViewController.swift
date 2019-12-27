@@ -253,7 +253,7 @@ class ChatViewController: BaseViewController,UIGestureRecognizerDelegate ,UINavi
         if #available(iOS 11.0, *) {
             conVwMessageBottom.constant = keyboardSize!.height - view.safeAreaInsets.bottom
         } else {
-            conVwMessageBottom.constant = keyboardSize!.height
+            conVwMessageBottom.constant = keyboardSize!.height - 30
         }
         self.animateConstraintWithDuration()
         
@@ -298,7 +298,7 @@ class ChatViewController: BaseViewController,UIGestureRecognizerDelegate ,UINavi
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let timeString = formatter.string(from: Date())
         
-        objMessage.created_date = dictData["Date"] as? String
+        objMessage.date = dictData["Date"] as? String
         arrData.append(objMessage)
         
         if arrData.count > 0 {
@@ -448,11 +448,11 @@ class ChatViewController: BaseViewController,UIGestureRecognizerDelegate ,UINavi
                                 objMessage.id = value["Id"] as? String
                                 //                        objMessage.bookingId = value["BookingId"] as? String
                                 //                        objMessage.type = value["Type"] as? String
-                                objMessage.sender_id = value["SenderId"] as? String
+                                objMessage.senderId = value["SenderId"] as? String
                                 //                        objMessage.sender_id = value["Sender"] as? String
-                                objMessage.receiver_id = value["ReceiverId"] as? String
+                                objMessage.receiverId = value["ReceiverId"] as? String
                                 objMessage.message = value["Message"] as? String
-                                objMessage.created_date = value["Date"] as? String
+                                objMessage.date = value["Date"] as? String
                                 
                                 self.arrData.append(objMessage)
                                 
@@ -558,13 +558,13 @@ class ChatViewController: BaseViewController,UIGestureRecognizerDelegate ,UINavi
                 objMessage.isSender = false
             }
 //            objMessage.id = MessageDict["message_id"] as? String
-            objMessage.sender_id = MessageDict["SenderId"] as? String
-            objMessage.receiver_id = MessageDict["ReceiverId"] as? String
+            objMessage.senderId = MessageDict["SenderId"] as? String
+            objMessage.receiver = MessageDict["ReceiverId"] as? String
             objMessage.message = MessageDict["Message"] as? String
             
             let DateFormatters = DateFormatter()
             DateFormatters.dateFormat = "yyyy-MM-DD HH:mm:ss"
-            objMessage.created_date = DateFormatters.string(from: Date())
+            objMessage.date = DateFormatters.string(from: Date())
             self.arrData.append(objMessage)
             
             if arrData.count > 0 {
@@ -612,7 +612,7 @@ extension ChatViewController: UITableViewDataSource,UITableViewDelegate {
         cell.lblMessage.text = obj.message
         
         cell.lblMessage.isHidden = obj.message!.isEmpty ? true : false
-        cell.lblTime.text = obj.created_date
+        cell.lblTime.text = obj.date
         cell.lblReadStatus.isHidden = true
         
         
@@ -659,17 +659,21 @@ class MessageCell: UITableViewCell {
 
 
 class MessageObject  {
+    var strMessage: String = ""
     var isSender: Bool = false
-    var name : String? = nil
-    var image : String? = nil
-    var id : String? = nil
-    var sender_id : String? = nil
-    var receiver_id : String? = nil
-    var message : String? = nil
-    var created_date : String? = nil
+    var isEmergency: Bool = false
+    var isImage: Bool = false
+    var imgMessage = UIImage()
     
+    var id : String?
     var bookingId : String?
     var type : String?
+    var senderId : String?
+    var sender : String?
+    var receiverId : String?
+    var receiver : String?
+    var message : String?
+    var date : String?
 }
 
 extension UIView {

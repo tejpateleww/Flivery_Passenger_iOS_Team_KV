@@ -294,7 +294,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
     // MARK: Send message
     func sendMessage(_ isSender: Bool){
         let objMessage = MessageObject()
-        objMessage.message = txtMessage.text!
+        objMessage.strMessage = txtMessage.text!
         objMessage.isSender = isSender
        
         let formatter = DateFormatter()
@@ -302,7 +302,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
         
         let timeString = formatter.string(from: Date())
         
-        objMessage.created_date = timeString
+        objMessage.date = timeString
         arrData.append(objMessage)
         let indexPath = IndexPath.init(row: arrData.count-1, section: 0)
         
@@ -375,7 +375,6 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
     
     func sendMessageToPassenger(message: String) {
     
-        
         let myJSON = ["BidId": strBidID, "SenderId" : SingletonClass.sharedInstance.strPassengerID , "ReceiverId": strDriverID, "Sender": "Passenger", "Message": message] as [String : Any]
         socket.emit(SocketData.kSendMessage, with: [myJSON])
     }
@@ -389,8 +388,6 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
     // ----------------------------------------------------
     // MARK: - Webservice Service
     // ----------------------------------------------------
-    
-    
     
     
     func webserviceOfChatHistory() {
@@ -415,7 +412,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
                             if passenger.count != 0 {
                                 if let img = passenger.first?["Image"] as? String {
                                     
-                                    if img != "" {
+                                                                                                              if img != "" {
                                         self.imgPassenger.isHidden = false
                                         let imageUrl = WebserviceURLs.kImageBaseURL + img
                                         self.imgPassenger.sd_setImage(with: URL(string: imageUrl), completed: nil)
@@ -461,8 +458,8 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
                                 objMessage.id = value["Id"] as? String
                                 
                                 
-                                objMessage.message = value["Message"] as? String
-                                objMessage.created_date = value["Date"] as? String
+                                objMessage.strMessage = value["Message"] as? String ?? ""
+                                objMessage.date = value["Date"] as? String
                                 
                                 if value["Sender"] as! String == "Driver" {
                                     objMessage.isSender = false
@@ -470,15 +467,6 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
                                 else {
                                     objMessage.isSender = true
                                 }
-                                
-//                                objMessage.id = value["Id"] as? String
-//                                objMessage.bookingId = value["BookingId"] as? String
-//                                objMessage.type = value["Type"] as? String
-//                                objMessage.senderId = value["SenderId"] as? String
-//                                objMessage.sender = value["Sender"] as? String
-//                                objMessage.receiverId = value["ReceiverId"] as? String
-//                                objMessage.message = value["Message"] as? String
-//                                objMessage.date = value["Date"] as? String
                                 
                                 self.arrData.append(objMessage)
                                 
@@ -602,12 +590,12 @@ extension BidChatViewController: UITableViewDataSource {
         let strIdentifier = obj.isSender ? "SenderCell" : "RecieverCell"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: strIdentifier, for: indexPath) as! MessageCell
-        cell.lblMessage.text = obj.message
+        cell.lblMessage.text = obj.strMessage
         
         
         //        cell.con_ImgHeight.constant = obj.isImage ? (windowWidth * 171.5)/414.0 : 0
-        cell.lblMessage.isHidden = obj.message!.isEmpty ? true : false
-        cell.lblTime.text = obj.created_date
+        cell.lblMessage.isHidden = obj.strMessage.isEmpty ? true : false
+        cell.lblTime.text = obj.date
         cell.lblReadStatus.isHidden = true
         
         //        cell.con_vwEmergencyHeight.constant = obj.isEmergency ? 30 : 0
@@ -786,37 +774,29 @@ extension HomeViewController {
         self.socket.on(SocketData.kReceiveMessage, callback: { (data, ack) in
             print("\(#function) \(data)")
             
-            //            arrData.append(Singletons.sharedInstance.ChattingMessages)
-            //            let indexPath = IndexPath.init(row: arrData.count-1, section: 0)
-            //
-            //            tblVw.insertRows(at: [indexPath], with: .bottom)
-            //            let path = IndexPath.init(row: arrData.count-1, section: 0)
-            //            tblVw.scrollToRow(at: path, at: .bottom, animated: true)
             
-            
-            
-            if let arrData = data as? [[String:Any]] {
-                let MessageData = arrData[0]
-                let objMessage = MessageObject()
-                objMessage.message = MessageData["Message"] as? String
-            
-                
-                objMessage.isSender = false
-                
-                objMessage.id = MessageData["BidId"] as? String
-                //                                    value["BookingId"] as? String
-                //                                    value["Type"] as? String
-                objMessage.sender_id = MessageData["SenderId"] as? String
-                
-                //                                    value["ReceiverId"] as? String
-                objMessage.message = MessageData["Message"] as? String
-                objMessage.created_date = MessageData["Date"] as? String
-                
-                SingletonClass.sharedInstance.ChattingMessages = objMessage
-                NotificationCenter.default.post(name: NotificationgetResponseOfChatting, object: nil, userInfo: nil)
+//            if let arrData = data as? [[String:Any]] {
+//                let MessageData = arrData[0]
+//                let objMessage = MessageObject()
+//                objMessage.message = MessageData["Message"] as? String
+//
+//
+//                objMessage.isSender = false
+//
+//                objMessage.id = MessageData["BidId"] as? String
+//                //                                    value["BookingId"] as? String
+//                //                                    value["Type"] as? String
+//                objMessage.sender_id = MessageData["SenderId"] as? String
+//
+//                //                                    value["ReceiverId"] as? String
+//                objMessage.message = MessageData["Message"] as? String
+//                objMessage.created_date = MessageData["Date"] as? String
+//
+//                SingletonClass.sharedInstance.ChattingMessages = objMessage
+//                NotificationCenter.default.post(name: NotificationgetResponseOfChatting, object: nil, userInfo: nil)
 
                 
-            }
+            //}
             //            arrData.append(Singletons.sharedInstance.ChattingMessages)
 //            let indexPath = IndexPath.init(row: self.arrData.count-1, section: 0)
 //            self.tblVw.insertRows(at: [indexPath], with: .bottom)

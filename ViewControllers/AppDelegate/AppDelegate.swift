@@ -40,6 +40,9 @@ let kDeviceType : String = "1"
     
     var window: UIWindow?
     var isAlreadyLaunched : Bool?
+    var objMessage = MessageObject()
+    
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!)
     {
         
@@ -390,61 +393,61 @@ let kDeviceType : String = "1"
     {
         print("Push Notification present method call : \(notification)")
         let userInfo = notification.request.content.userInfo
-        //         notificationHandler(userInfo)
-        // Print full message.
+        print(Appdelegate.window?.rootViewController?.navigationController?.childViewControllers.first as Any)
         print(userInfo)
-        completionHandler([.alert, .badge, .sound])
-        
-        /*
-        print(notification.request.content.userInfo)
-        
-        let dictNoti = notification.request.content.userInfo as! [String : AnyObject]
-        let key = (dictNoti)["gcm.notification.type"] as! String
-        
-        if let NotificationType = notification.request.content.userInfo["gcm.notification.type"]! as? String
-        {
-            if NotificationType == "ChatNotification"
-            {
-                let dictData = notification.request.content.userInfo["gcm.notification.data"] as! String
-                let data = dictData.data(using: .utf8)!
-                do
-                {
-                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
-                    {
-                        var UserDict = [String:Any]()
-                        UserDict["Sender"] = jsonResponse["Sender"] as! String
-                        UserDict["ReceiverId"] = jsonResponse["ReceiverId"] as! String
-                        UserDict["TicketId"] = jsonResponse["TicketId"] as! String
-                        UserDict["Message"] = jsonResponse["Message"] as! String
-                        UserDict["Receiver"] = jsonResponse["Receiver"] as! String
-                        UserDict["SenderId"] = jsonResponse["SenderId"] as! String
-                        UserDict["Date"] = jsonResponse["Date"] as! String
-                        let TicketID =  jsonResponse["TicketId"] as! String
+        if userInfo["gcm.notification.type"] as! String == "chatbid"{
+            let BidId = userInfo["gcm.notification.b_id"] as! String
+            
+            let vc = (self.window?.rootViewController as? UINavigationController)?.topViewController as? SideMenuController
+            if vc != nil {
+                if let vc : BidChatViewController = (vc?.childViewControllers.first as? UINavigationController)?.topViewController as? BidChatViewController {
+                    if vc.strBidID != BidId {
                         
-                        if SingletonClass.sharedInstance.isChatBoxOpen == true && TicketID == SingletonClass.sharedInstance.ChatBoxOpenedWithID
-                        {
-                            self.handleRemoteNotification(key: key, userInfo: UserDict as NSDictionary, application: UIApplication.shared)
-                        }
-                        else
-                        {
-                            completionHandler([.alert, .badge, .sound])
+                        completionHandler([.alert, .sound])
+                    }
+                    else if vc.strBidID == BidId{
+                        print(vc.strBidID)
+                        if let response = userInfo["gcm.notification.data"] as? String {
+                            let jsonData = response.data(using: .utf8)!
+                            let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableLeaves)
+                            
+                            if let MsgDataDictionary = dictionary  as? [String: Any]{
+                                print(MsgDataDictionary)
+                                
+                                if MsgDataDictionary["Sender"] as! String == "Driver" {
+                                    objMessage.isSender = false
+                                }
+                                else {
+                                    objMessage.isSender = true
+                                }
+                                
+                                objMessage.sender = MsgDataDictionary["Sender"] as? String ?? ""
+                                objMessage.senderId = String(MsgDataDictionary["SenderId"] as? Int ?? 0)
+                                objMessage.receiverId = MsgDataDictionary["ReceiverId"] as? String ?? ""
+                                objMessage.receiver =  MsgDataDictionary["Receiver"] as? String ?? ""
+                                objMessage.id = MsgDataDictionary["BidId"] as? String ?? ""
+                                objMessage.date = MsgDataDictionary["Date"] as? String ?? ""
+                                objMessage.strMessage = MsgDataDictionary["Message"] as? String ?? ""
+                                print(objMessage)
+                                vc.arrData.append(objMessage)
+                                let indexPath = IndexPath.init(row: vc.arrData.count-1, section: 0)
+                                vc.tblVw.insertRows(at: [indexPath], with: .bottom)
+                                let path = IndexPath.init(row: vc.arrData.count-1, section: 0)
+                                vc.tblVw.scrollToRow(at: path, at: .bottom, animated: true)
+                            }
                         }
                     }
-                    else {
-                        print("bad json")
-                    }
                 }
-                catch let error as NSError
-                {
-                    print(error)
+                else{
+                    
+                    completionHandler([.alert, .badge, .sound])
                 }
+                
+            }
+            else{
+                completionHandler([.alert, .badge, .sound])
             }
         }
-        else
-        {
-            completionHandler([.alert, .badge, .sound])
-        }
-        */
     }
     func notificationHandler(_ notification:[AnyHashable : Any]) {
         if let apsData = (notification as! [String:AnyObject])["aps"] {
@@ -452,41 +455,45 @@ let kDeviceType : String = "1"
             
             if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "chatbid")
             {
-                if !SingletonClass.sharedInstance.isChatBoxOpen {
-                    let dictData = notification["gcm.notification.data"] as! String
-                    let data = dictData.data(using: .utf8)!
-                    do
-                    {
-                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    if !SingletonClass.sharedInstance.isChatBoxOpen {
+                         let dictData = notification["gcm.notification.data"] as! String
+                          let data = dictData.data(using: .utf8)!
+                        do
                         {
-//                            var UserDict = [String:Any]()
-                            //                        UserDict["BidId"] = jsonResponse["BidId"] as! String
-                            //                        UserDict["SenderId"] = jsonResponse["SenderId"] as! String
-                            if let vwController = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
-                                if let vcChat = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController {
-                                    
-                                    guard let strBidID = jsonResponse["BidId"] as? String else {
-                                        return
+                            if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                            {
+                                
+                                if let vwController = ((self.gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                                    if let vcChat = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController {
+                                        
+                                        guard let strBidID = jsonResponse["BidId"] as? String else {
+                                            return
+                                        }
+                                        var DriverId = ""
+                                        if let strSenderId = jsonResponse["SenderId"] as? String {
+                                            DriverId = strSenderId
+                                        } else if let StrSenderId = jsonResponse["SenderId"] as? Int {
+                                            DriverId = "\(StrSenderId)"
+                                        }
+                                        vcChat.strDriverID = DriverId
+                                        vcChat.strBidID = strBidID
+                                        vwController.navigationController?.pushViewController(vcChat, animated: true)
                                     }
-                                    guard let strSenderID = jsonResponse["SenderId"] as? String else {
-                                        return
-                                    }
-                                    vcChat.strDriverID = strSenderID
-                                    vcChat.strBidID = strBidID
-                                    vwController.navigationController?.pushViewController(vcChat, animated: true)
                                 }
+                                
                             }
-                            
+                            else {
+                                print("bad json")
+                            }
                         }
-                        else {
-                            print("bad json")
+                        catch let error as NSError
+                        {
+                            print(error)
                         }
-                    }
-                    catch let error as NSError
-                    {
-                        print(error)
                     }
                 }
+            
             }else if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "RejectBid") {
 //                BidListContainerViewController
                 if let _ = ((gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) as? BidListContainerViewController {
@@ -644,38 +651,78 @@ let kDeviceType : String = "1"
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
         
         print("Push Notification : \(response.notification.request.content.userInfo)")
-        completionHandler()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        if let userInfo = response.notification.request.content.userInfo as? [String:Any]   {
+            Messaging.messaging().appDidReceiveMessage(userInfo)
+            let key = userInfo["gcm.notification.type"]
+            
+        if(UIApplication.shared.applicationState == .background || UIApplication.shared.applicationState == .inactive)
+        {
             self.notificationHandler(response.notification.request.content.userInfo)
         }
-        /* ===============================
-        let dictNoti = response.notification.request.content.userInfo as! [String : AnyObject]
-        let key = (dictNoti)["gcm.notification.type"] as! String
-        self.handleRemoteNotification(key: key, userInfo: dictNoti as NSDictionary, application: UIApplication.shared)
-        ===============================
-         
-         */
+        else if key as! String  == "chatbid" {
+            let BidId = userInfo["gcm.notification.b_id"] as! String
+            
+            let vc = (self.window?.rootViewController as? UINavigationController)?.topViewController as? SideMenuController
+            if vc != nil {
+                if let vc : BidChatViewController = (vc?.childViewControllers.first as? UINavigationController)?.topViewController as? BidChatViewController {
+                    if let response = userInfo["gcm.notification.data"] as? String {
+                        let jsonData = response.data(using: .utf8)!
+                        let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableLeaves)
+                        var DriverID = ""
+                        if let MsgDataDictionary = dictionary  as? [String: Any]{
+                            print(MsgDataDictionary)
+                            
+                            guard let strBidID = MsgDataDictionary["BidId"] as? String else {
+                                return
+                            }
+                            if let strSenderId = MsgDataDictionary["SenderId"] as? String {
+                                DriverID = strSenderId
+                            } else if let StrSenderId = MsgDataDictionary["SenderId"] as? Int {
+                                DriverID = "\(StrSenderId)"
+                            }
+                            
+                        }
+                        vc.strDriverID = DriverID
+                        vc.strBidID = BidId
+                        vc.webserviceOfChatHistory()
+                    }
+                }
+                else{
+                    if let vwController = ((self.gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
+                        if let vcChat = UIStoryboard.init(name: "ChatStoryboard", bundle: nil).instantiateViewController(withIdentifier: "BidChatViewController") as? BidChatViewController {
+                            
+                            guard  let BidId = userInfo["gcm.notification.b_id"] as? String else {
+                                return
+                            }
+                            if let response = userInfo["gcm.notification.data"] as? String {
+                                let jsonData = response.data(using: .utf8)!
+                                let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableLeaves)
+                                var DriverID = ""
+                                if let MsgDataDictionary = dictionary  as? [String: Any]{
+                                    print(MsgDataDictionary)
+                                    
+                                    if let strSenderId = MsgDataDictionary["SenderId"] as? String {
+                                        DriverID = strSenderId
+                                    } else if let StrSenderId = MsgDataDictionary["SenderId"] as? Int {
+                                        DriverID = "\(StrSenderId)"
+                                    }
+                                    
+                                }
+                                vcChat.strDriverID = DriverID
+                                vcChat.strBidID = BidId
+                                vwController.navigationController?.pushViewController(vcChat, animated: true)
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
         
         
-        /*
-         // 1
-         let userInfo = response.notification.request.content.userInfo
-         let aps = userInfo["aps"] as! [String:AnyObject]
-         
-         // 2
-         if let newsItem = NewsItem.makeNewsItems(aps) {
-         (window?.rootViewController as? UITabBarController)?.selectedIndex = 1
-         
-         // 3
-         if response.actionIdentifier == "viewActionIdentifier",
-         let url = URL(string: newsItem.link) {
-         let safari = SFSafariViewController(url: url)
-         window?.rootViewController?.present(safari, animated: true, completion: nil)
-         }
-         }
-         // 4
-         completionHandler()
-         */
+        }
+        
+       
         
     }
     
