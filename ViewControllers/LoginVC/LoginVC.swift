@@ -83,9 +83,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             {
                 if locationManager.location != nil
                 {
-                    locationManager.startUpdatingLocation()
                     locationManager.delegate = self
-                    
+                    locationManager.startUpdatingLocation()
+
                 }
                 
                 //                manager.startUpdatingLocation()
@@ -240,8 +240,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         dictparam.setObject(txtPassword.text!, forKey: "Password" as NSCopying)
         dictparam.setObject("1", forKey: "DeviceType" as NSCopying)
         
-        dictparam.setObject("6287346872364287", forKey: "Lat" as NSCopying)
-        dictparam.setObject("6287346872364287", forKey: "Lng" as NSCopying)
+        dictparam.setObject(SingletonClass.sharedInstance.currentLatitude, forKey: "Lat" as NSCopying)
+        dictparam.setObject(SingletonClass.sharedInstance.currentLongitude, forKey: "Lng" as NSCopying)
         dictparam.setObject(SingletonClass.sharedInstance.deviceToken, forKey: "Token" as NSCopying)
         
         webserviceForDriverLogin(dictparam) { (result, status) in
@@ -272,7 +272,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             else
             {
                 
-                UtilityClass.setCustomAlert(title: "", message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: (result as? NSDictionary)?.object(forKey: GetResponseMessageKey()) as? String ?? "Error while login") { (index, title) in
                 }
 
 
@@ -625,8 +625,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             dictUserData["Lastname"] = lastName as AnyObject
             dictUserData["Email"] = email as AnyObject
             dictUserData["MobileNo"] = "" as AnyObject
-            dictUserData["Lat"] = "6287346872364287" as AnyObject
-            dictUserData["Lng"] = "6287346872364287" as AnyObject
+            dictUserData["Lat"] = SingletonClass.sharedInstance.latitude as AnyObject
+            dictUserData["Lng"] = SingletonClass.sharedInstance.longitude as AnyObject
             dictUserData["SocialId"] = userId as AnyObject
             dictUserData["SocialType"] = "Google" as AnyObject
             dictUserData["Token"] = SingletonClass.sharedInstance.deviceToken as AnyObject
@@ -878,6 +878,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
+        SingletonClass.sharedInstance.currentLatitude = "\(location.coordinate.latitude)"
+        SingletonClass.sharedInstance.currentLongitude = "\(location.coordinate.longitude)"
         //        print("Location: \(location)")
     }
     

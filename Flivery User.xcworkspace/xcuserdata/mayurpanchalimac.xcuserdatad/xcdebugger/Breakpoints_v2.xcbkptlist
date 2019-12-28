@@ -4,66 +4,28 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599053153.370191"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2237"
-            endingLineNumber = "2237"
-            landmarkName = "onGetEstimateFare()"
-            landmarkType = "7">
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599053153.37085"
+            timestampString = "599213366.342014"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3294"
-            endingLineNumber = "3294"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599053153.371312"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3290"
-            endingLineNumber = "3290"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599053153.371752"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2206"
-            endingLineNumber = "2206"
-            landmarkName = "onGetEstimateFare()"
+            startingLineNumber = "4374"
+            endingLineNumber = "4374"
+            landmarkName = "DriverInfoAndSetToMap(driverData:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,44 +35,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ViewControllers/Past A bid/PostABidViewController.swift"
-            timestampString = "599058087.512001"
+            filePath = "ViewControllers/HomeVC/HomeViewController.swift"
+            timestampString = "599213366.342961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "850"
-            endingLineNumber = "850"
-            landmarkName = "webserviceCallForPostABid()"
+            startingLineNumber = "6911"
+            endingLineNumber = "6911"
+            landmarkName = "webserviceOfCurrentBooking()"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Flivery_User.PostABidViewController.webserviceCallForPostABid() -&gt; ()"
+                  symbolName = "Flivery_User.HomeViewController.webserviceOfCurrentBooking() -&gt; ()"
                   moduleName = "Flivery User"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/Past%20A%20bid/PostABidViewController.swift"
-                  timestampString = "599058087.6110311"
+                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/HomeVC/HomeViewController.swift"
+                  timestampString = "599212610.174772"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "850"
-                  endingLineNumber = "850"
-                  offsetFromSymbolStart = "6092">
+                  startingLineNumber = "6911"
+                  endingLineNumber = "6911"
+                  offsetFromSymbolStart = "1364">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.AnyObject, Swift.Bool) -&gt; () in Flivery_User.PostABidViewController.webserviceCallForPostABid() -&gt; ()"
+                  symbolName = "closure #1 (Swift.AnyObject, Swift.Bool) -&gt; () in Flivery_User.HomeViewController.webserviceOfCurrentBooking() -&gt; ()"
                   moduleName = "Flivery User"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/Past%20A%20bid/PostABidViewController.swift"
-                  timestampString = "599058087.61343"
+                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/HomeVC/HomeViewController.swift"
+                  timestampString = "599212610.176594"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "851"
-                  endingLineNumber = "851"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "6913"
+                  endingLineNumber = "6913"
+                  offsetFromSymbolStart = "52">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -122,45 +84,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classs/WebserviceFiles/WebserviceMainClass.swift"
-            timestampString = "599058196.700325"
+            timestampString = "599210820.22896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "sendImage(_:image1:nsURL:completion:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "getData(_:nsURL:completion:)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Flivery_User.sendImage(_: Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, image1: Swift.Optional&lt;__C.UIImage&gt;, nsURL: Swift.String, completion: (Swift.AnyObject, Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "Flivery User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/Classs/WebserviceFiles/WebserviceMainClass.swift"
-                  timestampString = "599058196.713051"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
-                  offsetFromSymbolStart = "464">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in Flivery_User.sendImage(_: Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, image1: Swift.Optional&lt;__C.UIImage&gt;, nsURL: Swift.String, completion: (Swift.AnyObject, Swift.Bool) -&gt; ()) -&gt; ()"
-                  moduleName = "Flivery User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/Classs/WebserviceFiles/WebserviceMainClass.swift"
-                  timestampString = "599058196.715885"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

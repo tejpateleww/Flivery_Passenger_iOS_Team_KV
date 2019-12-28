@@ -457,11 +457,11 @@ let kDeviceType : String = "1"
             {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     if !SingletonClass.sharedInstance.isChatBoxOpen {
-                         let dictData = notification["gcm.notification.data"] as! String
-                          let data = dictData.data(using: .utf8)!
+                         let dictData = notification["gcm.notification.data"] as? String ?? ""
+                        let data = dictData.data(using: .utf8)
                         do
                         {
-                            if let jsonResponse = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+                            if let jsonResponse = try JSONSerialization.jsonObject(with: data ?? Data(), options : .allowFragments) as? Dictionary<String,Any>
                             {
                                 
                                 if let vwController = ((self.gettopMostViewController()?.childViewControllers.first as? UINavigationController)?.viewControllers.last) {
