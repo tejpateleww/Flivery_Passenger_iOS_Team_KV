@@ -57,8 +57,13 @@ class RegisterOTPVarificationViewController: UIViewController {
     //-------------------------------------------------------------
     
     @IBAction func btnNext(_ sender: UIButton) {
-        
-        if SingletonClass.sharedInstance.otpCode == txtOTP.text {
+
+        if txtOTP.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter OTP", completionHandler: { (index, title) in
+                })
+
+        }
+        else if SingletonClass.sharedInstance.otpCode == txtOTP.text {
 
             let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
             registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)

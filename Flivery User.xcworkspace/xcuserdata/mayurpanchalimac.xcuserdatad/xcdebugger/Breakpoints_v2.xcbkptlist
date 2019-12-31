@@ -4,93 +4,19 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599213366.342014"
+            timestampString = "599406446.102965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4374"
-            endingLineNumber = "4374"
-            landmarkName = "DriverInfoAndSetToMap(driverData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "599213366.342961"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6911"
-            endingLineNumber = "6911"
-            landmarkName = "webserviceOfCurrentBooking()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Flivery_User.HomeViewController.webserviceOfCurrentBooking() -&gt; ()"
-                  moduleName = "Flivery User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/HomeVC/HomeViewController.swift"
-                  timestampString = "599212610.174772"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "6911"
-                  endingLineNumber = "6911"
-                  offsetFromSymbolStart = "1364">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.AnyObject, Swift.Bool) -&gt; () in Flivery_User.HomeViewController.webserviceOfCurrentBooking() -&gt; ()"
-                  moduleName = "Flivery User"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mayurpanchalimac/Documents/Rahul/Projects/Flivery/Flivery%20Passenger/ViewControllers/HomeVC/HomeViewController.swift"
-                  timestampString = "599212610.176594"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "6913"
-                  endingLineNumber = "6913"
-                  offsetFromSymbolStart = "52">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classs/WebserviceFiles/WebserviceMainClass.swift"
-            timestampString = "599210820.22896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "getData(_:nsURL:completion:)"
-            landmarkType = "9">
+            startingLineNumber = "5631"
+            endingLineNumber = "5631"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

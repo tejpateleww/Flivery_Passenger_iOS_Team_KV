@@ -106,7 +106,7 @@ class EditAccountViewController: BaseViewController {
     func validationForUpdateBankAccountDetails() -> Bool {
         
         if (txtAccountHolderName.text!.count == 0) {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Account Holder Name.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter account holder name.") { (index, title) in
             }
             return false
         }
@@ -116,17 +116,17 @@ class EditAccountViewController: BaseViewController {
 //            return false
 //        }
         else if (txtBankName.text!.count == 0) {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Name.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter bank name.") { (index, title) in
             }
             return false
         }
         else if (txtBSB.text!.count == 0) {
-            UtilityClass.setCustomAlert(title: "", message: "Enter BSB Number.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter BSB number.") { (index, title) in
             }
             return false
         }
         else if (txtBankAccount.text!.count == 0) {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Account Number.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter bank account number.") { (index, title) in
             }
             return false
         }

@@ -5264,6 +5264,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         }
                         self.strBookingType = "BookLater"
                         self.DriverInfoAndSetToMap(driverData: NSArray(array: data))
+                    } else {
+                       self.webserviceOfCurrentBooking()
+
                     }
                 }
                 else {
@@ -5645,6 +5648,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         alert.addAction(OK)
 //                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
                         UtilityClass.presentPopupOverScreen(alert)
+                    }
+                    else {
+                        self.webserviceOfCurrentBooking()
                     }
                 }
                 else {

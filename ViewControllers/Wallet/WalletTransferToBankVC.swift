@@ -286,31 +286,31 @@ class WalletTransferToBankVC: BaseViewController, SelectBankCardDelegate {
 //        }
         if txtAmount.text!.count == 0 {
             
-            UtilityClass.setCustomAlert(title: "", message: "Enter Amount") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter amount") { (index, title) in
             }
             return false
         }
         else if txtAccountHolderName.text!.count == 0 {
             
-            UtilityClass.setCustomAlert(title: "", message: "Enter Account Holder Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter account holder name") { (index, title) in
             }
             return false
         }
             
         else if txtBankName.text!.count == 0 {
             
-            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter bank name") { (index, title) in
             }
             return false
         }
         else if txtBankAccountNo.text!.count == 0 {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Account Number") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter bank account number") { (index, title) in
             }
             return false
         }
          else if txtBSB.text!.count == 0 {
             
-            UtilityClass.setCustomAlert(title: "", message: "Enter BSB Number") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter BSB number") { (index, title) in
             }
             return false
         }

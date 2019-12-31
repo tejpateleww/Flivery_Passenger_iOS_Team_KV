@@ -234,14 +234,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
         if self.txtPhoneNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter mobile number"
+            ValidatorMessage = "Please enter phone number"
             
-        } else if self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+        }
+        else if (self.txtPhoneNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count)! < 7 {
             
             isValid = false
-            ValidatorMessage = "Please enter email."
+            ValidatorMessage = "Please enter valid phone number"
             
-        } else if self.isValidEmailAddress(emailID: (self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!) == false {
+        }
+        else if self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+
+            isValid = false
+            ValidatorMessage = "Please enter email"
+
+        }
+        else if self.isValidEmailAddress(emailID: (self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!) == false {
             
             isValid = false
             ValidatorMessage = "Please enter valid email."
@@ -251,7 +259,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
             isValid = false
             ValidatorMessage = "Please enter password."
             
-        } else if self.txtConfirmPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+        }
+        else if (self.txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count)! < 6 {
+            isValid = false
+            ValidatorMessage = "Password must contain atleast 6 characters."
+        }
+        else if self.txtConfirmPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
             ValidatorMessage = "Please enter confirm password."
