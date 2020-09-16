@@ -46,7 +46,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
 //    let apikey = googlPlacesApiKey //"AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"
     
-    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager//SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
+    let socket = (UIApplication.shared.delegate as! AppDelegate).socket//SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
     
     //    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
     var boolTimeEnd = Bool()
@@ -2258,8 +2258,10 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                                 alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { (action) in
                                 }))
                                 
-//                                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                                UtilityClass.presentPopupOverScreen(alert)
+                                //SJ_Change
+                                
+                                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                                UtilityClass.presentPopupOverScreen(alert)
                             }
                         }
                     }
@@ -4189,11 +4191,17 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             // 4. Present the alert.
 //            self.present(self.alertForTip, animated: true, completion: nil)
             
-            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-            alertWindow.rootViewController = UIViewController()
-            alertWindow.windowLevel = UIWindowLevelAlert + 1;
-            alertWindow.makeKeyAndVisible()
-            alertWindow.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
+//            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//            alertWindow.rootViewController = UIViewController()
+//            alertWindow.windowLevel = UIWindowLevelAlert + 1;
+//            alertWindow.makeKeyAndVisible()
+//            alertWindow.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
+            
+            
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
+            
+            
+            
             
         })
     }
@@ -4314,7 +4322,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             alertWindow.rootViewController = UIViewController()
             alertWindow.windowLevel = UIWindowLevelAlert + 1;
             alertWindow.makeKeyAndVisible()
-            alertWindow.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
+//            alertWindow.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
+            
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(self.alertForTip, animated: true, completion: nil)
             
         })
     }
@@ -4641,8 +4651,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         //        }
         
         
-//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
-        UtilityClass.presentPopupOverScreen(next)
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+//        UtilityClass.presentPopupOverScreen(next)
     }
     
     
@@ -4651,7 +4661,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         // Socket Accepted
         self.socket.on(SocketData.kRejectBookingRequestNotification, callback: { (data, ack) in
             print("socketMethodForGettingBookingRejectNotification() is \(data)")
-            
             
             var bookingId = String()
             
@@ -4677,7 +4686,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
 //                            }
 //                            else if SelectedLanguage == secondLanguage // "sw"
 //                            {
-                                UtilityClass.setCustomAlert(title: "\(appName)", message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
+                        //SJ_Change
+                                UtilityClass.setCustomAlert(title: appName, message: (data as! [[String:AnyObject]])[0][GetResponseMessageKey()]! as! String, completionHandler: { (index, title) in
                                     
                                 })
 //                            }
@@ -5112,11 +5122,14 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         alertWindow.windowLevel = UIWindowLevelAlert + 1;
         alertWindow.makeKeyAndVisible()
         
-            alertWindow.rootViewController?.present(alert, animated: true, completion: {
-                //                    self.completeTripFinalSubmit()
-                //                    Appdelegate.WaitingTimeCount = 0
-                //                    Appdelegate.WaitingTime = "00:00:00"
-            })
+        
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+//            alertWindow.rootViewController?.present(alert, animated: true, completion: {
+//                //                    self.completeTripFinalSubmit()
+//                //                    Appdelegate.WaitingTimeCount = 0
+//                //                    Appdelegate.WaitingTime = "00:00:00"
+//            })
 //        self.present(alert, animated: true, completion: nil)
         //        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         //        alertWindow.rootViewController = UIViewController()
@@ -5212,8 +5225,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         let next = self.storyboard?.instantiateViewController(withIdentifier: "GiveRatingViewController") as! GiveRatingViewController
         next.strBookingType = self.strBookingType
         next.delegate = self
-//        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
-        UtilityClass.presentPopupOverScreen(next)
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+//        UtilityClass.presentPopupOverScreen(next)
         //            self.presentingViewController?.modalPresentationStyle
         
 //        self.present(next, animated: true, completion: nil)
@@ -5292,8 +5305,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 //                self.stopSound(fileName: "PickNGo", extensionType: "mp3")
             })
             alert.addAction(OK)
-//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            UtilityClass.presentPopupOverScreen(alert)
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            UtilityClass.presentPopupOverScreen(alert)
         })
     }
     
@@ -5319,8 +5332,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         let alert = UIAlertController(title: nil, message:"Your trip has now started.".localized, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                         alert.addAction(OK)
-//                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                        UtilityClass.presentPopupOverScreen(alert)
+                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                        UtilityClass.presentPopupOverScreen(alert)
                         
                         self.btnRequest.isHidden = true
                         self.btnCancelStartedTrip.isHidden = true
@@ -5334,8 +5347,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     let alert = UIAlertController(title: nil, message: "Your trip has now started.".localized, preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                     alert.addAction(OK)
-//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                     UtilityClass.presentPopupOverScreen(alert)
+                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                     UtilityClass.presentPopupOverScreen(alert)
                     
                     self.btnRequest.isHidden = true
                     self.btnCancelStartedTrip.isHidden = true
@@ -5355,7 +5368,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             var message = String()
             message = "Trip on Hold"
             
-            //
             
             if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
                 if SelectedLanguage == "en" {
@@ -5369,8 +5381,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     
                     alert.addAction(OK)
                     
-//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                    UtilityClass.presentPopupOverScreen(alert)
+                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                    UtilityClass.presentPopupOverScreen(alert)
                     
                 }
                 else if SelectedLanguage == secondLanguage // "sw"
@@ -5384,8 +5396,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     
                     alert.addAction(OK)
                     
-//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                    UtilityClass.presentPopupOverScreen(alert)
+                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                    UtilityClass.presentPopupOverScreen(alert)
                     
                 }
             }
@@ -5412,8 +5424,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             alert.addAction(OK)
             
-//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            UtilityClass.presentPopupOverScreen(alert)
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            UtilityClass.presentPopupOverScreen(alert)
             
         })
     }
@@ -5612,8 +5624,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             alert.addAction(OK)
             
-//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            UtilityClass.presentPopupOverScreen(alert)
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            UtilityClass.presentPopupOverScreen(alert)
         })
         
     }
@@ -5646,8 +5658,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                         alert.addAction(OK)
-//                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                        UtilityClass.presentPopupOverScreen(alert)
+                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                        UtilityClass.presentPopupOverScreen(alert)
                     }
                     else {
                         self.webserviceOfCurrentBooking()
@@ -5664,8 +5676,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
                     alert.addAction(OK)
-//                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-                    UtilityClass.presentPopupOverScreen(alert)
+                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                    UtilityClass.presentPopupOverScreen(alert)
                 }
             }
             

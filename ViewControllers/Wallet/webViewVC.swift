@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class webViewVC: BaseViewController, UIWebViewDelegate {
+class webViewVC: BaseViewController, WKNavigationDelegate {
 
     var strURL = String()
     
@@ -37,23 +38,25 @@ class webViewVC: BaseViewController, UIWebViewDelegate {
         
         let requestURL = URL(string: url)
         let request = URLRequest(url: requestURL! as URL)
-        webView.loadRequest(request)
+        webView.load(request)
         
     }
     
 
     
-    // MARK: - Outlets
-    @IBOutlet weak var webView: UIWebView!
+    // MARK: - Outlet
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        
+    @IBOutlet weak var webView: WKWebView!
+    
+    
+    // WKview Delegates
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        UtilityClass.hideACProgressHUD()
     }
     
-    // MARK: - web view delegate method
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         UtilityClass.hideACProgressHUD()
+        //Show alert
     }
     
 

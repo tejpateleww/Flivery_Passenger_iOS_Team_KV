@@ -20,7 +20,7 @@ import GoogleSignIn
 import IQKeyboardManagerSwift
 
 
-class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates,GIDSignInDelegate,GIDSignInUIDelegate  {
+class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates,GIDSignInDelegate  {
 
     
     //-------------------------------------------------------------
@@ -112,6 +112,8 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
     override func viewDidLoad() {
         super.viewDidLoad()
         viewMain.isHidden = false
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
 
         txtEmail.placeholder = "Mobile/Email"
         
@@ -549,7 +551,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             return
         }
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self as GIDSignInUIDelegate
+//        GIDSignIn.sharedInstance().uiDelegate = self as GIDSignInUIDelegate
         GIDSignIn.sharedInstance().signIn()
     }
     
@@ -721,11 +723,11 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
             }
             return
         }
-        let login = FBSDKLoginManager()
-        login.loginBehavior = FBSDKLoginBehavior.browser
+        let login = LoginManager()
+        login.loginBehavior = LoginBehavior.browser
         UIApplication.shared.statusBarStyle = .default
         login.logOut()
-        login.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
+        login.logIn(permissions: ["public_profile","email"], from: self) { (result, error) in
             
             
             if error != nil
@@ -763,7 +765,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate, alertViewMethodsDele
         var parameters = [AnyHashable: Any]()
         parameters["fields"] = "first_name, last_name, picture, email,id"
         
-        FBSDKGraphRequest.init(graphPath: "me", parameters: parameters).start { (connection, result, error) in
+        GraphRequest.init(graphPath: "me", parameters: parameters as! [String : Any]).start { (connection, result, error) in
             if error == nil
             {
                 print("\(#function) \(result)")

@@ -234,30 +234,30 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
         if self.txtPhoneNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter phone number"
+            ValidatorMessage = "Please enter a phone number"
             
         }
         else if (self.txtPhoneNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count)! < 7 {
             
             isValid = false
-            ValidatorMessage = "Please enter valid phone number"
+            ValidatorMessage = "Please enter a valid phone number"
             
         }
         else if self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
 
             isValid = false
-            ValidatorMessage = "Please enter email"
+            ValidatorMessage = "Please enter an email"
 
         }
         else if self.isValidEmailAddress(emailID: (self.txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!) == false {
             
             isValid = false
-            ValidatorMessage = "Please enter valid email."
+            ValidatorMessage = "Please enter a valid email."
             
         } else if self.txtPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter password."
+            ValidatorMessage = "Please enter a password."
             
         }
         else if (self.txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count)! < 6 {
@@ -267,7 +267,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate,UIPickerView
         else if self.txtConfirmPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             
             isValid = false
-            ValidatorMessage = "Please enter confirm password."
+            ValidatorMessage = "Please confirm the password."
             
         } else if self.txtConfirmPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != self.txtPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
             

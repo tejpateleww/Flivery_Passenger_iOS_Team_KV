@@ -89,9 +89,8 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             if let imageData = data {
                 self.imgProfile.image = UIImage(data: imageData)!
             }else {
-                self.imgProfile.image = UIImage(named: "iconUser")!
+                self.imgProfile.image = UIImage(named: "iconProfilePicBlank")!
             }
-           
         }
     }
     

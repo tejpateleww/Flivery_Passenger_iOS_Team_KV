@@ -138,7 +138,7 @@ class EditProfileViewController: BaseViewController {
             if (buttonIndex == 2)
             {
 
-                let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
+                let socket = (UIApplication.shared.delegate as! AppDelegate).socket
                 
                 
                 socket.off(SocketData.kReceiveGetEstimateFare)

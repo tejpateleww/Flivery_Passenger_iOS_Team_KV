@@ -45,6 +45,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(SideMenuTableViewController.updateImgView), name: UpdateProPic, object: nil)
 
 //        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
 //            if SelectedLanguage == "en" {
@@ -85,7 +86,17 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
         self.imgProfile.layer.borderWidth = 1.0
         self.imgProfile.layer.borderColor = UIColor.white.cgColor
         self.imgProfile.layer.masksToBounds = true
-        self.imgProfile.sd_setImage(with: URL(string: ProfileData.object(forKey: "Image") as! String), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
+        if let strImg = ProfileData.object(forKey: "Image") as? String {
+            if strImg == "" {
+                self.imgProfile.image = UIImage(named: "iconProfilePicBlank")
+            } else {
+                self.imgProfile.sd_setImage(with: URL(string: strImg), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
+            }
+        } else {
+            self.imgProfile.image = UIImage(named: "iconProfilePicBlank")
+        }
+            
+//        self.imgProfile.sd_setImage(with: URL(string: ProfileData.object(forKey: "Image") as! String), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
 //        self.imgProfile.sd_setImage(with: URL(string: ProfileData.object(forKey: "Image") as! String), completed: nil)
         self.lblName.text = ProfileData.object(forKey: "Fullname") as? String
         self.lblRating.text = ProfileData.object(forKey: "Email") as? String
@@ -113,6 +124,12 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    @objc func updateImgView() {
+        let data = SingletonClass.sharedInstance.dictProfile
+        self.imgProfile.sd_setImage(with: URL(string: data.object(forKey: "Image") as! String), completed: nil)
+        self.lblName.text = data.object(forKey: "Fullname") as! String
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -120,7 +137,12 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        
+        // SJ_Change
+//        UIApplication.shared.statusBarView.backgroundColor = UIColor.clear
+        UtilityClass.setStatusBarColor(color: UIColor.clear)
+        
+        
 //        if UserDefaults.standard.value(forKey: "i18n_language") != nil {
 //                        if let language = UserDefaults.standard.value(forKey: "i18n_language") as? String {
         //                            if language == secondLanguage { // "sw" {
@@ -450,7 +472,7 @@ class SideMenuTableViewController: UIViewController, delegateForTiCKPayVerifySta
                     if (buttonIndex == 2)
                     {
                         
-                        let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
+                        let socket = (UIApplication.shared.delegate as! AppDelegate).socket
                         
                         //
                         socket.off(SocketData.kReceiveGetEstimateFare)

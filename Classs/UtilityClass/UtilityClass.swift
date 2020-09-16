@@ -14,6 +14,20 @@ typealias CompletionHandler = (_ success:Bool) -> Void
 
 class UtilityClass: NSObject, alertViewMethodsDelegates {
     
+    
+    class func setStatusBarColor(color: UIColor)
+        {
+    //        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+    //        statusBar.backgroundColor = UIColor.clear
+            
+            if let view = UIApplication.shared.statusBarUIView {
+                view.backgroundColor = .clear //color
+            }
+        }
+    
+    
+    
+    
     var delegateOfAlert : alertViewMethodsDelegates!
 
     class func showAlert(_ title: String, message: String, vc: UIViewController) -> Void
@@ -51,6 +65,7 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         alertWindow.rootViewController = UIViewController()
         alertWindow.windowLevel = UIWindowLevelAlert + 1;
         alertWindow.makeKeyAndVisible()
+        
         alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
@@ -434,3 +449,26 @@ extension DateFormatter {
     }
 }
 
+
+extension UIApplication {
+    var statusBarUIView: UIView? {
+        if #available(iOS 13.0, *) {
+            let tag = 38482
+            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            
+            if let statusBar = keyWindow?.viewWithTag(tag) {
+                return statusBar
+            } else {
+                guard let statusBarFrame = keyWindow?.windowScene?.statusBarManager?.statusBarFrame else { return nil }
+                let statusBarView = UIView(frame: statusBarFrame)
+                statusBarView.tag = tag
+                keyWindow?.addSubview(statusBarView)
+                return statusBarView
+            }
+        } else if responds(to: Selector(("statusBar"))) {
+            return value(forKey: "statusBar") as? UIView
+        } else {
+            return nil
+        }
+    }
+}

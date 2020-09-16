@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 
+
 //let windowWidth: CGFloat = CGFloat(UIScreen.main.bounds.size.width)
 
 class BidChatViewController: BaseViewController, UINavigationControllerDelegate {
@@ -53,7 +54,7 @@ class BidChatViewController: BaseViewController, UINavigationControllerDelegate 
     var strBookingId = String()
     var strBookingType = String()
     
-    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
+    let socket = (UIApplication.shared.delegate as! AppDelegate).socket
     
     var isFromSupport = Bool()
     
@@ -775,32 +776,34 @@ extension HomeViewController {
             print("\(#function) \(data)")
             
             
-//            if let arrData = data as? [[String:Any]] {
-//                let MessageData = arrData[0]
-//                let objMessage = MessageObject()
-//                objMessage.message = MessageData["Message"] as? String
-//
-//
-//                objMessage.isSender = false
-//
-//                objMessage.id = MessageData["BidId"] as? String
-//                //                                    value["BookingId"] as? String
-//                //                                    value["Type"] as? String
-//                objMessage.sender_id = MessageData["SenderId"] as? String
-//
-//                //                                    value["ReceiverId"] as? String
-//                objMessage.message = MessageData["Message"] as? String
-//                objMessage.created_date = MessageData["Date"] as? String
-//
-//                SingletonClass.sharedInstance.ChattingMessages = objMessage
-//                NotificationCenter.default.post(name: NotificationgetResponseOfChatting, object: nil, userInfo: nil)
+            if let arrData = data as? [[String:Any]] {
+                let MessageData = arrData[0]
+                let objMessage = MessageObject()
+
+                objMessage.isSender = false
+
+                objMessage.id = MessageData["BidId"] as? String
+                //                                    value["BookingId"] as? String
+                //                                    value["Type"] as? String
+                objMessage.senderId = MessageData["SenderId"] as? String
+
+                //                                    value["ReceiverId"] as? String
+                objMessage.message = MessageData["Message"] as? String
+                objMessage.strMessage = MessageData["Message"] as? String ?? ""
+                objMessage.date = MessageData["Date"] as? String
+                objMessage.receiverId = "\(MessageData["ReceiverId"]!)"
+                objMessage.sender = "\(MessageData["Sender"] as? String ?? "")"
+                objMessage.receiver = "\(MessageData["Receiver"] as? String ?? "")"
+
+                SingletonClass.sharedInstance.ChattingMessages = objMessage
+                NotificationCenter.default.post(name: NotificationgetResponseOfChatting, object: nil, userInfo: nil)
 
                 
-            //}
-            //            arrData.append(Singletons.sharedInstance.ChattingMessages)
-//            let indexPath = IndexPath.init(row: self.arrData.count-1, section: 0)
-//            self.tblVw.insertRows(at: [indexPath], with: .bottom)
-//            self.tblVw.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+           // arrData.append(Singletons.sharedInstance.ChattingMessages)
+           // let indexPath = IndexPath.init(row: self.arrData.count-1, section: 0)
+           // self.tblVw.insertRows(at: [indexPath], with: .bottom)
+           // self.tblVw.scrollToRow(at: indexPath, at: .bottom, animated: true)
         })
         
     }

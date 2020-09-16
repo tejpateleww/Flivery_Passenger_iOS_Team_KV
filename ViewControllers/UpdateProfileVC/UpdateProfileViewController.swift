@@ -14,6 +14,11 @@ import ACFloatingTextfield_Swift
 import IQDropDownTextField
 
 
+protocol UpdateProfileVCDelegate : AnyObject {
+    func didProfileUpdate(_ str: String)
+}
+
+
 class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,IQDropDownTextFieldDelegate {
     
     //-------------------------------------------------------------
@@ -72,12 +77,19 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
     
     var isEditable = Bool()
     
+    var delegate : UpdateProfileVCDelegate?
+    
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let sb = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = sb.instantiateViewController(withIdentifier: "SideMenuTableViewController") as! SideMenuTableViewController
+//        self.delegate = vc
         
         txtDateOfBirth.delegate = self
      
@@ -352,7 +364,18 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
         
         imgProfile.sd_setShowActivityIndicatorView(true)
         imgProfile.sd_setIndicatorStyle(.gray)
-        imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
+//        imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
+        
+        
+        if let strImg = getData.object(forKey: "Image") as? String {
+            if strImg == "" {
+                self.imgProfile.image = UIImage(named: "iconProfilePicBlank")
+            } else {
+                self.imgProfile.sd_setImage(with: URL(string: strImg), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
+            }
+        } else {
+            self.imgProfile.image = UIImage(named: "iconProfilePicBlank")
+        }
         
 //        txtPhoneNumber.text = getData.object(forKey: "MobileNo") as? String
         txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
@@ -411,6 +434,8 @@ class UpdateProfileViewController: BaseViewController, UIImagePickerControllerDe
                 SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)
                 
                 UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
+                
+                NotificationCenter.default.post(name: UpdateProPic, object: nil)
                 
                
                 UtilityClass.setCustomAlert(title: "Done", message: "Update Profile Successfully") { (index, title) in

@@ -4,7 +4,6 @@
 //
 //  Created by Excellent Webworld on 25/10/17.
 //  Copyright © 2017 Excellent Webworld. All rights reserved.
-//
 
 import UIKit
 import IQKeyboardManagerSwift
@@ -49,7 +48,11 @@ let kDeviceType : String = "1"
     }
 //    let SocketManager = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
     
-    let SocketManager = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!)
+//    let manager = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!)
+    
+    
+    let manager = SocketManager(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
+    lazy var socket = manager.defaultSocket
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -92,7 +95,7 @@ let kDeviceType : String = "1"
         
         webserviceForTransportserviceList()
         Fabric.with([Crashlytics.self])
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = kGoogle_Client_ID
         GIDSignIn.sharedInstance().delegate = self
         googleAnalyticsTracking()
@@ -189,11 +192,16 @@ let kDeviceType : String = "1"
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool
     {
         
-        let isFBOpenUrl = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
+        let isFBOpenUrl = ApplicationDelegate.shared.application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
         
-        let isGoogleOpenUrl = GIDSignIn.sharedInstance().handle(url as URL?,
-                                                                sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-                                                                annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+//        let isGoogleOpenUrl = GIDSignIn.sharedInstance()!.handle(url as URL?,
+//                                                                sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+//                                                                annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        let isGoogleOpenUrl = GIDSignIn.sharedInstance()!.handle(url as URL?)
+        
+        
+        
         if isFBOpenUrl
         {
             return true
@@ -205,6 +213,7 @@ let kDeviceType : String = "1"
         }
         return false
     }
+    
     func googleAnalyticsTracking() {
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
@@ -241,8 +250,8 @@ let kDeviceType : String = "1"
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        SocketManager.connect()
-        SocketManager.on(clientEvent: .connect) { (data, ack) in
+        socket.connect()
+        socket.on(clientEvent: .connect) { (data, ack) in
             print ("socket connected in background")
         }
     }
@@ -439,16 +448,15 @@ let kDeviceType : String = "1"
                     }
                 }
                 else{
-                    
                     completionHandler([.alert, .badge, .sound])
                 }
-                
             }
             else{
                 completionHandler([.alert, .badge, .sound])
             }
         }
     }
+    
     func notificationHandler(_ notification:[AnyHashable : Any]) {
         if let apsData = (notification as! [String:AnyObject])["aps"] {
             print("APS Data: \(apsData)")
@@ -523,6 +531,11 @@ let kDeviceType : String = "1"
                         
                     }
                 }
+            }
+            else if ((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "CancelRequest") {
+                
+                
+                
             }
             /*
             if((notification as! [String:AnyObject])["gcm.notification.type"]! as! String == "silent") {

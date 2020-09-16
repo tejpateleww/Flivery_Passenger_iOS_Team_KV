@@ -153,6 +153,9 @@ let NotificationTrackRunningTrip = NSNotification.Name("NotificationTrackRunning
 let NotificationChangeLanguage = NSNotification.Name("ChangeLanguageNotification")
 
 
+let UpdateProPic = NSNotification.Name("UpdateProPic")
+
+
 
 func GetPaymentTypeKey() -> String {
     var PaymentKey:String = ""

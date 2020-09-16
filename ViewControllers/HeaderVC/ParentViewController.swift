@@ -169,7 +169,11 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     
     func createHeaderView() {
         
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        
+//        SJ_Change
+//        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        
+        UtilityClass.setStatusBarColor(color: UIColor.clear)
         
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width

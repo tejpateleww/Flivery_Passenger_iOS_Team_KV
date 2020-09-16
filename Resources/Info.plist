@@ -26,9 +26,17 @@
 				<string>fb2294718073944173</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.243435127466-ehcnmq7f6qlftnbk2au3lnbqbmndis51</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1.7</string>
+	<string>1.1.8</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
