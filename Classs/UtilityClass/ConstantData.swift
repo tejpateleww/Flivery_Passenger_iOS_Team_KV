@@ -134,8 +134,6 @@ struct WebserviceURLs {
     
     static let kChatHistory                             = "ChatHistory"
     
-    
-    
     static let kPastBooking                             = "PastBooking"
     static let kUpcomingBooking                     = "UpcomingBooking"
     static let kOnGoing                                     = "OngoingBooking"
@@ -159,7 +157,7 @@ struct SocketData {
     static let kCancelTripByPassenger                       = "CancelTripByPassenger"
     static let kCancelTripByDriverNotficication             = "PassengerCancelTripNotification"
     static let kSendDriverLocationRequestByPassenger        = "DriverLocation"
-    static let kReceiveDriverLocationToPassenger            = "GetDriverLocation"
+    static let kReceiveDriverLocationToPassenger            =  "DriverLocationNew"      //SJ_Change: "GetDriverLocation"   "GetDriverLocation" //
     static let kReceiveHoldingNotificationToPassenger       = "TripHoldNotification"
     static let kSendRequestForGetEstimateFare               = "EstimateFare"
     static let kReceiveGetEstimateFare                      = "GetEstimateFare"

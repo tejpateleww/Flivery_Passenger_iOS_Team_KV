@@ -4033,12 +4033,12 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             if (isSocketConnected == false) {
                 isSocketConnected = true
                 
-                self.socketMethodForGettingBookingAcceptNotification()  // Accept Now Req
-                self.socketMethodForGettingBookingRejectNotification()  // Reject Now Req
-                self.socketMethodForGettingPickUpNotification()         // Start Now Req
-                self.socketMethodForGettingTripCompletedNotification()  // CompleteTrip Now Req
-                self.onTripHoldingNotificationForPassengerLater()       // Hold Trip Later
-                self.onReceiveDriverLocationToPassenger()               // Driver Location Receive
+                self.socketMethodForGettingBookingAcceptNotification()            // Accept Now Req
+                self.socketMethodForGettingBookingRejectNotification()             // Reject Now Req
+                self.socketMethodForGettingPickUpNotification()                    // Start Now Req
+                self.socketMethodForGettingTripCompletedNotification()           // CompleteTrip Now Req
+                self.onTripHoldingNotificationForPassengerLater()                // Hold Trip Later
+                self.onReceiveDriverLocationToPassenger()                        // Driver Location Receive
                 self.socketMethodForGettingBookingRejectNotificatioByDriver()   // Reject By Driver
                 self.onAcceptBookLaterBookingRequestNotification()              // Accept Later Req
                 self.onRejectBookLaterBookingRequestNotification()              // Reject Later Req
@@ -4051,6 +4051,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 self.onReceiveNotificationWhenDriverAcceptRequest()
                 self.onGetEstimateFare()
                 self.setSocketONforReceiveMessage()
+                
+                
             }
             
             // Get Estimate
@@ -4534,6 +4536,7 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         self.btnRequest.isHidden = true
         self.btnCancelStartedTrip.isHidden = true
         
+        
         let bookingInfo : NSDictionary!
         let DriverInfo: NSDictionary!
         let carInfo: NSDictionary!
@@ -4930,15 +4933,17 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             SingletonClass.sharedInstance.isTripContinue = false
             self.aryCompleterTripData = data
             
-            
             if (SingletonClass.sharedInstance.passengerTypeOther) {
                 
                 SingletonClass.sharedInstance.passengerTypeOther = false
                 self.completeTripInfo()
             }
             else {
+                
                 self.completeTripInfo()
+                
                 //                self.performSegue(withIdentifier: "showRating", sender: nil)
+                
             }
             
             //            if let getInfoFromData = data as? [[String:AnyObject]] {
@@ -5059,7 +5064,11 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     func completeTripInfo() {
         
         clearMap()
-        self.stopTimer()
+        
+       //SJ_Change:  now thrs no timer to invalidate as emit for driver location socket is emitted by driver
+//        self.stopTimer()
+        
+        
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         //        Utilities.hideActivityIndicator()
         self.scheduledTimerWithTimeInterval()
@@ -5433,7 +5442,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     func onReceiveDriverLocationToPassenger() {
         
         self.socket.on(SocketData.kReceiveDriverLocationToPassenger, callback: { (data, ack) in
-//            print("onReceiveDriverLocationToPassenger() is \(data)")
+            print("onReceiveDriverLocationToPassenger() is \(data)")
+            
+            print(Date())
             
             SingletonClass.sharedInstance.driverLocation = (data as NSArray).object(at: 0) as! [String : AnyObject]
             
@@ -5467,10 +5478,14 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
                 self.driverMarker.icon = UIImage(named: "dummyCar")
                 self.driverMarker.map = self.mapView
             }
-                //            self.moveMent.ARCarMovement(marker: self.driverMarker, oldCoordinate: self.destinationCordinate, newCoordinate: DriverCordinate, mapView: self.mapView, bearing: Float(SingletonClass.sharedInstance.floatBearing))
             else {
+                
                 self.driverMarker.icon = UIImage.init(named: "dummyCar")
+                
             }
+            
+            //SJ_Change:
+             self.moveMent.ARCarMovement(marker: self.driverMarker, oldCoordinate: self.destinationCordinate, newCoordinate: DriverCordinate, mapView: self.mapView, bearing: Float(SingletonClass.sharedInstance.floatBearing))
             _ = DriverCordinate
             
             self.driverMarker.position = DriverCordinate// = GMSMarker(position: DriverCordinate) // self.originCoordinate
@@ -5480,6 +5495,13 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
             
             self.destinationCordinate = DriverCordinate
             self.MarkerCurrntLocation.isHidden = true
+            
+            //SJ_Change:
+            let camera = GMSCameraPosition.camera(withLatitude: DriverCordinate.latitude,
+                                                  longitude: DriverCordinate.longitude,
+                                                  zoom: 16)
+            
+            self.mapView.camera = camera
             // ----------------------------------------------------------------------
             
             //            CATransaction.begin()
@@ -5511,7 +5533,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     var passengerIDTimer : String!
     func sendPassengerIDAndDriverIDToGetLocation(driverID : String , passengerID: String) {
         
-        
         driverIDTimer = driverID
         passengerIDTimer = passengerID
         if timerToGetDriverLocation == nil {
@@ -5530,7 +5551,8 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     @objc func getDriverLocation()
     {
         let myJSON = ["PassengerId" : passengerIDTimer,  "DriverId" : driverIDTimer] as [String : Any]
-        socket.emit(SocketData.kSendDriverLocationRequestByPassenger , with: [myJSON])
+        //SJ_Change:
+//        socket.emit(SocketData.kSendDriverLocationRequestByPassenger , with: [myJSON])
     }
     
     
@@ -7025,7 +7047,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     
     @objc func webserviceOfRunningTripTrack() {
         
-        
         webserviceForTrackRunningTrip(SingletonClass.sharedInstance.bookingId as AnyObject) { (result, status) in
             
             if (status) {
@@ -7119,7 +7140,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
     // ----------------------------------------------------------------------
     func bookingTypeIsBookNowAndAccepted() {
         
-        
         if let vehicleModelId = (((aryCurrentBookingData.object(at: 0) as? NSDictionary)?.object(forKey: "CarInfo") as? NSArray)?.object(at: 0) as? NSDictionary)?.object(forKey: "VehicleModel") as? String {
             
             for i in 0..<self.arrTotalNumberOfCars.count {
@@ -7133,7 +7153,6 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         
         //        SingletonClass.sharedInstance.isTripContinue = true
         self.DriverInfoAndSetToMap(driverData: NSArray(array: aryCurrentBookingData))
-        
     }
     
     func bookingTypeIsBookNowAndTraveling() {
@@ -7152,6 +7171,9 @@ class HomeViewController: BaseViewController, UICollectionViewDelegate, UICollec
         }
         
         self.methodAfterStartTrip(tripData: NSArray(array: aryCurrentBookingData))
+        
+        //SJ_Change: This should be hidden inside of methodafterstarttrip but we call it here because it causes issues in other states when put inside methodafterstarttrip.
+        self.btnDoneForLocationSelected.isHidden = true
     }
     
     func markertIconName(carType: String) -> String {
@@ -7341,7 +7363,6 @@ extension HomeViewController: CLLocationManagerDelegate {
             currentLocationAction()
             let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,longitude: location.coordinate.longitude, zoom: 17)
             mapView.animate(to: camera)
-            
             
         }
         

@@ -150,7 +150,7 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
 
 
         selectWeight.minimumValue = 1
-        selectWeight.maximumValue = 500
+        selectWeight.maximumValue = 1000
         selectWeight.value = [0.0]
         selectWeight.orientation = .horizontal // default is .vertical
         selectWeight.thumbCount = 1
@@ -178,8 +178,6 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
         
         viewProocode.isHidden = true
         btnRemovePromoCode.isHidden = true
-
-
         
         webserviceOfCardList()
         
@@ -1473,7 +1471,9 @@ class BookLaterViewController: BaseViewController, GMSAutocompleteViewController
                     self.navigationController?.popViewController(animated: true)
                 }
                 alert.addAction(ok)
-                UtilityClass.presentPopupOverScreen(alert)
+                
+                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                UtilityClass.presentPopupOverScreen(alert)
                 
                 
                 /*
